@@ -100,7 +100,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.13.0",
-    "jsdom": "^30.1.1",
+    "jsdom": "^31.0.0",
     "nitro": "3.0.260603-beta",
     "pngjs": "^7.0.0",
     "postgres": "^3.4.9",
