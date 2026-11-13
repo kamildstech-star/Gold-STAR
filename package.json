@@ -103,7 +103,7 @@
     "jsdom": "^30.1.1",
     "nitro": "3.0.260603-beta",
     "pngjs": "^7.0.0",
-    "postgres": "^3.4.9",
+    "postgres": "^4.1.0",
     "prettier": "^3.9.9",
     "qrcode": "^1.5.4",
     "typescript": "^5.8.3",
