@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-73.9646, 41.1976] },
+      "properties": {
+        "id": "HV-26-0441",
+        "callType": "Fire - Structure",
+        "address": "12 Broadway",
+        "town": "Haverstraw",
+        "date": "2026-10-11 16:30",
+        "units": "E1, E2, L1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-73.97, 41.2] },
+      "properties": {
+        "id": "HV-26-0442",
+        "callType": "Lift Assist",
+        "address": "4 Main St",
+        "town": "Haverstraw",
+        "date": "2026-10-11 16:35",
+        "units": "A1"
+      }
+    }
+  ]
+}

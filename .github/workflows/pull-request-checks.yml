@@ -1,0 +1,322 @@
+# Read-only PR checks. TypeScript, unit tests, isolated PostgreSQL security
+# fixtures, production build, high-severity dependency audit, lint of the
+# changed TypeScript files and ERROR-severity Semgrep findings are blocking.
+# Lint of the whole repository and WARNING-severity Semgrep findings remain
+# advisory for the pre-existing repository backlog.
+# Windows CRLF checkouts may report formatter noise; CI runs on Linux.
+# No production credentials or database connections are used by these jobs.
+# What runs when, and how to switch each piece off: docs/QUALITY-CONTROL.md.
+name: Pull request checks
+
+# Mark: "Don't run redundantly after the same PR is merged unless there's a
+# specific reason." That still holds, and the job-level `if:` below keeps it:
+# a pull_request run already checks the test-merge commit (refs/pull/N/merge),
+# so the merged result was verified before the merge button was pressed, and
+# re-running the whole suite on that merge's push to main would be paying
+# twice for one answer.
+#
+# What changed is the other half. Lovable commits DIRECTLY to main -- no pull
+# request, so until now no checks at all; the `npm ci` break that #368 fixed
+# reached main exactly that way. That is the specific reason. A push to main
+# now runs the suite UNLESS the pushed commit is a merged pull request. Branch
+# protection requiring a pull request cannot be the answer here, because it
+# would lock Lovable out of the repository it syncs with.
+#
+# The weekly run is the third trigger: a quiet week has no pushes, but an
+# expired dependency, a newly published advisory or a date-dependent test can
+# still turn main red. Monday 09:37 UTC is 05:37 New York in summer (04:37 in
+# winter), before Dependabot's 06:00 run, so its result describes main as it
+# was rather than main plus that morning's bumps.
+on:
+  pull_request:
+    branches: [main]
+    # Mark, on hitting the Actions cap: "my account was at the maximum and I
+    # was getting charged for overage." A pull request that only changes prose
+    # -- a migration header, the agent brief, a markdown file -- still ran the
+    # whole suite, eight billed minutes to check nothing. These paths cannot
+    # change what tsc, vitest or the build see, so they do not run it.
+    paths-ignore:
+      - "**/*.md"
+      - ".claude/**"
+      - "docs/**"
+      - "LICENSE"
+  push:
+    branches: [main]
+    # Same list, same reason: Lovable editing a markdown file is not worth
+    # eight minutes either.
+    paths-ignore:
+      - "**/*.md"
+      - ".claude/**"
+      - "docs/**"
+      - "LICENSE"
+  schedule:
+    - cron: "37 9 * * 1"
+  # Manual run from the Actions tab, on main or on any branch. The AI review
+  # workflow also uses this to run the checks on a fix it pushed to a pull
+  # request branch, because a push made with the workflow's own token does not
+  # start a pull_request run (GitHub's guard against workflows triggering
+  # workflows) but a dispatch does.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Mark: "When commit #2 arrives while tests for commit #1 are still running,
+# GitHub can automatically cancel the obsolete run instead of paying for both."
+# Keyed on the PR number so every push to the same PR lands in the same group.
+# Everything else is keyed on event and ref, so a scheduled or manual run never
+# cancels a push run on main or the other way round, and a burst of Lovable
+# pushes keeps only the newest run (it checks the newest main, which contains
+# the others).
+#
+# The middle line matters: a push of a merged pull request starts a run whose
+# job is then skipped. Without its own group (its run id is unique, so it
+# cancels nothing) that skipped run would cancel a Lovable push run still in
+# progress. Keep its condition identical to the job's `if:` below.
+concurrency:
+  group: >-
+    ${{ github.workflow }}-${{
+    github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number)
+    || (github.event_name == 'push' && github.event.head_commit.committer.email == 'noreply@github.com' && (contains(github.event.head_commit.message, '(#') || startsWith(github.event.head_commit.message, 'Merge pull request #'))) && format('merged-pr-{0}', github.run_id)
+    || format('{0}-{1}', github.event_name, github.ref) }}
+  cancel-in-progress: true
+
+jobs:
+  # One job, not three. GitHub bills each job separately and rounds each one up
+  # to the next whole minute, so the audit (12 seconds) and lint (70 seconds)
+  # each cost a full minute plus their own checkout and install on top of the
+  # test job's. Run in sequence on one machine they cost what they take. Lint
+  # stays advisory: it is a step that may fail without failing the job.
+  verify:
+    name: Audit, typecheck, tests, build, lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    # Skip a push to main that is a merged pull request; it was verified on the
+    # pull request. Decided here, before a runner is allocated, so a skipped
+    # run costs nothing. The repository allows squash merges, which GitHub
+    # titles "<PR title> (#123)", and merge commits, titled "Merge pull request
+    # #123 from ..." (both are on main today). Both are committed by GitHub
+    # itself, as noreply@github.com. Lovable's commits are committed by
+    # gpt-engineer-app[bot], and a commit made in the GitHub web editor carries
+    # neither title, so neither is skipped.
+    #
+    # Why not ask the API which pull request a commit belongs to
+    # (`gh api repos/:owner/:repo/commits/:sha/pulls`)? It is more exact, but
+    # it needs a runner to ask from, and the shortest job is billed as a whole
+    # minute -- on every merge, to decide to do nothing. The only miss here is
+    # a rebase merge, which carries neither title: it runs the suite once more,
+    # the safe direction to be wrong in.
+    if: >-
+      github.event_name != 'push'
+      || !(github.event.head_commit.committer.email == 'noreply@github.com'
+      && (contains(github.event.head_commit.message, '(#')
+      || startsWith(github.event.head_commit.message, 'Merge pull request #')))
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          # The changed-file lint and Semgrep compare against a base commit,
+          # which has to be in the clone. A pull request's test-merge commit
+          # has the base branch as its first parent, so depth 2 is enough. A
+          # push may carry several commits and a manual run on a branch needs
+          # its merge base with main, so those take the whole history (about
+          # 25 MB, a few seconds). The weekly run scans everything and needs
+          # nothing behind HEAD.
+          fetch-depth: ${{ github.event_name == 'pull_request' && '2' || github.event_name == 'schedule' && '1' || '0' }}
+
+      # The commit the changed-file lint and Semgrep compare against. Empty
+      # means "no base, check everything": the weekly run and a manual run on
+      # main.
+      - name: Work out what changed
+        id: base
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          base=""
+          case "$EVENT" in
+            pull_request)
+              base=$(git rev-parse HEAD^1)
+              ;;
+            push)
+              # `before` is the previous tip of main. It is all zeros only for
+              # a branch's first push, and it is not an ancestor after a force
+              # push; either way the parent commit is the honest fallback.
+              if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] \
+                && git merge-base --is-ancestor "$BEFORE" HEAD 2>/dev/null; then
+                base="$BEFORE"
+              else
+                base=$(git rev-parse HEAD^1 2>/dev/null || true)
+              fi
+              ;;
+            workflow_dispatch)
+              if [ "$REF_NAME" != "main" ]; then
+                base=$(git merge-base origin/main HEAD 2>/dev/null || true)
+              fi
+              ;;
+          esac
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+          if [ -n "$base" ]; then
+            echo "Comparing against $base"
+          else
+            echo "No base commit: checking everything"
+          fi
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      # Reads package-lock.json only. It installs nothing and runs no
+      # package's install scripts. Moderate and low findings are left to
+      # Dependabot rather than blocking a merge.
+      - name: npm audit (high and above)
+        run: npm audit --audit-level=high
+
+      # Static analysis of our own source, the gap codeql.yml cannot fill on a
+      # private repository without GitHub Advanced Security. Semgrep Community
+      # Edition: free, no account, no token, and --metrics=off sends nothing
+      # back. Pinned so a new release cannot change the result of an old
+      # commit. It runs before `npm ci` because it needs no packages, and
+      # before the build because baseline mode compares the working tree with
+      # git and the build regenerates tracked files.
+      - name: Install Semgrep
+        run: pipx install semgrep==1.180.0
+
+      # On a pull request or a push, --baseline-commit scans only the files
+      # changed since the base and reports only findings the change introduced,
+      # so a finding that predates the change never blocks it and the scan
+      # takes seconds. The weekly run scans all of src/ and scripts/ and is
+      # where pre-existing findings surface. .semgrepignore trims tests,
+      # fixtures and generated files.
+      #
+      # ERROR severity fails the job; WARNING is printed as an annotation and
+      # does not. The scan itself never uses --error, which would fail on any
+      # finding at all, WARNING included; the jq gate below decides instead.
+      # A false positive is silenced at the line with
+      # `// nosemgrep: <rule-id>` and a comment saying why it is safe.
+      - name: Semgrep (ERROR blocks, WARNING advisory)
+        env:
+          BASE: ${{ steps.base.outputs.base }}
+        run: |
+          args=()
+          if [ -n "$BASE" ]; then
+            args=(--baseline-commit "$BASE")
+            echo "Scanning files changed since $BASE; findings already present there are not reported."
+          else
+            echo "Full scan of src/ and scripts/."
+          fi
+          semgrep scan \
+            --config p/typescript --config p/react --config p/nodejsscan --config p/secrets \
+            --metrics=off --disable-version-check \
+            --json-output="$RUNNER_TEMP/semgrep.json" \
+            "${args[@]}" src scripts
+
+          # One annotation per finding, on the line, so it shows in the pull
+          # request's Files tab. Workflow-command values need %, CR, LF (and,
+          # in properties, : and ,) escaped.
+          jq -r '
+            def data: gsub("%"; "%25") | gsub("\r"; "%0D") | gsub("\n"; "%0A");
+            def prop: data | gsub(":"; "%3A") | gsub(","; "%2C");
+            .results[]
+            | (if (.extra.severity | IN("ERROR", "CRITICAL", "HIGH")) then "error" else "warning" end) as $level
+            | "::\($level) file=\(.path | prop),line=\(.start.line),title=\("Semgrep " + (.check_id | split(".") | last) | prop)::\(.extra.message | data)"
+          ' "$RUNNER_TEMP/semgrep.json"
+
+          errors=$(jq '[.results[] | select(.extra.severity | IN("ERROR", "CRITICAL", "HIGH"))] | length' "$RUNNER_TEMP/semgrep.json")
+          total=$(jq '.results | length' "$RUNNER_TEMP/semgrep.json")
+          echo "### Semgrep: $errors blocking, $((total - errors)) advisory" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$errors" -gt 0 ]; then
+            echo "::error::$errors ERROR-severity Semgrep finding(s). Fix them, or mark a verified false positive with // nosemgrep: <rule-id> and a comment saying why."
+            exit 1
+          fi
+
+      # `npm ci` rather than `npm install`: it installs exactly the lockfile
+      # and fails if package.json and the lockfile have drifted apart.
+      - name: Install dependencies
+        run: npm ci
+
+      # Lint is advisory for the repository as a whole (last step), but a file
+      # this change touches has to be clean: that is how the backlog shrinks
+      # instead of growing. Deleted files are left out (--diff-filter=d), a
+      # renamed file is linted under its new name, and a change with no
+      # TypeScript in it skips the step. Prettier output from the Supabase CLI
+      # and the router plugin is not ours to format, so those generated files
+      # are excluded.
+      #
+      # Formatting (prettier/prettier) blocks on pull requests, where the
+      # author is expected to have run Prettier. It is switched off for
+      # Lovable's direct pushes: Lovable does not run Prettier, and a red X on
+      # main for indentation would teach everyone to ignore the red X that
+      # matters. The advisory full-repo lint still reports it.
+      - name: Lint changed TypeScript files
+        env:
+          BASE: ${{ steps.base.outputs.base }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ -z "$BASE" ]; then
+            echo "No base commit for this run; the full-repo lint below covers everything."
+            exit 0
+          fi
+          mapfile -d '' files < <(git diff --name-only -z --diff-filter=d "$BASE" HEAD -- \
+            '*.ts' '*.tsx' \
+            ':(exclude)src/integrations/supabase/types.ts' \
+            ':(exclude)src/routeTree.gen.ts')
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No TypeScript files changed; nothing to lint."
+            exit 0
+          fi
+          printf 'Linting %s\n' "${files[@]}"
+          extra=()
+          if [ "$EVENT" = "push" ]; then
+            extra=(--rule "prettier/prettier: off")
+          fi
+          npx eslint --no-warn-ignored "${extra[@]}" "${files[@]}"
+
+      # There is no `typecheck` script in package.json; tsconfig.json already
+      # sets noEmit, so tsc is invoked directly.
+      - name: Typecheck
+        env:
+          # The generated database/router types exceed Node 24's default 2 GiB heap.
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: npx tsc --noEmit
+
+      # Likewise no `test` script; vitest.config.ts is the configuration.
+      - name: Unit tests
+        run: npx vitest run
+
+      - name: PostgreSQL security regression fixtures
+        run: |
+          for fixture in supabase/tests/*.pglite.mjs; do
+            node "$fixture" node_modules/@electric-sql/pglite/dist/index.js
+          done
+
+      # The Vercel deploy target, off Lovable (vercel.json,
+      # scripts/build-vercel.mjs, docs/MOVING-OFF-LOVABLE-VERCEL.md). A step in
+      # this job rather than a job of its own, for the reason at the top of
+      # `jobs:`. It builds the Build Output API with the vercel preset pinned,
+      # writes region and max duration into the function config and checks
+      # them, the service worker and the Node runtime. No secrets and no Vercel
+      # account: nothing here talks to Vercel. Runs before the Lovable build so
+      # that one is the last thing written, exactly as before.
+      - name: Vercel build (build:vercel)
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: npm run build:vercel
+
+      - name: Production build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: npm run build
+
+      # Advisory until the pre-existing backlog described at the top of this
+      # file is cleared. Remove continue-on-error to make lint a blocking gate.
+      # As of October 2026 almost all of it is Prettier formatting in the
+      # generated src/integrations/supabase/types.ts; outside formatting there
+      # are about 30 errors in 15 files.
+      - name: Lint (advisory)
+        continue-on-error: true
+        run: npm run lint

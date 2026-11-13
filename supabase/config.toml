@@ -1,0 +1,9 @@
+project_id = "nixpjqinsgngmrfepiot"
+# AI billing (Falcon Console). falcon-bridge is authenticated by its HMAC
+# signature and stripe-credits-webhook by Stripe's; ai-credits needs a session.
+[functions.falcon-bridge]
+  verify_jwt = false
+[functions.stripe-credits-webhook]
+  verify_jwt = false
+[functions.ai-credits]
+  verify_jwt = true

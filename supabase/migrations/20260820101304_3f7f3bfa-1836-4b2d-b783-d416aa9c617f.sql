@@ -1,0 +1,2 @@
+REVOKE EXECUTE ON FUNCTION public.apply_offline_op(text, text, jsonb, timestamptz) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.apply_offline_op(text, text, jsonb, timestamptz) TO authenticated;

@@ -1,0 +1,11 @@
+{
+ "Open balance on this invoice": "Saldo pendiente en esta factura",
+ "Prints under Balance due, so the customer sees what is still open on their other invoices.": "Se imprime bajo Saldo pendiente, para que el cliente vea lo que sigue abierto en sus otras facturas.",
+ "This invoice shows only its own balance.": "Esta factura muestra solo su propio saldo.",
+ "View": "Vista",
+ "By invoice": "Por factura",
+ "Each payment": "Cada pago",
+ "Amount": "Monto",
+ "Received on": "Recibido el",
+ "Totals ({n} payments)": "Totales ({n} pagos)"
+}

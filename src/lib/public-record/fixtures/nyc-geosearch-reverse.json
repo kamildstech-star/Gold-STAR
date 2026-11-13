@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-73.710478, 40.734618]
+      },
+      "properties": {
+        "id": "3084799",
+        "gid": "nycpad:venue:3084799",
+        "layer": "venue",
+        "source": "nycpad",
+        "source_id": "3084799",
+        "country_code": "US",
+        "name": "84-74 257 STREET",
+        "housenumber": "84-74",
+        "street": "257 STREET",
+        "postalcode": "11001",
+        "confidence": 0.9,
+        "distance": 0.005,
+        "accuracy": "point",
+        "country": "United States",
+        "country_gid": "whosonfirst:country:85633793",
+        "country_a": "USA",
+        "region": "New York",
+        "region_gid": "whosonfirst:region:85688543",
+        "region_a": "NY",
+        "county": "Queens County",
+        "county_gid": "whosonfirst:county:102082377",
+        "locality": "Floral Park",
+        "locality_gid": "whosonfirst:locality:85977689",
+        "borough": "Queens",
+        "borough_gid": "whosonfirst:borough:421205767",
+        "neighbourhood": "Floral Park",
+        "neighbourhood_gid": "whosonfirst:neighbourhood:420529705",
+        "label": "84-74 257 STREET, Queens, Floral Park, NY, USA",
+        "addendum": {
+          "pad": {
+            "bbl": "4087860042",
+            "bin": "4179746",
+            "version": "26c"
+          }
+        }
+      }
+    }
+  ],
+  "bbox": [-73.710478, 40.734618, -73.710478, 40.734618]
+}

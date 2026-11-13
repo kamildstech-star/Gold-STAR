@@ -1,0 +1,1 @@
+DELETE FROM public.user_table_prefs WHERE table_key = 'contacts';

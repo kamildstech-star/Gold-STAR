@@ -1,0 +1,1 @@
+GRANT EXECUTE ON FUNCTION public.compliance_status_of(boolean, date, numeric, numeric, integer) TO PUBLIC;

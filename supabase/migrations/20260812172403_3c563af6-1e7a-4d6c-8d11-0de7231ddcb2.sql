@@ -1,0 +1,2 @@
+ALTER TABLE public.incidents ADD COLUMN IF NOT EXISTS units_dispatched integer;
+COMMENT ON COLUMN public.incidents.units_dispatched IS 'Number of units dispatched per the scanner/dispatch feed. Shown on the chase alert card.';

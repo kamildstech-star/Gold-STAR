@@ -1,0 +1,1 @@
+GRANT EXECUTE ON FUNCTION public.demo_tables() TO postgres;

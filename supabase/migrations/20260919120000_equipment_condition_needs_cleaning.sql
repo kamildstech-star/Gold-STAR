@@ -1,0 +1,29 @@
+-- One new word for the condition a unit comes back in: needs_cleaning.
+--
+-- WRITTEN, NOT APPLIED. One ALTER TYPE ... ADD VALUE. Nothing is dropped,
+-- nothing is renamed, no existing row changes, and every query that reads
+-- `equipment_condition` today keeps reading it.
+--
+-- David's scope-of-work email, 2 Sep, has "Scan all equipment" as the pickup
+-- step, and the condition a tech records there is one of three things: good,
+-- needs cleaning, needs repair. The enum shipped in 20260731002107 with
+-- ('good','damaged','needs_service','missing') and has no word for a machine
+-- that works perfectly and is filthy.
+--
+-- Filing that under needs_service would put a wipe-down and a failed
+-- compressor in the same queue, which is how a shop stops trusting the queue.
+-- So the word is added rather than approximated.
+--
+-- WHY THIS IS ITS OWN FILE: Postgres will not let a value added by ALTER TYPE
+-- be USED in the same transaction that added it. Nothing below uses it, but
+-- keeping the enum change alone means the next migration — and anything an
+-- operator runs in the same session afterwards — can reference the value
+-- without a 55P04. Run this one first.
+--
+-- UNTIL IT IS APPLIED the app writes the nearest existing value instead:
+-- `storedCondition` in src/lib/equipment-pickup.ts maps needs_cleaning to
+-- needs_service, and the pickup session says on screen that the finer word is
+-- not being stored yet. A pickup logged against an un-migrated database is
+-- still a correct pickup.
+
+ALTER TYPE public.equipment_condition ADD VALUE IF NOT EXISTS 'needs_cleaning';

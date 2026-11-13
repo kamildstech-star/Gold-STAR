@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SYNTHETIC test fixture: the shape of a fire department / local news RSS feed.
+     Towns are real watch-area towns; streets, times and events are invented. -->
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Example Township Fire Department — Incidents</title>
+    <link>https://fire.example.gov/</link>
+    <description>Recent responses</description>
+    <item>
+      <title>Two-alarm house fire on Pine Street displaces family</title>
+      <link>https://fire.example.gov/incidents/2026-1011-01?utm_source=rss&amp;utm_medium=feed</link>
+      <guid isPermaLink="true">https://fire.example.gov/incidents/2026-1011-01</guid>
+      <pubDate>Sun, 11 Oct 2026 19:42:00 GMT</pubDate>
+      <description><![CDATA[<p>Crews responded to <b>412 Pine Street</b> in Lakewood at 3:15 p.m. for a working fire in a two-story single-family home. The fire went to a second alarm. No injuries were reported; the Red Cross is assisting a family of five.</p>]]></description>
+    </item>
+    <item>
+      <title>Firefighters knock down kitchen fire at Main St. restaurant</title>
+      <link>https://fire.example.gov/incidents/2026-1011-02</link>
+      <guid>https://fire.example.gov/incidents/2026-1011-02</guid>
+      <pubDate>Sun, 11 Oct 2026 16:05:00 GMT</pubDate>
+      <description>A kitchen fire at a restaurant at 88 Main St., Toms River, was contained to the cooking area. One employee was treated for smoke inhalation.</description>
+    </item>
+    <item>
+      <title>Brush fire burns 3 acres near Route 9</title>
+      <link>https://fire.example.gov/incidents/2026-1011-03</link>
+      <guid>https://fire.example.gov/incidents/2026-1011-03</guid>
+      <pubDate>Sun, 11 Oct 2026 14:00:00 GMT</pubDate>
+      <description>Units from three companies contained a brush fire in the woods off Route 9 in Lakewood.</description>
+    </item>
+    <item>
+      <title>Car fire on Garden State Parkway snarls traffic</title>
+      <link>https://fire.example.gov/incidents/2026-1011-04</link>
+      <guid>https://fire.example.gov/incidents/2026-1011-04</guid>
+      <pubDate>Sun, 11 Oct 2026 12:30:00 GMT</pubDate>
+      <description>A vehicle fire in the southbound lanes near exit 83 closed two lanes for an hour.</description>
+    </item>
+    <item>
+      <title>Fire Prevention Week open house Saturday at Station 2</title>
+      <link>https://fire.example.gov/news/open-house</link>
+      <guid>https://fire.example.gov/news/open-house</guid>
+      <pubDate>Fri, 09 Oct 2026 12:00:00 GMT</pubDate>
+      <description>Meet the firefighters, tour the trucks and learn about smoke alarms.</description>
+    </item>
+    <item>
+      <title>Apartment fire at Cedar &amp; Oak avenues; residents evacuated</title>
+      <link>https://fire.example.gov/incidents/2026-1011-05</link>
+      <guid>https://fire.example.gov/incidents/2026-1011-05</guid>
+      <pubDate>Sun, 11 Oct 2026 20:10:00 GMT</pubDate>
+      <description>Heavy smoke was showing from a three-story apartment building at Cedar Avenue and Oak Avenue in Haverstraw. Several residents were displaced.</description>
+    </item>
+  </channel>
+</rss>

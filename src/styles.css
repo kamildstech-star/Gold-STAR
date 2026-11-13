@@ -1,0 +1,3181 @@
+@import "tailwindcss" source(none);
+@source "../src";
+/* Loss-type glyph colours are composed at runtime from the option list key. */
+@source inline("{bg,text}-loss-{water,fire,smoke,sewer,mold,biohazard,storm,cleaning,emergency,contents,boardup,reconstruction,asbestos}{,/10}");
+@source inline("{bg,ring}-loss-{water,fire,smoke,sewer,mold,biohazard,storm,cleaning}/20");
+@import "tw-animate-css";
+
+/*
+ * Gold Star keeps its light surfaces in dark mode (see the palettes below), so
+ * nothing dark-only may paint on them there: dark: utilities and the base
+ * .dark tokens apply to every OTHER palette's dark mode. (26 Oct: on Gold Star
+ * they put dark popovers and pale dark-mode text on white cards.)
+ */
+@custom-variant dark (&:is(.dark:not([data-palette="goldstar"]) *));
+
+/*
+ * Touch, as a variant of its own.
+ *
+ * Screen WIDTH and INPUT METHOD are two different questions and this app gets
+ * them wrong if it conflates them: a project manager on a 1024px tablet in a
+ * wet building has a desktop-width viewport and a gloved finger. So:
+ *
+ *   - `max-md:` / `md:`  → LAYOUT. Does the sidebar collapse, does the page go
+ *                          one column, does a table scroll itself. 768px, the
+ *                          same number `useIsMobile()` uses.
+ *   - `touch:`           → ERGONOMICS. Tap target size, 16px inputs, hover-only
+ *                          affordances. Fires on any coarse pointer at any width.
+ *
+ * Use `touch:` for anything a finger has to hit, `max-md:` for anything about
+ * how much room there is. Never use one to mean the other.
+ */
+@custom-variant touch (@media (pointer: coarse));
+
+/*
+ * Recovery Hub design system.
+ *
+ * Palette is anchored on Gold Star Restoration: brand navy for institutional
+ * surfaces, blue for primary action, gold as a highlight only. Loss-type has
+ * its own semantic color family so it can appear consistently on badges, rows,
+ * pins, and chart series. Status semantics stay separate so a color always
+ * means one thing.
+ *
+ * Rules for consumers:
+ * - Never hardcode a hex value in a component. Add a token here.
+ * - Never repurpose a status color decoratively.
+ * - Numeric columns get `font-mono tabular-nums`.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 10px);
+
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Archivo Narrow", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-foreground: var(--brand-red-foreground);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-foreground: var(--brand-gold-foreground);
+  --color-brand-gold-text: var(--brand-gold-text);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-loss-water: var(--loss-water);
+  --color-loss-fire: var(--loss-fire);
+  --color-loss-smoke: var(--loss-smoke);
+  --color-loss-mold: var(--loss-mold);
+  --color-loss-biohazard: var(--loss-biohazard);
+  --color-loss-storm: var(--loss-storm);
+  --color-loss-cleaning: var(--loss-cleaning);
+  --color-loss-sewer: var(--loss-sewer);
+  --color-loss-emergency: var(--loss-emergency);
+  --color-loss-contents: var(--loss-contents);
+  --color-loss-boardup: var(--loss-boardup);
+  --color-loss-reconstruction: var(--loss-reconstruction);
+  --color-loss-asbestos: var(--loss-asbestos);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-gold: var(--sidebar-gold);
+
+  --color-surface: var(--surface);
+  --color-link: var(--link);
+
+  --color-hover: var(--hover);
+  --color-rot: var(--rot);
+  --color-rot-border: var(--rot-border);
+  --color-awaiting: var(--awaiting);
+  --color-awaiting-border: var(--awaiting-border);
+
+  /* Tones: stage, urgency and AI colours. Values and the reasoning are in the Tones block below the palettes. */
+  --color-tone-sky: var(--tone-sky);
+  --color-tone-sky-fg: var(--tone-sky-fg);
+  --color-tone-sky-text: var(--tone-sky-text);
+  --color-tone-sky-soft: color-mix(in oklab, var(--tone-sky) var(--tone-soft-mix), var(--card));
+  --color-tone-violet: var(--tone-violet);
+  --color-tone-violet-fg: var(--tone-violet-fg);
+  --color-tone-violet-text: var(--tone-violet-text);
+  --color-tone-violet-soft: color-mix(
+    in oklab,
+    var(--tone-violet) var(--tone-soft-mix),
+    var(--card)
+  );
+  --color-tone-amber: var(--tone-amber);
+  --color-tone-amber-fg: var(--tone-amber-fg);
+  --color-tone-amber-text: var(--tone-amber-text);
+  --color-tone-amber-soft: color-mix(in oklab, var(--tone-amber) var(--tone-soft-mix), var(--card));
+  --color-tone-emerald: var(--tone-emerald);
+  --color-tone-emerald-fg: var(--tone-emerald-fg);
+  --color-tone-emerald-text: var(--tone-emerald-text);
+  --color-tone-emerald-soft: color-mix(
+    in oklab,
+    var(--tone-emerald) var(--tone-soft-mix),
+    var(--card)
+  );
+  --color-tone-slate: var(--tone-slate);
+  --color-tone-slate-fg: var(--tone-slate-fg);
+  --color-tone-slate-text: var(--tone-slate-text);
+  --color-tone-slate-soft: color-mix(in oklab, var(--tone-slate) var(--tone-soft-mix), var(--card));
+  --color-tone-rose: var(--tone-rose);
+  --color-tone-rose-fg: var(--tone-rose-fg);
+  --color-tone-rose-text: var(--tone-rose-text);
+  --color-tone-rose-soft: color-mix(in oklab, var(--tone-rose) var(--tone-soft-mix), var(--card));
+  --color-tone-teal: var(--tone-teal);
+  --color-tone-teal-fg: var(--tone-teal-fg);
+  --color-tone-teal-text: var(--tone-teal-text);
+  --color-tone-teal-soft: color-mix(in oklab, var(--tone-teal) var(--tone-soft-mix), var(--card));
+  --color-tone-fuchsia: var(--tone-fuchsia);
+  --color-tone-fuchsia-fg: var(--tone-fuchsia-fg);
+  --color-tone-fuchsia-text: var(--tone-fuchsia-text);
+  --color-tone-fuchsia-soft: color-mix(
+    in oklab,
+    var(--tone-fuchsia) var(--tone-soft-mix),
+    var(--card)
+  );
+  --color-tone-orange: var(--tone-orange);
+  --color-tone-orange-fg: var(--tone-orange-fg);
+  --color-tone-orange-text: var(--tone-orange-text);
+  --color-tone-orange-soft: color-mix(
+    in oklab,
+    var(--tone-orange) var(--tone-soft-mix),
+    var(--card)
+  );
+  --color-tone-lime: var(--tone-lime);
+  --color-tone-lime-fg: var(--tone-lime-fg);
+  --color-tone-lime-text: var(--tone-lime-text);
+  --color-tone-lime-soft: color-mix(in oklab, var(--tone-lime) var(--tone-soft-mix), var(--card));
+  --color-ai: var(--ai);
+  --color-ai-fg: var(--ai-fg);
+  --color-ai-text: var(--ai-text);
+  --color-ai-soft: color-mix(in oklab, var(--ai) var(--tone-soft-mix), var(--card));
+  --color-cta: var(--cta);
+  --color-cta-fg: var(--cta-fg);
+}
+
+:root {
+  color-scheme: light;
+  /*
+   * Tokens below are sampled pixel-for-pixel from the Revive360 mockups
+   * (revive360-*.png). Do not eyeball replacements — resample the image.
+   */
+  /*
+   * ONE radius. Every derived step in @theme (sm/md/lg/xl/2xl) and every
+   * surface token below comes off this number, so the app has a single
+   * corner language instead of the sixteen it grew. Pills stay 999px.
+   */
+  --radius: 0.625rem; /* 10px */
+
+  /* Page ground is near-white; cards are pure white with a hairline. */
+  --background: #fbfcfd;
+  --foreground: #0b1b3f; /* navy ink, sampled from headings */
+  --card: #ffffff;
+  --card-foreground: #0b1b3f;
+  --popover: #ffffff;
+  --popover-foreground: #0b1b3f;
+
+  --primary: #0a58e8; /* active pill / link blue */
+  --primary-foreground: #ffffff;
+  --secondary: #f1f4f9;
+  --secondary-foreground: #0b1b3f;
+  --muted: #f5f7fa;
+  --muted-foreground: #667085;
+  --accent: #e8f0fe;
+  --accent-foreground: #0a58e8;
+  --destructive: #c0231a; /* AA as text, and on its own tint */
+  --destructive-foreground: #ffffff;
+  --border: #edf0f4; /* hairline sampled from card edges */
+  --input: #e4e8ef;
+  --ring: #0a58e8;
+
+  /* Panel ground used behind cards and table shells. */
+  --surface: #f7f9fb;
+  --hover: #f2f6fc;
+
+  /*
+   * Typography scale — deliberate STEPS, not a 2px smear.
+   *
+   * The audit found 2,117 of ~2,700 sized elements packed into 11-13px, which
+   * is why the app reads as one flat scroll: nothing is allowed to be more
+   * important than anything else. These are the rungs. A page title is more
+   * than twice body size; a metric numeral is nearly three times its own
+   * label. Ratios are the hierarchy — the colours never were.
+   */
+  --text-metric: 32px; /* the number that matters */
+  --text-metric-sm: 24px; /* same role, in a narrow tile */
+  --text-page-title: 26px;
+  --text-section-title: 18px; /* the step that was missing entirely */
+  --text-card-title: 15px;
+  --text-body: 13px;
+  --text-note: 12px;
+  --text-micro: 11px; /* small-caps labels only, never prose */
+  --text-kpi-label: 13px;
+  --text-kpi-value: var(--text-metric);
+
+  /*
+   * Surface geometry — the container definition the client asked for.
+   * One radius, one edge, one shadow step, one internal padding.
+   */
+  --radius-card: 12px; /* 3 Nov redesign: the job page's corner, app-wide */
+  --card-title-weight: 600;
+  --radius-control: calc(var(--radius) - 2px); /* 8px */
+  /* A card edge you can actually see. The old #edf0f4 hairline vanished on
+     the near-white ground, so cards had no boundary to read as cards. */
+  --card-border: #e2e7ef;
+  --card-shadow: 0 1px 2px rgb(16 24 40 / 0.06);
+  --card-shadow-hover: 0 4px 12px -4px rgb(16 24 40 / 0.12);
+  /* Real breathing room. Nothing in a card touches its edge. */
+  --card-padding: 20px;
+  --card-padding-tight: 14px; /* headers, footers, dense rows */
+  /* Air BETWEEN sections is what makes sections legible as sections. */
+  --section-gap: 24px;
+  --row-hover-bg: #f2f6fc;
+  /* One measure for the working area, applied once in the app shell. */
+  --content-max: 1600px;
+
+  /* Kept as aliases so the ~7 existing call sites stay correct. */
+  --shadow-card: var(--card-shadow);
+  --shadow-card-hover: var(--card-shadow-hover);
+
+  /* KPI accent rotation — purple, green, blue, orange (mockup order). */
+  --kpi-1: #7c5cf5;
+  --kpi-2: #12a150;
+  --kpi-3: #0a58e8;
+  --kpi-4: #f2892f;
+
+  --brand: #10243d;
+  --brand-foreground: #ffffff;
+  --brand-gold: #b8a030;
+  --brand-gold-foreground: #10243d;
+  --brand-gold-text: #7e6c1c;
+  --brand-red: #e81820;
+  --brand-red-foreground: #ffffff;
+  --gold: var(--brand-gold);
+  --gold-foreground: var(--brand-gold-foreground);
+
+  --success: #0a6b45;
+  --success-foreground: #ffffff;
+  /* 26 Oct: darkened for AA — 5.1:1 even as text on its own 10% tint. */
+  --warning: #8a5c00;
+  --warning-foreground: #ffffff;
+  --info: #1b5fa8;
+  --info-foreground: #ffffff;
+
+  /* Loss types — sampled from goldstarrestoration.com service pages */
+  --loss-water: #1f3fbf; /* royal blue */
+  --loss-fire: #e8202a; /* fire red */
+  --loss-smoke: #b3161e; /* deep smoke red */
+  --loss-mold: #0e8a8a; /* teal */
+  --loss-biohazard: #7a1fa2;
+  --loss-storm: #475569;
+  --loss-cleaning: #64748b;
+  --loss-sewer: #7a5c1c;
+  --loss-emergency: #d97706; /* amber — 24/7 response */
+  --loss-contents: #7c5cbf; /* pack-out */
+  --loss-boardup: #0f766e; /* board-up / tarp */
+  --loss-reconstruction: #1d4ed8; /* rebuild */
+  --loss-asbestos: #a16207; /* hazardous material */
+
+  --chart-1: var(--loss-water);
+  --chart-2: var(--loss-fire);
+  --chart-3: var(--loss-mold);
+  --chart-4: var(--loss-biohazard);
+  --chart-5: var(--loss-storm);
+
+  /*
+   * Report chart series (report-charts.ts VIZ_SERIES): categorical, fixed
+   * order, validated for colour-vision deficiency on this surface. Not the
+   * --chart-* loss colours — a red slice must not read as "fire".
+   */
+  --viz-1: #2a78d6;
+  --viz-2: #eb6834;
+  --viz-3: #1baf7a;
+  --viz-4: #eda100;
+  --viz-5: #e87ba4;
+  --viz-6: #008300;
+  --viz-other: #9a9994;
+
+  /* Sticky-note papers for the dashboard's My to-do (todo-notes.tsx). Pale
+     enough that body ink reads on every one. */
+  --note-1: #fdf3c4;
+  --note-2: #fde2e4;
+  --note-3: #dcecfb;
+  --note-4: #dff3e4;
+
+  /*
+   * The brand rail. Gold Star navy anchors the page and carries the identity;
+   * the working area beside it stays light and quiet. The rail was previously
+   * a sampled Revive360 blue (#001b4a) with a solid BLUE active pill, so gold
+   * — the actual brand accent — did no work anywhere in the product.
+   *
+   * Gold is the accent here for active and hover states. It is never a filled
+   * panel: the active item is a gold inset bar plus gold text over a 14% gold
+   * wash, not a gold block.
+   */
+  --sidebar: #10243d; /* Gold Star brand navy */
+  --sidebar-foreground: #b9c6d8; /* 9.1:1 on the rail */
+  --sidebar-primary: var(--sidebar-gold);
+  --sidebar-primary-foreground: #10243d;
+  --sidebar-accent: #1b3554; /* lifted navy — group grounds, not the accent */
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1e3a5c;
+  --sidebar-ring: var(--sidebar-gold);
+  --sidebar-control: #16304f;
+  --sidebar-control-hover: #1e3a5c;
+  --sidebar-control-border: #27486e;
+  --sidebar-control-foreground: #eaf0f8;
+  --sidebar-control-placeholder: #8fa2bd;
+  /*
+   * Gold, lifted for a dark ground. The wordmark previously used
+   * --brand-gold-text (#7e6c1c), a token tuned for LIGHT backgrounds, giving
+   * ~3.2:1 on the rail — below AA. This is 7.2:1 on #10243d.
+   */
+  --sidebar-gold: #c9af3b;
+
+  /*
+   * Label palette — tinted background paired with darker text of the same
+   * hue. Admin-selectable; never a saturated fill with white text.
+   */
+  --label-yellow: #ffe9a8;
+  --label-yellow-fg: #7a5b00;
+  --label-green: #cff3e1;
+  --label-green-fg: #0a6b45;
+  --label-blue: #d6e7ff;
+  --label-blue-fg: #12467b;
+  --label-purple: #e6dbff;
+  --label-purple-fg: #4b2e83;
+  --label-pink: #ffd9e6;
+  --label-pink-fg: #8c1d48;
+  --label-teal: #cff0f2;
+  --label-teal-fg: #0b5a63;
+  --label-orange: #ffdfc7;
+  --label-orange-fg: #8a3d06;
+  --label-red: #ffd9d6;
+  --label-red-fg: #8c1d18;
+  --label-grey: #e6e8eb;
+  --label-grey-fg: #3f4550;
+
+  /*
+   * "Awaiting approval" row wash. Deliberately warmer and more saturated at
+   * the edge than the yellow label pill so the two never read the same.
+   */
+  --awaiting: #fff4d6;
+  --awaiting-border: #e0b23a;
+  /* Rot: a deal past its stage window. Pale red — never confusable with the
+     yellow awaiting-approval wash, which means something entirely different. */
+  --rot: #fff5f5;
+  --rot-border: #f0c9c9;
+  /* Timeline notes. Yellow is reserved for notes in the feed, and is kept
+     paler than the awaiting-approval wash so the two never read the same. */
+  --note: #fef9e7;
+  --note-border: transparent;
+
+  /* Entity links. Every reference to another record is this blue. */
+  --link: #1862c0; /* AA on every palette's accent tint too */
+  --link-hover: #14508f;
+}
+
+.dark:where(:not([data-palette="goldstar"])) {
+  --background: oklch(0.16 0.025 253); /* #0C1520 */
+  --foreground: oklch(0.93 0.015 247);
+  --card: oklch(0.22 0.035 253); /* #141F2C */
+  --card-foreground: oklch(0.93 0.015 247);
+  --popover: oklch(0.22 0.035 253);
+  --popover-foreground: oklch(0.93 0.015 247);
+
+  --primary: oklch(0.6 0.13 253);
+  --primary-foreground: oklch(0.14 0.025 253);
+  --secondary: oklch(0.26 0.04 253);
+  --secondary-foreground: oklch(0.93 0.015 247);
+  --muted: oklch(0.26 0.04 253);
+  --muted-foreground: oklch(0.73 0.02 247);
+  --accent: oklch(0.28 0.045 253);
+  --accent-foreground: oklch(0.93 0.015 247);
+  /* Lighter for AA as text on dark cards; dark ink on a red fill (6.8:1). */
+  --destructive: oklch(0.7 0.19 25);
+  --destructive-foreground: oklch(0.15 0.025 253);
+  --border: oklch(0.32 0.04 253); /* #26323F */
+  --input: oklch(0.3 0.04 253);
+  --ring: oklch(0.6 0.13 253);
+
+  --brand: oklch(0.28 0.06 253);
+  --brand-foreground: oklch(0.98 0.005 247);
+  /* On dark grounds gold reads well as text — use --brand-gold directly */
+  --brand-gold: #b8a030;
+  --brand-gold-foreground: #0c1520;
+  --brand-gold-text: #c9af3b; /* slightly lifted for dark bg text */
+  --brand-red: #e81820;
+  --brand-red-foreground: #ffffff;
+  --gold: var(--brand-gold);
+  --gold-foreground: var(--brand-gold-foreground);
+
+  --success: oklch(0.66 0.14 152);
+  --success-foreground: oklch(0.15 0.025 253);
+  --warning: oklch(0.77 0.16 75);
+  --warning-foreground: oklch(0.15 0.025 253);
+  --info: oklch(0.7 0.13 253);
+  --info-foreground: oklch(0.16 0.025 253);
+
+  /* Same hues as light, lifted for legibility on the dark ground */
+  --loss-water: #5b79e8;
+  --loss-fire: #f1555c;
+  --loss-smoke: #d9535a;
+  --loss-mold: #2fb3b3;
+  --loss-biohazard: #b36bd8;
+  --loss-storm: #94a3b8;
+  --loss-cleaning: #94a3b8;
+  --loss-sewer: #b89448;
+  --loss-emergency: #f0a13a;
+  --loss-contents: #a58bdd;
+  --loss-boardup: #35a99e;
+  --loss-reconstruction: #6d92f5;
+  --loss-asbestos: #d0a03c;
+
+  --chart-1: var(--loss-water);
+  --chart-2: var(--loss-fire);
+  --chart-3: var(--loss-mold);
+  --chart-4: var(--loss-biohazard);
+  --chart-5: var(--loss-storm);
+
+  /* The same hues stepped for the dark surface — chosen, not flipped. */
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-5: #d55181;
+  --viz-6: #008300;
+  --viz-other: #75746f;
+
+  --note-1: #4a4323;
+  --note-2: #4a2f33;
+  --note-3: #243a4f;
+  --note-4: #26402e;
+
+  --sidebar: oklch(0.19 0.03 253);
+  --sidebar-foreground: oklch(0.9 0.02 247);
+  --sidebar-gold: #c9af3b;
+  --sidebar-primary: var(--sidebar-gold);
+  --sidebar-primary-foreground: oklch(0.15 0.025 253);
+  --sidebar-accent: oklch(0.26 0.04 253);
+  --sidebar-accent-foreground: oklch(0.95 0.01 247);
+  --sidebar-border: oklch(0.3 0.04 253);
+  --sidebar-ring: oklch(0.75 0.13 82);
+  --sidebar-control: oklch(0.27 0.04 253);
+  --sidebar-control-hover: oklch(0.32 0.04 253);
+  --sidebar-control-border: oklch(0.42 0.04 253);
+  --sidebar-control-foreground: oklch(0.97 0.008 247);
+  --sidebar-control-placeholder: oklch(0.82 0.015 247);
+
+  --surface: oklch(0.2 0.03 253);
+  --hover: oklch(0.26 0.04 253);
+
+  /* Label tints, dimmed for the dark ground; text lifts to stay legible. */
+  --label-yellow: #4a3d10;
+  --label-yellow-fg: #f3d98a;
+  --label-green: #123c2c;
+  --label-green-fg: #8fe0bd;
+  --label-blue: #17304d;
+  --label-blue-fg: #a8c8f2;
+  --label-purple: #2e2450;
+  --label-purple-fg: #c6b1f0;
+  --label-pink: #4a1e30;
+  --label-pink-fg: #f0aac6;
+  --label-teal: #12383c;
+  --label-teal-fg: #93dae0;
+  --label-orange: #4a2a12;
+  --label-orange-fg: #f2bb8c;
+  --label-red: #4a1f1c;
+  --label-red-fg: #f2a9a4;
+  --label-grey: #2b3140;
+  --label-grey-fg: #c3c9d4;
+
+  --awaiting: #3a2f10;
+  --awaiting-border: #a8842a;
+  --rot: #3a1616;
+  --rot-border: #7d3b3b;
+  --note: #3a3216;
+  --note-border: transparent;
+  --link: #7fb2f5;
+  --link-hover: #a6cbfa;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    /* Operations density: 13px base, tight leading. */
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  /* Their voice: heavy condensed sans, squared, slightly wide tracking. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: 0.005em;
+    font-weight: 700;
+  }
+
+  /* Bare h1/h2 are the SECTION rung; the page title comes from PageHeader. */
+  h1 {
+    font-size: var(--text-section-title);
+  }
+  h2 {
+    font-size: 1rem;
+  }
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 0.875rem;
+  }
+
+  table {
+    font-variant-numeric: tabular-nums;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre,
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * KPI row — measured from the mockups: separate white cards, 16px gap, a
+ * plain colour-rotated 24px line icon at the left, a 13px title-case label,
+ * a 28px semibold number and a 12px grey note or green delta beneath.
+ */
+@utility metric-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: stretch;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+}
+
+/*
+ * Standard page gutter. Deliberately NOT a flex/gap stack: 11 pages already
+ * space their own children with margins, and adding a gap here would double
+ * their spacing. Section rhythm is opt-in via `section-stack`.
+ */
+/*
+ * Phones: less chrome, more content. David, 24 Sep: "a lot of the phone gets
+ * covered by the top section or by the side section. If we could have more of
+ * the content that's relevant showing, that would be a big help." Every card
+ * reads its padding from these tokens, so tightening them here reaches every
+ * screen at once; desktop keeps the roomier values above.
+ */
+@media (max-width: 767.98px) {
+  :root {
+    --card-padding: 12px;
+    --card-padding-tight: 10px;
+  }
+}
+
+/*
+ * The job page (3 Nov redesign). The card corner and title weight now hold
+ * app-wide (see :root); these are the job page's denser-to-touch extras —
+ * taller buttons, sentence-case badges, roomier tables — kept to its scope.
+ */
+[data-job-page] {
+  --card-padding: 18px;
+  --card-padding-tight: 14px;
+  --card-shadow: 0 1px 2px rgb(16 24 40 / 0.04);
+  /* Buttons: 36px default, 32px small, 13px words — every tab at once. */
+  --btn-h: 2.25rem;
+  --btn-px: 0.875rem;
+  --btn-sm-h: 2rem;
+  --btn-sm-px: 0.75rem;
+  --btn-sm-text: 13px;
+  /* Badges: sentence-case pills, readable without squinting. */
+  --badge-px: 0.625rem;
+  --badge-py: 2px;
+  --badge-text: 12px;
+  --badge-case: none;
+  --badge-lh: 1.125rem;
+  --badge-tracking: 0;
+  /* Tables: room to breathe and to tap. */
+  --th-h: 2.25rem;
+  --td-h: 2.75rem;
+  --cell-px: 0.75rem;
+}
+
+@media (max-width: 767.98px) {
+  [data-job-page] {
+    --card-padding: 12px;
+    --card-padding-tight: 10px;
+  }
+}
+
+[data-job-page] [data-slot="card-header"] {
+  min-height: 3rem;
+}
+
+/* A label column every value lines up on, and values a step heavier than
+   their labels — the read-across the 3 Nov mock-up asked for. */
+[data-job-page] [data-job-field="row"] {
+  grid-template-columns: min(9.5rem, 40%) minmax(0, 1fr);
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  align-items: center;
+}
+
+[data-job-page] [data-job-field] > span:first-child {
+  max-width: none;
+}
+
+[data-job-page]
+  [data-job-field]
+  > button:not(:disabled)
+  > span:first-child:not(.text-muted-foreground) {
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+@utility page-shell {
+  margin-inline: auto;
+  max-width: var(--content-max);
+  padding-inline: 0.75rem;
+  padding-block: 0.5rem;
+
+  @media (min-width: 768px) {
+    padding-block: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    padding-inline: 1rem;
+  }
+}
+
+/* One KPI card inside a metric strip. */
+@utility kpi-tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background-color: var(--color-card);
+  padding: var(--card-padding);
+  text-align: left;
+  box-shadow: var(--card-shadow);
+  transition:
+    box-shadow 150ms ease,
+    border-color 150ms ease;
+  &[data-accent] {
+    border-top: 3px solid var(--kpi-accent);
+  }
+}
+
+@utility kpi-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--muted-foreground);
+}
+
+@utility kpi-value {
+  display: block;
+  font-size: var(--text-kpi-value);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+
+/* Plain colour-rotated KPI icon — the mockups use no tinted chip here. */
+@utility kpi-icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.75rem;
+  width: 1.75rem;
+  color: var(--kpi-3);
+
+  &[data-accent="1"] {
+    color: var(--kpi-1);
+  }
+  &[data-accent="2"] {
+    color: var(--kpi-2);
+  }
+  &[data-accent="3"] {
+    color: var(--kpi-3);
+  }
+  &[data-accent="4"] {
+    color: var(--kpi-4);
+  }
+  &[data-tone="success"] {
+    color: var(--kpi-2);
+  }
+  &[data-tone="warning"] {
+    color: var(--kpi-4);
+  }
+  &[data-tone="danger"] {
+    color: var(--destructive);
+  }
+}
+
+/*
+ * Controls rendered inside the sidebar. The sidebar ground is now near-white,
+ * so controls are plain white with the same hairline border used elsewhere.
+ * Kept as a utility so existing call sites stay correct.
+ */
+@utility sidebar-control {
+  background-color: var(--sidebar-control);
+  border-color: var(--sidebar-control-border);
+  color: var(--sidebar-control-foreground);
+
+  &::placeholder,
+  &[data-placeholder] {
+    color: var(--sidebar-control-placeholder);
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--sidebar-control-hover);
+  }
+}
+
+[data-sidebar="sidebar"] {
+  background-color: var(--sidebar);
+  border-right: 1px solid var(--sidebar-border);
+}
+
+[data-sidebar="sidebar"] [data-slot="select-trigger"],
+[data-sidebar="sidebar"] button[role="combobox"],
+[data-sidebar="sidebar"] input,
+[data-sidebar="sidebar"] textarea {
+  background-color: var(--sidebar-control);
+  border-color: var(--sidebar-control-border);
+  color: var(--sidebar-control-foreground);
+}
+
+[data-sidebar="sidebar"] [data-placeholder],
+[data-sidebar="sidebar"] input::placeholder,
+.sidebar-popover [data-placeholder] {
+  color: var(--sidebar-control-placeholder);
+  opacity: 1;
+}
+
+[data-sidebar="sidebar"] button[role="combobox"]:hover:not(:disabled) {
+  background-color: var(--sidebar-control-hover);
+}
+
+/* Sidebar sits on navy: icons soften, the active item is a solid blue pill. */
+[data-sidebar="menu-button"] svg {
+  color: color-mix(in oklab, var(--sidebar-foreground) 80%, transparent);
+}
+
+[data-sidebar="menu-button"] {
+  color: var(--sidebar-foreground);
+  border-radius: var(--radius-control);
+}
+
+/* Hover is gold-tinted, so the accent answers the pointer everywhere. */
+[data-sidebar="menu-button"]:hover:not([data-active="true"]) {
+  background-color: color-mix(in oklab, var(--sidebar-gold) 12%, transparent);
+  color: #ffffff;
+}
+
+[data-sidebar="menu-button"]:hover:not([data-active="true"]) svg {
+  color: var(--sidebar-gold);
+}
+
+/*
+ * Active item: a gold marker bar and gold type over a wash — the accent
+ * doing the work, not a gold block. Replaces the solid blue pill.
+ */
+[data-sidebar="menu-button"][data-active="true"] {
+  background-color: color-mix(in oklab, var(--sidebar-gold) 14%, transparent);
+  border-radius: var(--radius-control);
+  color: var(--sidebar-gold);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 0 var(--sidebar-gold);
+}
+
+[data-sidebar="menu-button"][data-active="true"] svg {
+  color: var(--sidebar-gold);
+}
+
+[data-sidebar="group-label"] {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--sidebar-foreground) 65%, transparent);
+}
+
+/* Muted helper text inside the navy rail must not fall back to slate grey. */
+[data-sidebar="sidebar"] .text-muted-foreground {
+  color: color-mix(in oklab, var(--sidebar-foreground) 75%, transparent);
+}
+
+[data-sidebar="sidebar"] [data-sidebar="group"] {
+  border-color: color-mix(in oklab, #ffffff 10%, transparent) !important;
+  background-color: color-mix(in oklab, #ffffff 4%, transparent) !important;
+}
+
+/*
+ * ── Revive360 surface language ───────────────────────────────────────────
+ * White panels float on the cool page ground with a soft shadow, table rows
+ * get a light blue hover, and status pills stay tinted rather than filled.
+ */
+[data-slot="card"] {
+  border-radius: var(--radius-card);
+  border-color: var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+/*
+ * The account record's panels are hand-built sections (documents, proposals,
+ * the contact card, Polaris) shared with other pages, not <Card>s. Inside a
+ * record surface they take the same border and lift as a Card, so the page
+ * reads as one family of cards instead of a mix of hairline boxes. In the
+ * base layer, so any panel that sets its own border or shadow utility still
+ * wins.
+ */
+@layer base {
+  [data-record-surface] :where(.rounded-xl.border.bg-card, .rounded-lg.border.bg-card) {
+    border-color: var(--card-border);
+    box-shadow: var(--card-shadow);
+  }
+}
+
+tbody tr:hover > td {
+  background-color: var(--row-hover-bg);
+}
+
+/*
+ * Vertical rhythm between sections. A page is a stack of sections with real
+ * air between them, not a continuous scroll of adjacent blocks — this is the
+ * single knob that separates them, so it is a token and not a `space-y-3`
+ * guess repeated on 110 pages.
+ */
+@utility section-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  min-width: 0;
+}
+
+/*
+ * A section heading. The rung between page title (26px) and card title
+ * (15px) did not exist before, which is exactly why groups of cards read as
+ * one undifferentiated run.
+ */
+@utility section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-section-title);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  color: var(--foreground);
+}
+
+/* Tinted squircle behind a leading icon — used by KPI tiles app-wide. */
+@utility icon-squircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex: none;
+  border-radius: 0.7rem;
+  background-color: color-mix(in oklab, var(--primary) 12%, transparent);
+  color: var(--primary);
+
+  &[data-tone="success"] {
+    background-color: color-mix(in oklab, var(--color-success) 14%, transparent);
+    color: var(--color-success);
+  }
+
+  &[data-tone="warning"] {
+    background-color: color-mix(in oklab, var(--color-warning) 18%, transparent);
+    color: var(--color-warning);
+  }
+
+  &[data-tone="danger"] {
+    background-color: color-mix(in oklab, var(--color-destructive) 12%, transparent);
+    color: var(--color-destructive);
+  }
+}
+
+/*
+ * ── Gold Star identity devices ───────────────────────────────────────────
+ * Gold is a brand moment only now: the logo lockup and a thin top rule.
+ */
+
+/** Thin gold rule. Reads as a brand mark on the light ground, not a band. */
+@utility gold-rule {
+  display: block;
+  width: 100%;
+  height: 2px;
+  flex-shrink: 0;
+  border-radius: 0;
+  background-color: var(--brand-gold);
+}
+
+@utility gold-rule-thin {
+  display: block;
+  width: 100%;
+  height: 1px;
+  flex-shrink: 0;
+  border-radius: 0;
+  background-color: var(--brand-gold);
+}
+
+/** Small caps label — used sparingly now, at regular-ish weight. */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/** Condensed display type for titles and metric values. */
+@utility display-heavy {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+
+/** Standard page header row: title block left, controls right. */
+@utility page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.25rem;
+}
+
+/**
+ * Emergency treatment. Red is reserved for this: critical alerts, overdue
+ * escalations, unaccepted incidents past the window. Never decorative.
+ */
+.emergency-bar {
+  border-radius: var(--radius);
+  background-color: var(--brand-red);
+  color: var(--brand-red-foreground);
+}
+
+/**
+ * Pill: label chips, status badges, loss-type chips. Fully rounded, tinted
+ * background with darker text of the same hue, compact and uppercase.
+ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The job list's status-code row: six pills that must stay on one line at a
+ * laptop width, so the side padding comes in. Unlayered like .pill so a
+ * utility class cannot win over it by accident. */
+.pill-tight {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/**
+ * Filter control: a white pill button with a hairline border, leading icon,
+ * current value and caret. Reads as a chip, never as a form select.
+ */
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--card);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--foreground);
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    background-color: var(--hover);
+  }
+
+  & svg {
+    width: 13px;
+    height: 13px;
+    color: var(--muted-foreground);
+  }
+}
+
+/** Segmented icon toggle group for view switching. */
+.segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--card);
+  padding: 2px;
+}
+
+/** One option inside a .segmented group. Light, rounded, never a hard fill. */
+.segmented-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  padding: 0.1875rem 0.625rem;
+  font-size: 12px;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+.segmented-item:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+.segmented-item[data-active="true"] {
+  background-color: color-mix(in oklab, var(--primary) 12%, var(--card));
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/**
+ * Org chart connectors — the company hierarchy's tree view. Each person is an
+ * <li>; the elbows into it are drawn by its own ::before/::after (the two
+ * halves of the bar across its siblings) and the drop from its parent by the
+ * child <ul>'s ::before. No SVG, so the chart reflows with its cards.
+ */
+.org-tree {
+  --org-line: color-mix(in oklab, var(--foreground) 22%, var(--card));
+}
+.org-tree ul {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 1.5rem 0 0;
+  list-style: none;
+}
+.org-tree > ul {
+  padding-top: 0;
+}
+.org-tree li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0.5rem 0;
+}
+.org-tree > ul > li {
+  padding-top: 0;
+}
+.org-tree ul ul > li::before,
+.org-tree ul ul > li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 1.5rem;
+  border-top: 2px solid var(--org-line);
+}
+.org-tree ul ul > li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid var(--org-line);
+}
+.org-tree ul ul > li:only-child {
+  padding-top: 0;
+}
+.org-tree ul ul > li:only-child::before,
+.org-tree ul ul > li:only-child::after {
+  display: none;
+}
+.org-tree ul ul > li:first-child::before,
+.org-tree ul ul > li:last-child::after {
+  border: 0 none;
+}
+.org-tree ul ul > li:last-child::before {
+  border-right: 2px solid var(--org-line);
+  border-top-right-radius: 8px;
+}
+.org-tree ul ul > li:first-child::after {
+  border-top-left-radius: 8px;
+}
+.org-tree ul ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 1.5rem;
+  border-left: 2px solid var(--org-line);
+}
+
+/*
+ * A record's phone action bar sits on top of the app's bottom menu, and drops
+ * into its place when that menu slides away on scroll — so the two never
+ * overlap and the actions never float over a gap. The menu is 3.5rem plus its
+ * 1px top border, plus the home-indicator inset.
+ */
+.record-action-bar {
+  bottom: calc(3.5rem + 1px + env(safe-area-inset-bottom, 0px));
+  transition: bottom 200ms;
+}
+body:has([data-mobile-bottom-nav][data-condensed="true"]) .record-action-bar {
+  bottom: env(safe-area-inset-bottom, 0px);
+}
+/* The Polaris button floats above whichever bar is lowest. With the record's
+   bar stacked on the menu that is the record bar, so it climbs over it. */
+body:has(.record-action-bar):not(:has([data-mobile-bottom-nav][data-condensed="true"]))
+  [data-polaris-fab] {
+  bottom: calc(8.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/** Card wash for a deal past the rot window configured for its stage. */
+.rot-card {
+  background-color: var(--rot);
+  border-color: var(--rot-border);
+}
+
+/**
+ * Note entries in the feed. A pale yellow block, full width, small radius and
+ * no border — the single most distinct thing in a timeline.
+ */
+.note-card {
+  background-color: var(--note);
+  border-color: transparent;
+  border-radius: 6px;
+  width: 100%;
+}
+
+/**
+ * Entity links. Every reference to another record — account, contact, deal,
+ * breadcrumb, "Add labels" — is blue, underlined on hover only.
+ */
+@utility entity-link {
+  color: var(--link);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+/*
+ * Zero-specificity default so any anchor inside the app body reads as a link
+ * unless a component explicitly sets its own colour.
+ */
+@layer base {
+  main :where(a[href]) {
+    color: var(--link);
+  }
+  main :where(a[href]):hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+/** Record and card titles: bold, near-black, 15px. */
+@utility record-title {
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--foreground);
+  letter-spacing: -0.005em;
+}
+
+/** The line under a title. Always muted grey, always lighter. */
+@utility record-sub {
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+/** Bold section header with room for a collapse chevron and overflow menu. */
+@utility section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/** Saturated status pill — OVERDUE and friends. Pairs with .pill. */
+.pill[data-tone="danger"] {
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+}
+.pill[data-tone="success"] {
+  background-color: var(--success);
+  color: var(--success-foreground);
+}
+.pill[data-tone="warning"] {
+  background-color: var(--warning);
+  color: var(--warning-foreground);
+}
+
+/**
+ * Stage path. One chevron per stage; the current one carries time-in-stage,
+ * which is the rot signal a rep sees without opening a report.
+ */
+.stage-chevron {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  border: 1px solid var(--border);
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  padding: 6px 10px 6px 18px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 10px 50%);
+  text-align: left;
+}
+.stage-chevron:first-child {
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  padding-left: 10px;
+}
+.stage-chevron:last-child {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10px 50%);
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+/* Completed and current both read as solid green; upcoming stays light grey. */
+.stage-chevron[data-state="done"],
+.stage-chevron[data-state="current"] {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: var(--success-foreground);
+}
+.stage-chevron[data-state="done"] .stage-chevron-sub,
+.stage-chevron[data-state="current"] .stage-chevron-sub {
+  color: color-mix(in oklab, var(--success-foreground) 82%, transparent);
+}
+.stage-chevron[data-state="current"] {
+  font-weight: 700;
+}
+.stage-chevron:not(:disabled):hover {
+  filter: brightness(0.97);
+}
+
+/** Row wash for records awaiting Sales Head approval. One yellow, one meaning. */
+.awaiting-row {
+  background-color: var(--awaiting);
+  box-shadow: inset 2px 0 0 var(--awaiting-border);
+}
+
+/*
+ * Tables: white rows, hairline separators, no zebra striping. Headers are
+ * small muted grey labels at regular weight — not heavy uppercase.
+ */
+thead th {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted-foreground);
+}
+
+/*
+ * Every table head stays pinned while its rows scroll, so the last row of a
+ * long list still says which column is which. The Table primitive already did
+ * this; the ~75 hand-written <table>s did not.
+ *
+ * Base layer, so a thead's own `bg-*` or `sticky top-0` still wins. Sticky
+ * resolves against the nearest scrollport: <main> sets --table-sticky-top to
+ * 2.5rem for its own, and any scroller inside it starts over at 0 — otherwise
+ * the head is pushed 40px down its own table and covers the first row (see
+ * card-overflow-no-scrollport.test.ts). The utility on <main> outranks this.
+ * Desktop only, matching the primitive's `max-md:static`.
+ */
+@layer base {
+  @media (min-width: 48rem) {
+    thead {
+      position: sticky;
+      top: var(--table-sticky-top, 0px);
+      z-index: 10;
+      background-color: var(--muted);
+    }
+    :is(
+      .overflow-auto,
+      .overflow-x-auto,
+      .overflow-y-auto,
+      .overflow-scroll,
+      .overflow-hidden,
+      .md\:overflow-auto
+    ) {
+      --table-sticky-top: 0px;
+    }
+  }
+}
+
+/*
+ * Scrollbars. One shared treatment: the bar is an indicator, never a piece of
+ * furniture. Light surfaces get a faint dark thumb on a transparent track;
+ * anything on a dark ground opts in with `.scroll-dark` and gets a translucent
+ * light thumb instead. Both engines are covered (Firefox `scrollbar-*`,
+ * WebKit/Blink `::-webkit-scrollbar-*`).
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 36, 61, 0.18) transparent;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(16, 36, 61, 0.18);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(16, 36, 61, 0.32);
+}
+
+/* Dark ground: sidebar, navy panels, any surface where a grey bar would shout. */
+.scroll-dark {
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+.scroll-dark::-webkit-scrollbar-track,
+.scroll-dark::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.scroll-dark::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+.scroll-dark::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Fade the thumb in on hover / active scroll, out again when the pointer leaves. */
+@media (hover: hover) and (pointer: fine) {
+  .scroll-fade {
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 200ms ease;
+  }
+  .scroll-fade::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    transition: background-color 200ms ease;
+  }
+  .scroll-fade:hover,
+  .scroll-fade:focus-within {
+    scrollbar-color: rgba(16, 36, 61, 0.18) transparent;
+  }
+  .scroll-fade:hover::-webkit-scrollbar-thumb,
+  .scroll-fade:focus-within::-webkit-scrollbar-thumb {
+    background-color: rgba(16, 36, 61, 0.18);
+  }
+  .scroll-fade.scroll-dark:hover,
+  .scroll-fade.scroll-dark:focus-within {
+    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+  }
+  .scroll-fade.scroll-dark:hover::-webkit-scrollbar-thumb,
+  .scroll-fade.scroll-dark:focus-within::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.16);
+  }
+}
+
+.dark:where(:not([data-palette="goldstar"])) {
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------------------
+ * Palettes.
+ *
+ * Only chrome changes: ground, surface, card, border, muted, accent, primary
+ * and the sidebar. Loss-type and status colours are deliberately NOT touched —
+ * a colour must mean the same thing whichever palette a person prefers.
+ *
+ * `goldstar` gets its own block so the brand gold actually reaches primary,
+ * ring, link and the active nav pill. Every palette defines BOTH a light and a
+ * dark block, otherwise the light attribute selector would out-specify `.dark`.
+ * ------------------------------------------------------------------------ */
+
+/* --- Gold Star: THE theme definition -------------------------------------
+ * 1. Brand panel (sidebar) is deep navy with brand-weight type — it carries
+ *    the identity and anchors the page.
+ * 2. Working area is near-white ground + white cards + hairline borders. No
+ *    competing colour in the content area.
+ * 3. Gold is an accent only: primary action, links, focus ring, active nav
+ *    item, selected state, a key figure. NEVER a panel/card background, never
+ *    a large filled area, never a banner.
+ * 4. Everything else neutral; red/amber/green are reserved for status.
+ * ------------------------------------------------------------------------ */
+:root[data-palette="goldstar"] {
+  /* Working area — deliberately quiet. */
+  --background: #fbfbfa;
+  --foreground: #10243d;
+  --card: #ffffff;
+  --card-foreground: #10243d;
+  --surface: #f6f7f8;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #10243d;
+  --muted: #f5f6f7;
+  --muted-foreground: #667085;
+  --border: #e8eaee;
+  --input: #dfe3e9;
+  --primary: #a8880f; /* brand gold, darkened for AA on white */
+  --primary-foreground: #10243d;
+  --accent: #fbf3da;
+  --accent-foreground: #6f5a0f;
+  --ring: #b8a030;
+  --link: #7a6110; /* AA on white and on the pale-gold accent */
+  --link-hover: #6f5a0f;
+  --hover: #faf6e9;
+  --kpi-3: #a8880f;
+  --info: #10243d;
+  --sidebar: #10243d;
+  --sidebar-foreground: #c8d3e2;
+  --sidebar-primary: #c8951c;
+  --sidebar-primary-foreground: #10243d;
+  --sidebar-accent: #17324f; /* navy surface; gold stays type-only */
+  --sidebar-accent-foreground: #e8bd4a;
+
+  --sidebar-border: #1c3a5e;
+  --sidebar-ring: #d8b03c;
+  --sidebar-control: #16304f;
+  --sidebar-control-hover: #1e3d63;
+  --sidebar-control-border: #24466e;
+  --sidebar-control-foreground: #eaf0f8;
+  --sidebar-control-placeholder: #90a2ba;
+}
+/*
+ * Gold Star in dark mode keeps its light working area (the block above sets
+ * it for both modes): only the sidebar and the gold fill change. Accent and
+ * link stay the light block's — a dark olive hover or a pale gold link on a
+ * white card cannot be read (26 Oct).
+ */
+.dark[data-palette="goldstar"] {
+  --primary: #d8b03c;
+  --primary-foreground: #0c1520;
+  --ring: #d8b03c;
+  --sidebar: #0b1728;
+  --sidebar-foreground: #b9c6d8;
+  --sidebar-primary: #d8b03c;
+  --sidebar-primary-foreground: #0c1520;
+  --sidebar-accent: #16283f;
+  --sidebar-accent-foreground: #e8bd4a;
+
+  --sidebar-border: #16283f;
+  --sidebar-ring: #d8b03c;
+  --sidebar-control: #12233a;
+  --sidebar-control-hover: #1a3050;
+  --sidebar-control-border: #22405f;
+  --sidebar-control-foreground: #e6eef8;
+  --sidebar-control-placeholder: #8798ae;
+}
+
+/* --- Slate: neutral greys, one blue accent ------------------------------- */
+/*
+ * Gold Star: the brand gold (--primary) is a FILL — 3.4:1 (light) or less
+ * (dark mode's brighter gold) as small text on its white cards. Wherever it is used as text, the palette's link gold
+ * (AA) is used instead; buttons keep the brand gold.
+ */
+:root[data-palette="goldstar"] :is(.text-primary, .hover\:text-primary:hover) {
+  color: var(--link);
+}
+
+:root[data-palette="slate"] {
+  --background: #ffffff;
+  --foreground: #16181d;
+  --card: #ffffff;
+  --card-foreground: #16181d;
+  --popover: #ffffff;
+  --popover-foreground: #16181d;
+  --primary: #3358d4;
+  --primary-foreground: #ffffff;
+  --secondary: #f6f6f7;
+  --secondary-foreground: #16181d;
+  --muted: #f6f6f7;
+  --muted-foreground: #6c6f76;
+  --accent: #eef1fb;
+  --accent-foreground: #263a8c;
+  --border: #e6e7e9;
+  --input: #e6e7e9;
+  --ring: #3358d4;
+  --surface: #fafafa;
+  --hover: #f2f3f4;
+  --brand: #16181d;
+  --brand-foreground: #ffffff;
+  --brand-gold: #3358d4;
+  --brand-gold-foreground: #ffffff;
+  --brand-gold-text: #3358d4;
+  /* Same structure as Gold Star: dark brand panel, single accent. */
+  --sidebar: #16181d;
+  --sidebar-foreground: #c3c6ca;
+  --sidebar-primary: #7d97ff;
+  --sidebar-primary-foreground: #16181d;
+  --sidebar-accent: #23262c;
+  --sidebar-accent-foreground: #a8bbff;
+  --sidebar-border: #2a2d32;
+  --sidebar-ring: #7d97ff;
+  --sidebar-control: #1d1f23;
+  --sidebar-control-hover: #24272c;
+  --sidebar-control-border: #33373d;
+  --sidebar-control-foreground: #ecedee;
+  --sidebar-control-placeholder: #9ba0a6;
+}
+.dark[data-palette="slate"] {
+  --background: #0e0f11;
+  --foreground: #ecedee;
+  --card: #16181b;
+  --card-foreground: #ecedee;
+  --popover: #16181b;
+  --popover-foreground: #ecedee;
+  --primary: #6e8bff;
+  --primary-foreground: #0e0f11;
+  --secondary: #1d1f23;
+  --secondary-foreground: #ecedee;
+  --muted: #1d1f23;
+  --muted-foreground: #9ba0a6;
+  --accent: #22252a;
+  --accent-foreground: #ecedee;
+  --border: #2a2d32;
+  --input: #2a2d32;
+  --ring: #6e8bff;
+  --surface: #131518;
+  --hover: #1d1f23;
+  --brand: #1d1f23;
+  --brand-foreground: #ecedee;
+  --brand-gold: #6e8bff;
+  --brand-gold-foreground: #0e0f11;
+  --brand-gold-text: #8ea4ff;
+  --sidebar: #121316;
+  --sidebar-foreground: #c3c6ca;
+  --sidebar-primary: #6e8bff;
+  --sidebar-primary-foreground: #0e0f11;
+  --sidebar-accent: #22252a;
+  --sidebar-accent-foreground: #ecedee;
+  --sidebar-border: #2a2d32;
+  --sidebar-ring: #6e8bff;
+  --sidebar-control: #1d1f23;
+  --sidebar-control-hover: #24272c;
+  --sidebar-control-border: #33373d;
+  --sidebar-control-foreground: #ecedee;
+  --sidebar-control-placeholder: #9ba0a6;
+}
+
+/* --- Warm: off-white grounds, charcoal text, terracotta accent ----------- */
+:root[data-palette="warm"] {
+  --background: #fbf8f4;
+  --foreground: #26221e;
+  --card: #ffffff;
+  --card-foreground: #26221e;
+  --popover: #ffffff;
+  --popover-foreground: #26221e;
+  --primary: #a8543a;
+  --primary-foreground: #ffffff;
+  --secondary: #f3ede5;
+  --secondary-foreground: #26221e;
+  --muted: #f3ede5;
+  --muted-foreground: #6a635d;
+  --accent: #f6e7df;
+  --accent-foreground: #8a4029;
+  --border: #e6ded3;
+  --input: #e6ded3;
+  --ring: #a8543a;
+  --surface: #f6f1ea;
+  --hover: #f0eae1;
+  --brand: #3b332c;
+  --brand-foreground: #fbf8f4;
+  --brand-gold: #a8543a;
+  --brand-gold-foreground: #ffffff;
+  --brand-gold-text: #8a4029;
+  --sidebar: #2b241f;
+  --sidebar-foreground: #d6cbc0;
+  --sidebar-primary: #e08a6c;
+  --sidebar-primary-foreground: #2b241f;
+  --sidebar-accent: #3a312a;
+  --sidebar-accent-foreground: #eda183;
+  --sidebar-border: #3a312a;
+  --sidebar-control: #332b25;
+  --sidebar-ring: #e08a6c;
+  --sidebar-control-hover: #3f352d;
+  --sidebar-control-border: #4a3f36;
+  --sidebar-control-foreground: #f4ede5;
+  --sidebar-control-placeholder: #a2968a;
+}
+.dark[data-palette="warm"] {
+  --background: #17150f;
+  --foreground: #ece7df;
+  --card: #201d17;
+  --card-foreground: #ece7df;
+  --popover: #201d17;
+  --popover-foreground: #ece7df;
+  --primary: #d98567;
+  --primary-foreground: #17150f;
+  --secondary: #272319;
+  --secondary-foreground: #ece7df;
+  --muted: #272319;
+  --muted-foreground: #a49b8f;
+  --accent: #2f291f;
+  --accent-foreground: #ece7df;
+  --border: #372f24;
+  --input: #372f24;
+  --ring: #d98567;
+  --surface: #1c1a14;
+  --hover: #272319;
+  --brand: #272319;
+  --brand-foreground: #ece7df;
+  --brand-gold: #d98567;
+  --brand-gold-foreground: #17150f;
+  --brand-gold-text: #e39d83;
+  --sidebar: #1a1812;
+  --sidebar-foreground: #cdc5b9;
+  --sidebar-primary: #d98567;
+  --sidebar-primary-foreground: #17150f;
+  --sidebar-accent: #2f291f;
+  --sidebar-accent-foreground: #ece7df;
+  --sidebar-border: #372f24;
+  --sidebar-ring: #d98567;
+  --sidebar-control: #272319;
+  --sidebar-control-hover: #2f291f;
+  --sidebar-control-border: #443a2c;
+  --sidebar-control-foreground: #ece7df;
+  --sidebar-control-placeholder: #a49b8f;
+}
+
+/* --- Contrast: near-white / near-black, heavy borders -------------------- */
+:root[data-palette="contrast"] {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #0b57d0;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f2f2;
+  --secondary-foreground: #000000;
+  --muted: #f2f2f2;
+  --muted-foreground: #4a4a4a;
+  --accent: #e3ecfd;
+  --accent-foreground: #0b3d94;
+  --border: #b8bcc2;
+  --input: #8f959d;
+  --ring: #0b57d0;
+  --surface: #f4f5f6;
+  --hover: #e9eaec;
+  --brand: #000000;
+  --brand-foreground: #ffffff;
+  --brand-gold: #0b57d0;
+  --brand-gold-foreground: #ffffff;
+  --brand-gold-text: #0b3d94;
+  --sidebar: #000000;
+  --sidebar-foreground: #e6e6e6;
+  --sidebar-primary: #7fb0ff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #9cc4ff;
+  --sidebar-border: #333333;
+  --sidebar-ring: #7fb0ff;
+  --sidebar-control: #141414;
+  --sidebar-control-hover: #1f1f1f;
+  --sidebar-control-border: #3d3d3d;
+  --sidebar-control-foreground: #ffffff;
+  --sidebar-control-placeholder: #a3a3a3;
+}
+.dark[data-palette="contrast"] {
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #0b0b0b;
+  --card-foreground: #ffffff;
+  --popover: #0b0b0b;
+  --popover-foreground: #ffffff;
+  --primary: #6ea8ff;
+  --primary-foreground: #000000;
+  --secondary: #161616;
+  --secondary-foreground: #ffffff;
+  --muted: #161616;
+  --muted-foreground: #b5b5b5;
+  --accent: #1d1d1d;
+  --accent-foreground: #ffffff;
+  --border: #4d4d4d;
+  --input: #6b6b6b;
+  --ring: #6ea8ff;
+  --surface: #101010;
+  --hover: #1d1d1d;
+  --brand: #161616;
+  --brand-foreground: #ffffff;
+  --brand-gold: #6ea8ff;
+  --brand-gold-foreground: #000000;
+  --brand-gold-text: #8dbcff;
+  --sidebar: #000000;
+  --sidebar-foreground: #e6e6e6;
+  --sidebar-primary: #6ea8ff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #1d1d1d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #4d4d4d;
+  --sidebar-ring: #6ea8ff;
+  --sidebar-control: #161616;
+  --sidebar-control-hover: #1d1d1d;
+  --sidebar-control-border: #6b6b6b;
+  --sidebar-control-foreground: #ffffff;
+  --sidebar-control-placeholder: #b5b5b5;
+}
+
+/* --- Cool: soft blue-grey surfaces, deeper blue accent ------------------- */
+:root[data-palette="cool"] {
+  --background: #f7f9fb;
+  --foreground: #1a2430;
+  --card: #ffffff;
+  --card-foreground: #1a2430;
+  --popover: #ffffff;
+  --popover-foreground: #1a2430;
+  --primary: #24557f;
+  --primary-foreground: #ffffff;
+  --secondary: #eef2f6;
+  --secondary-foreground: #1a2430;
+  --muted: #eef2f6;
+  --muted-foreground: #5a6878;
+  --accent: #e2ecf5;
+  --accent-foreground: #24557f;
+  --border: #dde5ec;
+  --input: #dde5ec;
+  --ring: #24557f;
+  --surface: #f1f5f9;
+  --hover: #e8eef4;
+  --brand: #24557f;
+  --brand-foreground: #ffffff;
+  --brand-gold: #4c7fa8;
+  --brand-gold-foreground: #ffffff;
+  --brand-gold-text: #24557f;
+  --sidebar: #14212e;
+  --sidebar-foreground: #bccbda;
+  --sidebar-primary: #6fa8d6;
+  --sidebar-primary-foreground: #14212e;
+  --sidebar-accent: #1e3145;
+  --sidebar-accent-foreground: #8fc2e8;
+  --sidebar-border: #22384e;
+  --sidebar-ring: #6fa8d6;
+  --sidebar-control: #1a2a3b;
+  --sidebar-control-hover: #22374c;
+  --sidebar-control-border: #2c465f;
+  --sidebar-control-foreground: #e8f0f7;
+  --sidebar-control-placeholder: #8ea2b6;
+}
+.dark[data-palette="cool"] {
+  --background: #101720;
+  --foreground: #e4eaf1;
+  --card: #172029;
+  --card-foreground: #e4eaf1;
+  --popover: #172029;
+  --popover-foreground: #e4eaf1;
+  --primary: #74a4cf;
+  --primary-foreground: #101720;
+  --secondary: #1d2731;
+  --secondary-foreground: #e4eaf1;
+  --muted: #1d2731;
+  --muted-foreground: #94a2b1;
+  --accent: #232f3b;
+  --accent-foreground: #e4eaf1;
+  --border: #2b3743;
+  --input: #2b3743;
+  --ring: #74a4cf;
+  --surface: #141c25;
+  --hover: #1d2731;
+  --brand: #1d2731;
+  --brand-foreground: #e4eaf1;
+  --brand-gold: #74a4cf;
+  --brand-gold-foreground: #101720;
+  --brand-gold-text: #8fb8de;
+  --sidebar: #131b24;
+  --sidebar-foreground: #c0cad5;
+  --sidebar-primary: #74a4cf;
+  --sidebar-primary-foreground: #101720;
+  --sidebar-accent: #232f3b;
+  --sidebar-accent-foreground: #e4eaf1;
+  --sidebar-border: #2b3743;
+  --sidebar-ring: #74a4cf;
+  --sidebar-control: #1d2731;
+  --sidebar-control-hover: #232f3b;
+  --sidebar-control-border: #364552;
+  --sidebar-control-foreground: #e4eaf1;
+  --sidebar-control-placeholder: #94a2b1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Tones — the colour a pipeline stage, an urgency or an AI surface is drawn in.
+ *
+ * Mark, looking at an account's prospect record: "the colors here in the
+ * pipeline aren't exciting." Every element on that page — the stage pill, the
+ * rail, the ghost countdown, the AI card, the overdue row, the CTA — was the
+ * same muted gold on cream, so nothing said what it was. A tone is one hue in
+ * three strengths, and it always means one thing:
+ *
+ *   --tone-X        the fill: a dot, the rail, a pill. 3:1 against the page
+ *                   and the card in both themes (WCAG 1.4.11).
+ *   --tone-X-fg     text ON the fill. 4.5:1 at least.
+ *   --tone-X-text   the hue as text on the page, the card or the soft tint.
+ *                   4.5:1 at least.
+ *   --tone-X-soft   (in @theme) a tint of the card for chips and bands.
+ *
+ * Which stage gets which tone is `src/lib/stage-tone.ts`, by stage KEY — never
+ * here, and never by label. Sky / violet / amber / emerald / slate / rose are
+ * the six prospecting stages; teal / fuchsia / orange / lime are what a custom
+ * stage is given, deterministically from its key. Orange and rose double as
+ * urgency (the ghost countdown nearing its date, past it) and indigo is AI and
+ * nothing else.
+ *
+ * Contrast was measured, not eyeballed: light against #fbfbfa / #ffffff,
+ * dark against #0c1520 / #141f2c. The lowest pair is the amber fill on the
+ * light page at 3.1:1 (its navy text is 4.9:1). Text on the soft tints was checked at 13%; they are drawn at 10%, which only raises it.
+ *
+ * Palettes do not touch these, for the reason given above the palettes: a
+ * colour must mean the same thing whichever palette a person prefers.
+ *
+ * Why `.dark[data-palette="goldstar"]` takes the LIGHT values: that palette's
+ * light block (`:root[data-palette="goldstar"]`, specificity 0-2-0) defines
+ * the surfaces and its dark block does not redefine them, so Gold Star in dark
+ * mode still paints #fbfbfa / #ffffff surfaces. A tone has to be legible on the
+ * surface it actually sits on, so it follows the surfaces, not the class. When
+ * Gold Star dark gets dark surfaces, drop it from the first selector.
+ * ------------------------------------------------------------------------ */
+:root,
+.dark[data-palette="goldstar"] {
+  --tone-soft-mix: 10%;
+
+  --tone-sky: #0369a1;
+  --tone-sky-fg: #ffffff;
+  --tone-sky-text: #075985;
+  --tone-violet: #7c3aed;
+  --tone-violet-fg: #ffffff;
+  --tone-violet-text: #6d28d9;
+  /* Gold Star's gold, saturated rather than beige. Navy text: the white a
+     fill this light would need fails AA. */
+  --tone-amber: #c08400;
+  --tone-amber-fg: #10243d;
+  --tone-amber-text: #855a00;
+  --tone-emerald: #047857;
+  --tone-emerald-fg: #ffffff;
+  --tone-emerald-text: #065f46;
+  --tone-slate: #526075;
+  --tone-slate-fg: #ffffff;
+  --tone-slate-text: #475569;
+  --tone-rose: #e11d48;
+  --tone-rose-fg: #ffffff;
+  --tone-rose-text: #be123c;
+  --tone-teal: #0f766e;
+  --tone-teal-fg: #ffffff;
+  --tone-teal-text: #115e59;
+  --tone-fuchsia: #a21caf;
+  --tone-fuchsia-fg: #ffffff;
+  --tone-fuchsia-text: #86198f;
+  --tone-orange: #c2410c;
+  --tone-orange-fg: #ffffff;
+  --tone-orange-text: #9a3412;
+  --tone-lime: #4d7c0f;
+  --tone-lime-fg: #ffffff;
+  --tone-lime-text: #3f6212;
+
+  /* AI. Cool, and used for nothing else, so a model's words read as a model's. */
+  --ai: #4f46e5;
+  --ai-fg: #ffffff;
+  --ai-text: #4338ca;
+}
+.dark:not([data-palette="goldstar"]) {
+  --tone-soft-mix: 20%;
+
+  --tone-sky: #38bdf8;
+  --tone-sky-fg: #0c1520;
+  --tone-sky-text: #7dd3fc;
+  --tone-violet: #a78bfa;
+  --tone-violet-fg: #0c1520;
+  --tone-violet-text: #c4b5fd;
+  --tone-amber: #fbbf24;
+  --tone-amber-fg: #0c1520;
+  --tone-amber-text: #fcd34d;
+  --tone-emerald: #34d399;
+  --tone-emerald-fg: #0c1520;
+  --tone-emerald-text: #6ee7b7;
+  --tone-slate: #94a3b8;
+  --tone-slate-fg: #0c1520;
+  --tone-slate-text: #cbd5e1;
+  --tone-rose: #fb7185;
+  --tone-rose-fg: #0c1520;
+  --tone-rose-text: #fda4af;
+  --tone-teal: #2dd4bf;
+  --tone-teal-fg: #0c1520;
+  --tone-teal-text: #5eead4;
+  --tone-fuchsia: #e879f9;
+  --tone-fuchsia-fg: #0c1520;
+  --tone-fuchsia-text: #f0abfc;
+  --tone-orange: #fb923c;
+  --tone-orange-fg: #0c1520;
+  --tone-orange-text: #fdba74;
+  --tone-lime: #a3e635;
+  --tone-lime-fg: #0c1520;
+  --tone-lime-text: #bef264;
+
+  --ai: #818cf8;
+  --ai-fg: #0c1520;
+  --ai-text: #a5b4fc;
+}
+
+/*
+ * The primary call to action. Everywhere but Gold Star it IS primary; on Gold
+ * Star it is the brand gold with real saturation (#a8880f on cream read as
+ * khaki). Its own token rather than a new --primary, because --primary is
+ * every link, ring and selected state in the app and this is one button.
+ */
+:root {
+  --cta: var(--primary);
+  --cta-fg: var(--primary-foreground);
+}
+:root[data-palette="goldstar"] {
+  --cta: #c99a06;
+  --cta-fg: #10243d;
+}
+.dark[data-palette="goldstar"] {
+  --cta: #e0ac10;
+  --cta-fg: #0c1520;
+}
+
+/* ------------------------------------------------------------------------
+ * Dashboard skins. Same cards, same data, same layout engine — only the
+ * visual treatment changes. Option 1 ("current") adds nothing at all.
+ * ---------------------------------------------------------------------- */
+
+.dash-skin[data-dash-skin="bold"] {
+  --dash-accent: #2f6bff;
+  --dash-ground: #f6f8fc;
+
+  background-color: var(--dash-ground);
+  border-radius: calc(var(--radius-card) + 6px);
+  padding: 0.75rem;
+
+  & [data-slot="card"],
+  & .kpi-tile {
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.7, 0.3, 1),
+      box-shadow 180ms ease;
+  }
+
+  /* White cards floating on a near-white ground, soft shadow, big rounding. */
+  & [data-slot="card"],
+  & .kpi-tile {
+    border-radius: calc(var(--radius-card) + 6px);
+    border-color: color-mix(in oklab, var(--color-foreground) 6%, transparent);
+    background-color: var(--color-card);
+    background-image: none;
+    box-shadow:
+      0 1px 2px color-mix(in oklab, var(--color-foreground) 5%, transparent),
+      0 12px 28px -20px color-mix(in oklab, var(--color-foreground) 40%, transparent);
+  }
+
+  & [data-slot="card"]:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 2px 4px color-mix(in oklab, var(--color-foreground) 6%, transparent),
+      0 22px 44px -24px color-mix(in oklab, var(--dash-accent) 55%, transparent);
+  }
+
+  & [data-slot="card-header"] {
+    border-bottom-color: transparent;
+    padding-bottom: 0.25rem;
+  }
+
+  /* Numbers big and confident. */
+  & .tabular-nums,
+  & .font-mono {
+    letter-spacing: -0.03em;
+  }
+
+  & [data-slot="card"] .text-\[15px\].font-semibold,
+  & [data-slot="card"] .text-\[17px\].font-semibold,
+  & .metric-strip .text-\[15px\].font-semibold {
+    font-size: 1.75rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  /* Every leading icon sits in a tinted squircle. */
+  & [data-slot="card-header"] svg,
+  & .kpi-icon svg {
+    color: var(--dash-accent);
+  }
+
+  & [data-slot="card-header"] > svg:first-child,
+  & .kpi-icon {
+    box-sizing: content-box;
+    padding: 0.4rem;
+    border-radius: var(--radius-control);
+    background-color: color-mix(in oklab, var(--dash-accent) 12%, transparent);
+  }
+
+  & .recharts-cartesian-grid line {
+    stroke: color-mix(in oklab, var(--color-foreground) 8%, transparent);
+  }
+}
+
+/* Delta chip — "↑ 20% Last 24h". Usable anywhere, styled by direction. */
+@utility delta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  background-color: color-mix(in oklab, var(--color-success) 14%, transparent);
+  color: var(--color-success);
+
+  &[data-dir="down"] {
+    background-color: color-mix(in oklab, var(--color-destructive) 14%, transparent);
+    color: var(--color-destructive);
+  }
+}
+
+/* ------------------------------------------------------------------------
+ * Chase command centre. Dark, map-first, high-signal. Scoped to the chase
+ * cockpit so it never leaks into the rest of the app.
+ * ---------------------------------------------------------------------- */
+
+@utility cmd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-foreground) 16%, transparent);
+  background-color: color-mix(in oklab, var(--color-foreground) 7%, transparent);
+  padding: 0.2rem 0.6rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@utility sev-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: calc(var(--radius-control) - 2px);
+  padding: 0.1rem 0.4rem;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+
+.cmd-center {
+  color-scheme: dark;
+
+  & [data-slot="card"] {
+    border-radius: calc(var(--radius-card) + 4px);
+    border-color: color-mix(in oklab, var(--color-foreground) 12%, transparent);
+    box-shadow: 0 14px 34px -26px #000;
+  }
+
+  & .sev-high {
+    color: #ff4d4f;
+    background-color: color-mix(in oklab, #ff4d4f 14%, transparent);
+  }
+  & .sev-med {
+    color: #ff9f1c;
+    background-color: color-mix(in oklab, #ff9f1c 14%, transparent);
+  }
+  & .sev-low {
+    color: #ffd60a;
+    background-color: color-mix(in oklab, #ffd60a 14%, transparent);
+  }
+
+  & .cmd-live {
+    color: #34d399;
+    border-color: color-mix(in oklab, #34d399 45%, transparent);
+    background-color: color-mix(in oklab, #34d399 12%, transparent);
+  }
+}
+
+.dash-skin[data-dash-skin="calm"] {
+  --dash-quiet: color-mix(in oklab, var(--color-foreground) 9%, transparent);
+
+  & [data-slot="card"] {
+    border-radius: var(--radius-card);
+    border-color: transparent;
+    background-color: color-mix(in oklab, #f6f2ec 55%, var(--color-card));
+    box-shadow: none;
+  }
+
+  & [data-slot="card-header"] {
+    border-bottom-color: var(--dash-quiet);
+    padding-block: 0.75rem;
+  }
+
+  & [data-slot="card-content"] {
+    padding: 1rem 1.1rem;
+  }
+
+  & .kpi-tile {
+    border-color: transparent;
+    border-radius: var(--radius-card);
+    background-color: color-mix(in oklab, #f6f2ec 55%, var(--color-card));
+    box-shadow: none;
+  }
+
+  & .divide-y > * + *,
+  & .divide-x > * + * {
+    border-color: var(--dash-quiet);
+  }
+
+  /* Softer, lower-contrast type. */
+  & .text-foreground {
+    color: color-mix(in oklab, var(--color-foreground) 88%, var(--color-muted-foreground));
+  }
+
+  & .text-\[15px\].font-semibold {
+    font-weight: 600;
+  }
+
+  & .recharts-cartesian-grid line {
+    stroke: var(--dash-quiet);
+  }
+}
+
+.dark:where(:not([data-palette="goldstar"])) .dash-skin[data-dash-skin="calm"] [data-slot="card"],
+.dark:where(:not([data-palette="goldstar"])) .dash-skin[data-dash-skin="calm"] .metric-strip {
+  background-color: color-mix(in oklab, var(--color-foreground) 4%, var(--color-card));
+}
+
+/* ------------------------------------------------------------------------
+ * Chase command centre — tactical plot, stat rail and ranked scanner feed.
+ * ---------------------------------------------------------------------- */
+
+.cmd-center {
+  & .cmd-mark {
+    display: grid;
+    place-items: center;
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: var(--radius-control);
+    color: #ff4d4f;
+    background-color: color-mix(in oklab, #ff4d4f 16%, transparent);
+    border: 1px solid color-mix(in oklab, #ff4d4f 35%, transparent);
+  }
+
+  /* --- Stat rail --- */
+  & .cmd-stat {
+    --stat: #7dd3fc;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.85rem;
+    border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+    background-color: var(--card);
+    background-image: radial-gradient(
+      120% 140% at 100% 0%,
+      color-mix(in oklab, var(--stat) 18%, transparent),
+      transparent 60%
+    );
+    padding: 0.7rem 0.8rem;
+  }
+  & .cmd-stat-danger {
+    --stat: #ff4d4f;
+  }
+  & .cmd-stat-warning {
+    --stat: #ff9f1c;
+  }
+  & .cmd-stat-info {
+    --stat: #2f6bff;
+  }
+  & .cmd-stat-success {
+    --stat: #34d399;
+  }
+
+  & .cmd-stat-icon {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.55rem;
+    color: var(--stat);
+    background-color: color-mix(in oklab, var(--stat) 16%, transparent);
+  }
+
+  & .cmd-stat-value {
+    margin-top: 0.35rem;
+    font-size: 2.1rem;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--stat);
+  }
+
+  /* --- Tactical plot --- */
+  & .cmd-radar {
+    position: relative;
+    overflow: hidden;
+    background-color: #0a1119;
+    background-image: radial-gradient(
+      90% 90% at 50% 40%,
+      color-mix(in oklab, #2f6bff 10%, transparent),
+      transparent 70%
+    );
+  }
+
+  & .cmd-radar-grid line {
+    stroke: color-mix(in oklab, #7dd3fc 10%, transparent);
+    stroke-width: 0.12;
+  }
+
+  & .cmd-radar-route {
+    stroke: #2f6bff;
+    stroke-width: 0.6;
+    stroke-dasharray: 2 1.4;
+    filter: drop-shadow(0 0 3px color-mix(in oklab, #2f6bff 70%, transparent));
+  }
+
+  & .cmd-pin {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    color: #0a1119;
+    background-color: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 25%, transparent);
+    transition: transform 140ms ease;
+  }
+  & .cmd-pin svg {
+    color: #0a1119;
+  }
+  & .cmd-pin.is-active {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px color-mix(in oklab, currentColor 30%, transparent);
+  }
+  & .cmd-pin.sev-high {
+    color: #ff4d4f;
+    animation: cmd-pulse 1.6s ease-out infinite;
+  }
+  & .cmd-pin.sev-med {
+    color: #ff9f1c;
+  }
+  & .cmd-pin.sev-low {
+    color: #ffd60a;
+  }
+
+  & .cmd-pin-label {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.3rem);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    border-radius: 0.4rem;
+    background-color: color-mix(in oklab, #0a1119 85%, transparent);
+    border: 1px solid color-mix(in oklab, #7dd3fc 25%, transparent);
+    padding: 0.1rem 0.4rem;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  & .cmd-me {
+    display: grid;
+    place-items: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 999px;
+    color: #0a1119;
+    background-color: #34d399;
+    box-shadow: 0 0 0 4px color-mix(in oklab, #34d399 25%, transparent);
+  }
+
+  /* --- Ranked scanner feed --- */
+  & .cmd-rank {
+    display: grid;
+    place-items: center;
+    min-width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 0.55rem;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--muted-foreground);
+    background-color: color-mix(in oklab, var(--foreground) 8%, transparent);
+  }
+
+  & .cmd-row-active {
+    background-color: color-mix(in oklab, #2f6bff 14%, transparent);
+    box-shadow: inset 3px 0 0 #2f6bff;
+  }
+  & .cmd-row-active .cmd-rank {
+    color: #fff;
+    background-color: #2f6bff;
+  }
+}
+
+@keyframes cmd-pulse {
+  0% {
+    box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 30%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 12px color-mix(in oklab, currentColor 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 0%, transparent);
+  }
+}
+
+/* ---------------- Field map pin card (Google InfoWindow) ----------------
+ * The card above a tapped pin is Google's own InfoWindow so it looks like the
+ * Pipedrive map Mark sent. Only LiveMap opens one. The header row Google
+ * draws for the × is made to float over the content instead of sitting above
+ * it as an empty strip, and the content pane must not grow its own scrollbar
+ * — the card is small and the notes on a past visit are the only thing that
+ * wraps. */
+.gm-style .gm-style-iw-c {
+  padding: 10px 12px 10px 12px !important;
+  border-radius: 10px;
+  max-width: min(320px, calc(100vw - 32px)) !important;
+}
+.gm-style .gm-style-iw-chr {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  height: auto;
+}
+.gm-style .gm-style-iw-chr button {
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 !important;
+}
+.gm-style .gm-style-iw-chr button span {
+  width: 14px !important;
+  height: 14px !important;
+  margin: 6px !important;
+}
+.gm-style .gm-style-iw-d {
+  overflow: hidden !important;
+  max-height: none !important;
+}
+.live-map-callout {
+  font-family: inherit;
+}
+
+/* ---------------- Chase cockpit map pins ---------------- */
+.cockpit-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 2;
+}
+.cockpit-pin.is-active {
+  z-index: 9;
+}
+.cockpit-pin-dot {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.28);
+}
+.cockpit-pin.is-active .cockpit-pin-dot {
+  width: 38px;
+  height: 38px;
+  box-shadow:
+    0 0 0 4px rgb(17 102 245 / 0.35),
+    0 2px 8px rgb(0 0 0 / 0.3);
+}
+.cockpit-pin-badge {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #fff;
+}
+.cockpit-pin-pulse {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 2px solid var(--pin, #ee2b26);
+  animation: cockpit-pulse 1.8s ease-out infinite;
+}
+@keyframes cockpit-pulse {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.2);
+  }
+}
+
+/* Still Open — rep vehicle marker label */
+.cockpit-pin.so-veh {
+  z-index: 3;
+}
+.cockpit-pin.so-veh .cockpit-pin-dot {
+  width: 28px;
+  height: 28px;
+}
+.so-veh-label {
+  position: absolute;
+  left: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  line-height: 1.15;
+  text-shadow:
+    0 1px 2px #fff,
+    0 0 3px #fff;
+}
+.so-veh-label b {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #12233f;
+}
+.so-veh-label i {
+  display: block;
+  font-size: 11px;
+  font-style: normal;
+  color: #5a6b85;
+}
+
+/* Google Maps paints its own grey "Oops! Something went wrong" overlay when a
+   key is not authorised for the domain. We surface a clearer message ourselves. */
+.gm-err-container,
+.gm-err-content {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------------
+ * Structural pass. Definition, breathing room, number-first stats.
+ * Tokens only — no page layout changes.
+ * ---------------------------------------------------------------------- */
+
+/* Every table row breathes and reveals its quick actions on hover. */
+@layer base {
+  main table :where(tbody) :where(tr) {
+    transition: background-color 120ms ease;
+  }
+  main table :where(tbody) :where(tr):hover {
+    background-color: var(--hover);
+  }
+  main table :where(td, th) {
+    padding-block: 0.55rem;
+  }
+}
+
+/* A generic list row outside of <table>. */
+@utility data-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: var(--hover);
+  }
+  &:hover .row-actions {
+    opacity: 1;
+  }
+}
+
+/* Quick actions that surface on row hover. */
+.row-actions {
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+tr:hover .row-actions,
+[data-row]:hover .row-actions,
+.group:hover .row-actions,
+.row-actions:focus-within {
+  opacity: 1;
+}
+
+/*
+ * A phone has no hover, so on touch these were invisible AND unreachable.
+ * Melly, 17 Sep, trying to deal with a task he had just scheduled: "how do I
+ * complete it? ... It's not selectable. You can't edit it. You can't do
+ * anything." He was right — Complete was on show, but Edit, Reschedule and
+ * Reassign only existed for a mouse.
+ *
+ * Shown always where the pointer cannot hover. This reaches every surface
+ * using .row-actions, not just the timeline, which is the point: none of them
+ * were reachable on a phone either.
+ */
+@media (hover: none) {
+  .row-actions {
+    opacity: 1;
+  }
+}
+
+/* Number-first stat block: big figure, quiet label beneath. */
+@utility stat-figure {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
+@utility stat-caption {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* ==========================================================================
+ * TOUCH AND SMALL-SCREEN FOUNDATION
+ *
+ * Everything below is additive: it fires only on a coarse pointer or below the
+ * md breakpoint, so the desktop operations layout is byte-for-byte unchanged.
+ *
+ * Most of these rules are deliberately UNLAYERED. Tailwind's utilities live in
+ * `@layer utilities`, and in the CSS cascade an unlayered declaration beats any
+ * layered one regardless of specificity. That is the only way a foundation rule
+ * can win against the ~2000 call sites that each set their own `text-[13px]` or
+ * `h-7` — which is exactly what the 16px input rule and the tap-target minimums
+ * have to do. The escape hatch is `[data-touch-compact]` (see below), not a
+ * bigger utility class.
+ * ========================================================================== */
+
+/* Reserve the notch/home-indicator insets. Used by the app shell and by any
+ * fixed footer. env() is 0 on every device without insets, so these are safe
+ * to apply unconditionally. */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+@utility px-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Bottom offset for an element `fixed` to the viewport, so it lands on top of
+ * the app shell's phone bottom nav (fixed, bottom-0, z-40, opaque) instead of
+ * underneath it. A fixed element has no other way to clear the nav.
+ *
+ * NOT for a `sticky` bar inside <main>. <main> already reserves the nav's
+ * height in its bottom padding (pb-[calc(4rem+env(...))], app-shell.tsx), and
+ * sticky stops at that padding edge — so this would count the nav twice and
+ * float the bar ~64–72px above it (measured at 375px, #290 and #292). A sticky
+ * bar inside <main> wants `sticky bottom-0` (or `bottom-2`), nothing more.
+ *
+ * A named utility because Tailwind emits nothing for
+ * `bottom-[calc(4rem+env(...))]`. The nav is `md:hidden`, so pair it with
+ * `md:bottom-0`. */
+@utility above-mobile-nav {
+  bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* A horizontal scroller that should not advertise itself with a bar — tab
+ * strips, chip rows, toolbars that overflow on a phone. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* The other half of no-scrollbar: with the bar gone, a strip clipped at a tab
+ * boundary looks finished. Fade the edge that has more past it. The element
+ * sets data-fade-start / data-fade-end from its scroll position
+ * (`stripFade` in src/lib/job-tab-order.ts); with neither set there is no
+ * mask at all, so a strip that fits is drawn exactly as before. The mask is
+ * painted on the element's own box, so it stays at the edge while the
+ * contents scroll under it. */
+@utility edge-fade {
+  --edge-fade-w: 1.75rem;
+
+  &[data-fade-start] {
+    --edge-fade-start: var(--edge-fade-w);
+  }
+  &[data-fade-end] {
+    --edge-fade-end: var(--edge-fade-w);
+  }
+  &:is([data-fade-start], [data-fade-end]) {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--edge-fade-start, 0px),
+      #000 calc(100% - var(--edge-fade-end, 0px)),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--edge-fade-start, 0px),
+      #000 calc(100% - var(--edge-fade-end, 0px)),
+      transparent
+    );
+  }
+}
+
+/* Explicit 44px hit box, for the cases the blanket rules below deliberately
+ * skip (checkboxes, switches, anything inside [data-touch-compact]). */
+@utility touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* --------------------------------------------------------------------------
+ * 1. The 16px rule.
+ *
+ * iOS Safari zooms the whole page the moment a focused input has a computed
+ * font-size below 16px, and it does NOT zoom back out when the field blurs —
+ * the user is left on a page 1.3x too wide with a horizontal scrollbar they
+ * did not ask for. The app's base type is 13px and every control primitive
+ * hardcodes text-[13px], so *every* form in the app does this today.
+ *
+ * 16px is the threshold, not a preference — 15.9px still zooms.
+ *
+ * Scoped to coarse pointers so desktop density is untouched. Checkbox, radio,
+ * range, color and file inputs are excluded: they have no text to zoom for and
+ * a font-size on them can distort the control.
+ * -------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]):not(
+      [data-touch-font="keep"]
+    ),
+  textarea:not([data-touch-font="keep"]),
+  select:not([data-touch-font="keep"]),
+  [contenteditable="true"]:not([data-touch-font="keep"]) {
+    font-size: 16px;
+    /* 16px in a 32px-tall control needs tighter leading or it clips. The
+     * tap-target rule below also grows these to 44px, but a caller can pin a
+     * height and this keeps that case readable. */
+    line-height: 1.25;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 2. Tap targets.
+ *
+ * shadcn ships desktop sizes: size-6 icon buttons are 24px, filter chips are
+ * 28px, table-row actions are smaller still. 44px is the floor for a finger,
+ * and this app's fingers are wet and gloved.
+ *
+ * min-height/min-width rather than height/width on purpose: a minimum cannot
+ * fight a call site that sets an explicit size, it only raises the floor — so
+ * nothing here has to be undone at 2000 call sites.
+ *
+ * OPT OUT with data-touch-compact on the control or on any ancestor, for a
+ * genuinely dense surface where 44px would break the layout (a colour swatch
+ * grid, a mini calendar). Use it sparingly and say why.
+ *
+ * [data-slot="button"] is every <Button>, whatever element it renders. Without
+ * it a `<Button asChild>` wrapping a link or a file-picker label escaped the
+ * rule because it is not a <button> — the job rail's Call / Text / Email, the
+ * Back links, "Open in a new tab" on the Jobs list, ~70 sites in all. Only a
+ * Button carries the attribute, so a plain inline link is untouched.
+ * -------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  :where(
+    button,
+    [role="button"],
+    [role="menuitem"],
+    [role="menuitemcheckbox"],
+    [role="menuitemradio"],
+    [role="option"],
+    [role="tab"],
+    summary,
+    .filter-chip,
+    a[data-sidebar="menu-button"],
+    [data-slot="button"]
+  ):not(
+    [data-touch-compact],
+    [data-touch-compact] *,
+    [role="switch"],
+    [role="checkbox"],
+    [role="radio"]
+  ) {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Switches, checkboxes and radios are excluded from the rule above: a 44px
+   * minimum turns a 36x20 switch track into a pill and knocks a row checkbox
+   * out of alignment with its text. They get a real but non-distorting bump
+   * instead — 16px to 24px. Where a true 44px target is needed, wrap the
+   * control in a padded label element and put touch-target on that label. */
+  :where([role="checkbox"], [role="radio"], input[type="checkbox"], input[type="radio"]):not(
+    [data-touch-compact],
+    [data-touch-compact] *
+  ) {
+    min-height: 24px;
+    min-width: 24px;
+  }
+
+  /* A control that just grew still has to centre what is inside it. Most of
+   * these are flex already; this catches the anchors and chips that are not. */
+  :where(a[data-sidebar="menu-button"], .filter-chip) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Text fields are 32px tall app-wide (`h-8`). 16px text — which the rule
+   * above forces on them — does not fit in 32px, and a field is a tap target
+   * in its own right. Raising the floor fixes both at once. */
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]):not(
+      [data-touch-compact],
+      [data-touch-compact] *
+    ),
+  textarea:not([data-touch-compact], [data-touch-compact] *),
+  select:not([data-touch-compact], [data-touch-compact] *) {
+    min-height: 44px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 3. Hover-only affordances do not exist on a phone.
+ *
+ * .row-actions (defined above) is opacity:0 until the row is hovered. On a
+ * touch device there is no hover, so every per-row quick action in the app —
+ * edit, delete, open — is invisible and unreachable. This is not a styling
+ * nicety; it is a feature that is simply missing on mobile today.
+ * -------------------------------------------------------------------------- */
+@media (hover: none) {
+  .row-actions {
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 4. Horizontal overflow.
+ *
+ * The page itself must never scroll sideways — only a designated scroller may.
+ * overflow-x: clip rather than hidden: clip does not create a scroll container,
+ * so it cannot break position: sticky on descendants the way overflow: hidden
+ * on html/body famously does.
+ *
+ * overflow-wrap: break-word is a last-resort break for unbreakable strings — a
+ * 60-character email address, a signed URL, a Supabase id in an error toast.
+ * It does not affect min-content sizing (that would be `anywhere`), so it can
+ * never change a layout that already fits; it only stops one that does not.
+ * -------------------------------------------------------------------------- */
+html {
+  overflow-x: clip;
+}
+body {
+  overflow-x: clip;
+  overflow-wrap: break-word;
+}
+
+/* --------------------------------------------------------------------------
+ * 5. Overlays.
+ *
+ * Keyed off data attributes the primitives set (data-dialog-content,
+ * data-sheet-side, data-overlay-menu) rather than Tailwind classes, because
+ * DialogContent's width and height classes are overridden by roughly forty
+ * call sites and cn()/tailwind-merge would strip anything we added there. An
+ * attribute rule cannot be merged away.
+ * -------------------------------------------------------------------------- */
+
+/* A phone dialog is a near-fullscreen panel: 8px of ground showing on each
+ * side, and never taller than the small viewport.
+ *
+ * The 2 * env(safe-area-inset-bottom) is not a typo. The dialog is centred by
+ * transform, so whatever we subtract from its height is split evenly above and
+ * below it. Subtracting twice the bottom inset guarantees the bottom edge —
+ * and therefore the footer buttons — clears the iOS home indicator. */
+@media (max-width: 639px) {
+  [data-dialog-content] {
+    width: calc(100vw - 1rem);
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100svh - 1rem - 2 * env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Bottom and top sheets: bounded height, and a bottom sheet's content must
+ * clear the home indicator. Left/right sheets (the mobile sidebar) get the
+ * inset too — their footer sits on the bar otherwise. */
+[data-sheet-side="bottom"] {
+  max-height: 92svh;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+}
+[data-sheet-side="top"] {
+  max-height: 92svh;
+  padding-top: max(1.5rem, env(safe-area-inset-top, 0px));
+}
+/* Left/right sheets deliberately get NO padding rule here. env() is 0 on every
+ * non-inset device, so `padding-bottom: env(...)` would not add the inset — it
+ * would REPLACE whatever padding the sheet already had with 0. Side sheets that
+ * need the inset add it themselves with max(), e.g. SidebarFooter. */
+
+/* Menus, selects and popovers: never wider than the phone. Deliberately not
+ * applied above md — this is an unlayered override, so on desktop it would
+ * replace a call site's own `max-w-xs` with a viewport-wide cap rather than
+ * clamping it. Radix already handles their height with
+ * --radix-*-available-height; width is the axis it does not solve. */
+@media (max-width: 767px) {
+  [data-overlay-menu] {
+    max-width: calc(100vw - 1rem);
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * 6. Tables on a phone.
+ *
+ * ui/table.tsx gives every table a scroll container of its own below md, so a
+ * 12-column table slides under a stationary page instead of dragging the whole
+ * document sideways. This is the OPT-IN card fallback for tables where even
+ * that is unusable.
+ *
+ * To use it: <Table cards> and give every <TableCell> a data-label:
+ *
+ *     <Table cards>
+ *       <TableHeader>...</TableHeader>
+ *       <TableBody>
+ *         <TableRow>
+ *           <TableCell data-label="Job">GS-2026-09006</TableCell>
+ *           <TableCell data-label="Status">Drying</TableCell>
+ *
+ * Below md each row becomes a bordered card and each cell a label/value line.
+ * A cell with no data-label renders full width with no label — use that for
+ * the identity cell and for an actions cell. At md and above the table is
+ * exactly the table it was; nothing about the desktop render changes.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  table[data-table-cards] thead {
+    display: none;
+  }
+  table[data-table-cards],
+  table[data-table-cards] tbody,
+  table[data-table-cards] tfoot,
+  table[data-table-cards] tr,
+  table[data-table-cards] td {
+    display: block;
+    width: 100%;
+  }
+  table[data-table-cards] tbody tr {
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.6rem;
+    background-color: var(--card);
+    padding: 0.25rem 0.6rem;
+  }
+  table[data-table-cards] tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    /* Rows are 32px on desktop; a card line has to be a tap target. */
+    min-height: 2.5rem;
+    height: auto;
+    padding-inline: 0;
+    border: 0;
+    text-align: right;
+  }
+  table[data-table-cards] tbody td[data-label]::before {
+    content: attr(data-label);
+    flex: none;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+  /* An unlabelled cell is the identity line or the actions row: full width,
+   * left aligned, no label gutter. */
+  table[data-table-cards] tbody td:not([data-label]) {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+/*
+ * No holes at the end of a card grid (3 Nov). A grid of cards whose count does
+ * not divide by its columns left the last row short — a blank where a card
+ * should be. The cards that end a short row now share its spare columns.
+ * Only for cards that are the grid's own children, and only where no card
+ * sets its own span (that grid has already planned its rows). Every selector
+ * weighs the same, so a wider breakpoint's rule replaces a narrower one's.
+ */
+@media (min-width: 640px) {
+  :where(.sm\:grid-cols-2):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.sm\:grid-cols-2):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(odd)) {
+    grid-column: 1 / -1;
+  }
+  :where(.sm\:grid-cols-3):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.sm\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.sm\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 2)) {
+    grid-column: span 2;
+  }
+  :where(.sm\:grid-cols-4):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.sm\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.sm\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 2)) {
+    grid-column: span 3;
+  }
+  :where(.sm\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 3)) {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 768px) {
+  :where(.md\:grid-cols-2):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.md\:grid-cols-2):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(odd)) {
+    grid-column: 1 / -1;
+  }
+  :where(.md\:grid-cols-3):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.md\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.md\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 2)) {
+    grid-column: span 2;
+  }
+  :where(.md\:grid-cols-4):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.md\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.md\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 2)) {
+    grid-column: span 3;
+  }
+  :where(.md\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 3)) {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1024px) {
+  :where(.lg\:grid-cols-2):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.lg\:grid-cols-2):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(odd)) {
+    grid-column: 1 / -1;
+  }
+  :where(.lg\:grid-cols-3):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.lg\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.lg\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 2)) {
+    grid-column: span 2;
+  }
+  :where(.lg\:grid-cols-4):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.lg\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.lg\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 2)) {
+    grid-column: span 3;
+  }
+  :where(.lg\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 3)) {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1280px) {
+  :where(.xl\:grid-cols-2):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.xl\:grid-cols-2):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(odd)) {
+    grid-column: 1 / -1;
+  }
+  :where(.xl\:grid-cols-3):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.xl\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.xl\:grid-cols-3):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(3n + 2)) {
+    grid-column: span 2;
+  }
+  :where(.xl\:grid-cols-4):not(:has(> [class*="col-span"])) > :where([data-slot="card"]) {
+    grid-column: auto;
+  }
+  :where(.xl\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 1)) {
+    grid-column: 1 / -1;
+  }
+  :where(.xl\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 2)) {
+    grid-column: span 3;
+  }
+  :where(.xl\:grid-cols-4):not(:has(> [class*="col-span"]))
+    > :where([data-slot="card"]:last-child:nth-child(4n + 3)) {
+    grid-column: span 2;
+  }
+}

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:schema="http://schema.org/" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" version="2.0" xml:base="https://lafd.org/">
+  <channel>
+    <title>Alerts Feed</title>
+    <link>https://lafd.org/</link>
+    <description><![CDATA[Alerts Feeds -- Los Angeles Fire Department]]></description>
+    <language>en</language>
+        <atom:link rel="self" href="https://lafd.org/alerts-rss.xml"/>
+<lastBuildDate>Sun, 11 Oct 2026 07:52:52 -0700</lastBuildDate>
+<pubDate>Sun, 11 Oct 26 07:40:00 -0700</pubDate>
+<item>
+  <title><a href="/alert/knockdown-structure-fire-10112026-inc0433" hreflang="en">KNOCKDOWN Structure Fire 10/11/2026 INC#0433</a></title>
+  <link><a href="/alert/knockdown-structure-fire-10112026-inc0433" hreflang="en">view</a></link>
+  <description>KNOCKDOWN Structure Fire; INC#0433; 07:24AM; 7032 N Baird Av; MAP: &amp;lt;a href="https://bit.ly/4hGAldW" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4hGAldW&amp;lt;/a&amp;gt;; Reseda; 34 firefighters knocked down the fire in 16 minutes. Due to this structure being the site of a previous burn, LAFD firefighters remained in a defensive posture out of precaution. LADBS (Los Angeles Dept. of Building and Safety) haver been notified due to the extensive damage and safety risks present at the property. No injuries are reported. Cause of fire is undetermined. Nothing further. ; FS 73; Batt 17; Valley Bureau; Council District 4; AC4  AC40  BC10  BC15  BC17  E103  E273  E290  E293  E70  E73  E93  EM15  RA903  RA93  T73  T90  T93; CH9; 14; Jennifer Middleton</description>
+  <category>Structure Fire</category>
+          <category>Valley</category>
+          <category>Reseda</category>
+          <guid isPermaLink="false"><a href="/alert/knockdown-structure-fire-10112026-inc0433" hreflang="en">view</a></guid>
+          <pubDate>Sunday, October 11, 2026 - 07:40
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/structure-fire-10112026-inc0433" hreflang="en">Structure Fire 10/11/2026 INC#0433</a></title>
+  <link><a href="/alert/structure-fire-10112026-inc0433" hreflang="en">view</a></link>
+  <description>Structure Fire; INC#0433; 07:24AM; 7032 N Baird Av; MAP: &amp;lt;a href="https://bit.ly/4hGAldW" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4hGAldW&amp;lt;/a&amp;gt;; Reseda; First reporting unit reports a one story single family dwelling with fire showing. Firefighters are operating in defensive mode. ; FS 73; Batt 17; Valley Bureau; Council District 4; BC15  BC17  E103  E273  E293  E73  E93  EM15  RA903  RA93  T73  T93; CH9; 14; Jennifer Middleton</description>
+  <category>Structure Fire</category>
+          <category>Valley</category>
+          <category>Reseda</category>
+          <guid isPermaLink="false"><a href="/alert/structure-fire-10112026-inc0433" hreflang="en">view</a></guid>
+          <pubDate>Sunday, October 11, 2026 - 07:28
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/cliff-rescue-san-pedro-10112026-inc0252" hreflang="en">Cliff Rescue, San Pedro 10/11/2026 INC#0252</a></title>
+  <link><a href="/alert/cliff-rescue-san-pedro-10112026-inc0252" hreflang="en">view</a></link>
+  <description>Cliff Rescue, San Pedro; INC#0252; 03:50AM; 1 Point Fermin; MAP: &amp;lt;a href="https://bit.ly/3nw6hUE" target="_blank" rel="noopener"&amp;gt;https://bit.ly/3nw6hUE&amp;lt;/a&amp;gt;; San Pedro; First arriving unit reports an adult male fell approximately 30 feet from the cliff at Point Fermin in the "Sunken City" area. LAFD Air Ops is conducting a hoist operation to rescue and transport the patient in critical condition to a local trauma center.  All questions regarding circumstances are referred to LAPD Harbor Division, Inc#0682. Nothing further. ; FS 48; Batt 6; South Bureau; Council District 15; AO1  AO2  BC6  BT1  BT2  BT5  E101  E248  E285  E48  E49  E85  EM13  H1  H3  HA1  HA3  RA101  RA85  RH114  SO1  T48  T85  UR85  UR88; CH7; 18; Jennifer Middleton</description>
+  <category>Cliff Rescue</category>
+          <category>South</category>
+          <category>San Pedro</category>
+          <guid isPermaLink="false"><a href="/alert/cliff-rescue-san-pedro-10112026-inc0252" hreflang="en">view</a></guid>
+          <pubDate>Sunday, October 11, 2026 - 04:17
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/dive-now-safe-10092026-inc1945" hreflang="en">Dive [NOW SAFE] 10/09/2026 INC#1945</a></title>
+  <link><a href="/alert/dive-now-safe-10092026-inc1945" hreflang="en">view</a></link>
+  <description>Dive [NOW SAFE]; INC#1945; 09:16PM; 825 W Paseo Del Mar; MAP: &amp;lt;a href="https://bit.ly/3SU5pKG" target="_blank" rel="noopener"&amp;gt;https://bit.ly/3SU5pKG&amp;lt;/a&amp;gt;; San Pedro; Report of a diver on the shoreline with only land access from a 80 foot cliff down to patient.  Patient was an unknown aged male with an injury.  Patient was extracted from the shoreline by a LACo Lifeguards boat safely.  All LAFD resources have been released from the scene. ; FS 48; Batt 6; South Bureau; Council District 15; AO1  AO2  BC6  BT2  BT23  BT3  BT5  E248  E48  E90  H1  H3  HA1  HA3  RA38  RA85  T48; CH7; 18; Jamie Stewart</description>
+  <category>Dive [NOW SAFE]</category>
+          <category>South</category>
+          <category>San Pedro</category>
+          <guid isPermaLink="false"><a href="/alert/dive-now-safe-10092026-inc1945" hreflang="en">view</a></guid>
+          <pubDate>Friday, October 9, 2026 - 22:02
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/knockdown-structure-fire-10092026-inc0560" hreflang="en">[KNOCKDOWN] Structure Fire 10/09/2026 INC#0560</a></title>
+  <link><a href="/alert/knockdown-structure-fire-10092026-inc0560" hreflang="en">view</a></link>
+  <description>[KNOCKDOWN] Structure Fire; INC#0560; 08:59AM; 7034 N Baird Av; MAP: &amp;lt;a href="https://bit.ly/4yAEGFm" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4yAEGFm&amp;lt;/a&amp;gt;; Reseda; KNOCKDOWN Baird IC declared a knockdown of the fire at 0918 hours.  Extinguishment of the fire in approximately 17 minutes from the time of the 911 call.  No injuries reported.  ; FS 73; Batt 17; Valley Bureau; Council District 4; AC4  AC40  BC10  BC14  BC15  BC17  E100  E103  E104  E273  E288  E290  E293  E70  E84  E89  EM15  EM17  HM21  HM87  HR703  RA100  RA89  RA898  T73  T87  T88  T90  T93  UR88  UR89; CH9; 18  19; Jamie Stewart</description>
+  <category>Structure Fire</category>
+          <category>Valley</category>
+          <category>Reseda</category>
+          <guid isPermaLink="false"><a href="/alert/knockdown-structure-fire-10092026-inc0560" hreflang="en">view</a></guid>
+          <pubDate>Friday, October 9, 2026 - 09:19
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/update-structure-fire-10092026-inc0560" hreflang="en">[UPDATE] Structure Fire 10/09/2026 INC#0560</a></title>
+  <link><a href="/alert/update-structure-fire-10092026-inc0560" hreflang="en">view</a></link>
+  <description>[UPDATE] Structure Fire; INC#0560; 08:59AM; 7034 N Baird Av; MAP: &amp;lt;a href="https://bit.ly/4yAEGFm" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4yAEGFm&amp;lt;/a&amp;gt;; Reseda; The LAFD fire companies are now operating in a defensive mode.  Baird IC is now reporting multiple exposures to the fire involved.  As of this alert, no injuries reported.; FS 73; Batt 17; Valley Bureau; Council District 4; AC4  AC40  BC10  BC14  BC15  BC17  E100  E103  E104  E273  E288  E290  E293  E70  E84  E89  EM15  EM17  HM21  HM87  HR703  RA100  RA89  RA898  T73  T87  T88  T90  T93  UR88  UR89; CH9; 18  19; Jamie Stewart</description>
+  <category>Structure Fire</category>
+          <category>Valley</category>
+          <category>Reseda</category>
+          <guid isPermaLink="false"><a href="/alert/update-structure-fire-10092026-inc0560" hreflang="en">view</a></guid>
+          <pubDate>Friday, October 9, 2026 - 09:13
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/structure-fire-10092026-inc0560" hreflang="en">Structure Fire 10/09/2026 INC#0560</a></title>
+  <link><a href="/alert/structure-fire-10092026-inc0560" hreflang="en">view</a></link>
+  <description>Structure Fire; INC#0560; 08:59AM; 7034 N Baird Av; MAP: &amp;lt;a href="https://bit.ly/4yAEGFm" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4yAEGFm&amp;lt;/a&amp;gt;; Reseda; First arriving fire companies report a single story detached garage fully involved with fire.  Firefighters are operating in an offensive mode.  During the operations, fire companies are reporting explosions on the property, possibly propane tanks exposed to the fire.  One single family structure is exposed and is also burning.  No injuries reported and no patients or victims are reported at this time.  Cause of the fire is undetermined at this time.  Department of Transportation has been requested for traffic control and LAPD requested, LAPD incident 1420.  IC has requested additional fire companies to assist in the fire suppression operations.; FS 73; Batt 17; Valley Bureau; Council District 4; BC15  BC17  E100  E103  E104  E273  E293  EM15  RA100  RA898  T73  T93; CH9; 18; Jamie Stewart</description>
+  <category>Structure Fire</category>
+          <category>Valley</category>
+          <category>Reseda</category>
+          <guid isPermaLink="false"><a href="/alert/structure-fire-10092026-inc0560" hreflang="en">view</a></guid>
+          <pubDate>Friday, October 9, 2026 - 09:07
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/knockdown-structure-fire-10082026-inc1728" hreflang="en">[KNOCKDOWN] Structure Fire 10/08/2026 INC#1728</a></title>
+  <link><a href="/alert/knockdown-structure-fire-10082026-inc1728" hreflang="en">view</a></link>
+  <description>[KNOCKDOWN] Structure Fire; INC#1728; 06:59PM; 1009 N Main St; MAP: &amp;lt;a href="https://bit.ly/4y8lrBS" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4y8lrBS&amp;lt;/a&amp;gt;; Chinatown; Main IC is declaring a knockdown at 2040 hours.  Building was a 100 foot by 200 foot 1 story commercial with a two story portion attached to the building.  Extinguishment of the fire in approximately 100 minutes from the time of the 911 call.  No injuries at this time.  Arson has been requested, as well as heavy equipment to help with overhaul operations.  Cause of the fire is undetermined at this time.  ; FS 4; Batt 1; Central Bureau; Council District 1; AC2  AC20  AR1  BC11  BC18  BC2  BC5  E1  E11  E15  E2  E20  E201  E202  E203  E209  E211  E215  E220  E3  E4  E9  EA1  EA2  EM1  EM11  HE3  HE4  HM21  HR703  PI1  RA2  RA25  RA4  RA9  RS3  SO1  T1  T11  T15  T2  T20  T3  T9  UR3  UR88; CH7; 14  18; Jamie Stewart</description>
+  <category>Structure Fire</category>
+          <category>Central</category>
+          <category>Chinatown</category>
+          <guid isPermaLink="false"><a href="/alert/knockdown-structure-fire-10082026-inc1728" hreflang="en">view</a></guid>
+          <pubDate>Thursday, October 8, 2026 - 20:41
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/media-staging-structure-fire-10082026-inc1728" hreflang="en">[MEDIA STAGING]  Structure Fire 10/08/2026 INC#1728</a></title>
+  <link><a href="/alert/media-staging-structure-fire-10082026-inc1728" hreflang="en">view</a></link>
+  <description>[MEDIA STAGING]  Structure Fire; INC#1728; 06:59PM; 1009 N Main St; MAP: &amp;lt;a href="https://bit.ly/4y8lrBS" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4y8lrBS&amp;lt;/a&amp;gt;; Chinatown; LAFD PIO on scene.  Media Staging is at Lewellyn and Main St.  Main IC transitioned all companies into a defensive fire fighting mode.; FS 4; Batt 1; Central Bureau; Council District 1; AC2  AC20  BC11  BC18  BC2  BC5  E1  E11  E15  E2  E20  E201  E202  E203  E209  E211  E215  E220  E3  E4  E9  EA1  EA2  EM1  EM11  HE3  HE4  HM21  HR703  PI1  RA2  RA25  RA4  RA9  RS3  SO1  T1  T11  T15  T2  T20  T3  T9  UR3  UR88; CH9; 14  18; Jamie Stewart</description>
+  <category>Structure Fire</category>
+          <category>Central</category>
+          <category>Chinatown</category>
+          <guid isPermaLink="false"><a href="/alert/media-staging-structure-fire-10082026-inc1728" hreflang="en">view</a></guid>
+          <pubDate>Thursday, October 8, 2026 - 19:46
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+<item>
+  <title><a href="/alert/structure-fire-10082026-inc1728" hreflang="en">Structure Fire 10/08/2026 INC#1728</a></title>
+  <link><a href="/alert/structure-fire-10082026-inc1728" hreflang="en">view</a></link>
+  <description>Structure Fire; INC#1728; 06:59PM; 1009 N Main St; MAP: &amp;lt;a href="https://bit.ly/4y8lrBS" target="_blank" rel="noopener"&amp;gt;https://bit.ly/4y8lrBS&amp;lt;/a&amp;gt;; Chinatown; First arriving fire companies report a 1 story commercial building with heavy fire showing through the roof. Outside fire extended into the commercial structure.  Additional companies have been requested.  LAPD notified, incident 4073.  Cause of the fire is undetermined at this time.  ; FS 4; Batt 1; Central Bureau; Council District 1; BC11  BC2  E1  E201  E202  E203  E209  E3  E4  EM1  RA4  RA9  T1  T2  T3; CH9; 14; Jamie Stewart</description>
+  <category>Structure Fire</category>
+          <category>Central</category>
+          <category>Chinatown</category>
+          <guid isPermaLink="false"><a href="/alert/structure-fire-10082026-inc1728" hreflang="en">view</a></guid>
+          <pubDate>Thursday, October 8, 2026 - 19:07
+</pubDate>
+          <source url="https://lafd.org/alerts-rss.xml">Alerts Feed</source>
+          </item>
+</channel>
+</rss>

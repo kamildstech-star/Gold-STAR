@@ -1,0 +1,1 @@
+ALTER FUNCTION public.stage_condition_label(jsonb) SET search_path = public;

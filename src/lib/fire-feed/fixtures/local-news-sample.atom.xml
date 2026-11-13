@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SYNTHETIC test fixture: the shape of a local news site's Atom feed. Invented events. -->
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss">
+  <title>Shore Local — Breaking</title>
+  <id>tag:shorelocal.example,2026:breaking</id>
+  <updated>2026-10-11T21:00:00Z</updated>
+  <entry>
+    <title type="html">Fire guts Lakewood home on 5th Street; firefighter hurt</title>
+    <link rel="alternate" href="https://www.shorelocal.example/news/fire-guts-lakewood-home/amp/?utm_campaign=x"/>
+    <link rel="enclosure" href="https://www.shorelocal.example/img/fire.jpg"/>
+    <id>tag:shorelocal.example,2026:4411</id>
+    <published>2026-10-11T19:55:00-04:00</published>
+    <updated>2026-10-11T20:10:00-04:00</updated>
+    <summary type="html">&lt;p&gt;A fire tore through a house at 27 5th Street in Lakewood on Sunday. One firefighter suffered minor burns.&lt;/p&gt;</summary>
+    <georss:point>40.0951 -74.2176</georss:point>
+  </entry>
+  <entry>
+    <title>Man charged with arson in August warehouse blaze</title>
+    <link href="https://www.shorelocal.example/news/arson-charge"/>
+    <id>tag:shorelocal.example,2026:4412</id>
+    <published>2026-10-11T15:00:00Z</published>
+    <summary>Prosecutors said the fire at a Toms River warehouse was set deliberately.</summary>
+  </entry>
+</feed>

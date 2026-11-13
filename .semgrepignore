@@ -1,0 +1,25 @@
+# Paths Semgrep does not scan. Read by the Semgrep step in
+# .github/workflows/pull-request-checks.yml, which already restricts the scan
+# to src/ and scripts/; this file trims what is inside those two.
+#
+# A .semgrepignore REPLACES Semgrep's built-in default ignore list rather than
+# adding to it, so the dependency and build directories are repeated here.
+node_modules/
+dist/
+.output/
+.vinxi/
+.vercel/
+
+# Tests. They deliberately build hostile inputs (injected SQL strings, fake
+# tokens, `javascript:` URLs) to prove the code under test refuses them, so a
+# security rule matching them is a finding about the test, not the product.
+*.test.ts
+*.test.tsx
+
+# Captured third-party feeds the fire-feed parser tests read. Not our code.
+src/lib/fire-feed/fixtures/
+
+# Generated. Rewritten by the Supabase CLI and the TanStack Router plugin, so a
+# fix made by hand here would be overwritten on the next generation.
+src/integrations/supabase/types.ts
+src/routeTree.gen.ts

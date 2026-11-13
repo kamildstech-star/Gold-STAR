@@ -1,0 +1,237 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789642853505,
+      "tag": "0000_field_ticket_costing_and_approval",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789642914562,
+      "tag": "0001_job_calculation_custom_lines",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789649686771,
+      "tag": "0002_supply_inventory_and_purchasing",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789668531334,
+      "tag": "0003_document_reminders_insert_notifications",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1789724385450,
+      "tag": "0004_supply_catalogue_david_sheet",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789728655449,
+      "tag": "0005_gsr_cost_rates",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789728688721,
+      "tag": "0006_email_template_engine",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789728765057,
+      "tag": "0007_vendor_order_email",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790245040825,
+      "tag": "0008_equipment_condition_needs_cleaning",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790245074228,
+      "tag": "0009_job_drying_resets",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790333473630,
+      "tag": "0010_standing_intake_links",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1790333517819,
+      "tag": "0011_job_tasks_visible_with_job",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1790333545050,
+      "tag": "0012_supply_vendor_presets",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1790333617295,
+      "tag": "0013_supply_vendor_prices",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1790333654280,
+      "tag": "0014_supply_receipts_on_orders",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1790333713843,
+      "tag": "0015_supply_request_delivery_address",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1790333802339,
+      "tag": "0016_insurance_info_task",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1790333847378,
+      "tag": "0017_job_stage_automation",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1790333895054,
+      "tag": "0018_saved_reports",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1790341768742,
+      "tag": "0019_location_membership_edit_in_place",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1790341781406,
+      "tag": "0020_email_status_held_cancelled",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1790341857264,
+      "tag": "0021_email_send_delay",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1790341903853,
+      "tag": "0022_notification_type_vehicle_due",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1790341966680,
+      "tag": "0023_vehicle_maintenance",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1790582348753,
+      "tag": "0024_client_portal_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1790586007539,
+      "tag": "0025_drying_class_dehu_inlet_hour_meters",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1790586088766,
+      "tag": "0026_drying_material_moisture_points",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1791890050282,
+      "tag": "0027_job_crew_lists",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1791979975455,
+      "tag": "0028_notification_type_email_reply",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1791980009856,
+      "tag": "0029_job_large_loss",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1791980068151,
+      "tag": "0030_share_link_drying_report",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1792147043982,
+      "tag": "0031_demo_purge_complete",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1792153210581,
+      "tag": "0032_demo_seeder_demo_parents_only",
+      "breakpoints": true
+    }
+  ]
+}

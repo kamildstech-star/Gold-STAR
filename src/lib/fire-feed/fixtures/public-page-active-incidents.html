@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- SYNTHETIC test fixture: the shape of a county 911 "active incidents" page.
+     Towns are real; streets, times, units and incident numbers are invented. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Example County 911 — Active Incidents</title>
+    <script>
+      window.analytics = { table: "<table><tr><td>not real</td></tr></table>" };
+    </script>
+  </head>
+  <body>
+    <table class="layout">
+      <tr>
+        <td><img src="seal.png" alt="County seal" /></td>
+        <td>Example County Office of Emergency Management</td>
+      </tr>
+    </table>
+    <!-- <table><tr><th>Old</th></tr><tr><td>commented out</td></tr></table> -->
+    <h1>Active Incidents</h1>
+    <p>Updated every 60 seconds. Times are local.</p>
+    <table id="incidents" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Incident #</th>
+          <th>Received</th>
+          <th>Call Type</th>
+          <th>Location</th>
+          <th>Municipality</th>
+          <th>Units</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>F26-104411</td>
+          <td>10/11/2026 3:15 PM</td>
+          <td>STRUCTURE FIRE - RESIDENTIAL</td>
+          <td>412 PINE ST</td>
+          <td>Lakewood</td>
+          <td>E21, E22, L27, BC2</td>
+          <td>On Scene</td>
+        </tr>
+        <tr>
+          <td>M26-209931</td>
+          <td>10/11/2026 3:20 PM</td>
+          <td>MEDICAL - FALL</td>
+          <td>9 OAK AVE</td>
+          <td>Lakewood</td>
+          <td>A17</td>
+          <td>Dispatched</td>
+        </tr>
+        <tr>
+          <td>F26-104412</td>
+          <td>10/11/2026 3:42 PM</td>
+          <td>VEHICLE FIRE</td>
+          <td>RT 9 &amp; COUNTY LINE RD</td>
+          <td>Lakewood</td>
+          <td>E23</td>
+          <td>Enroute</td>
+        </tr>
+        <tr>
+          <td>P26-559120</td>
+          <td>10/11/2026 3:44 PM</td>
+          <td>MVA - NO INJURIES</td>
+          <td>GSP SB MP 89</td>
+          <td>Toms River</td>
+          <td></td>
+          <td>Waiting</td>
+        </tr>
+        <tr>
+          <td>F26-104413</td>
+          <td>10/11/2026 4:01 PM</td>
+          <td>FIRE ALARM - COMMERCIAL</td>
+          <td>1500 RT 9</td>
+          <td>Toms River</td>
+          <td>E31</td>
+          <td>Dispatched</td>
+        </tr>
+        <tr>
+          <td>F26-104414</td>
+          <td>10/11/2026 4:05 PM</td>
+          <td>WORKING FIRE - 2ND ALARM</td>
+          <td>27 5TH ST</td>
+          <td>Lakewood</td>
+          <td>E21 E24 L27 R1 BC1 BC2</td>
+          <td>On Scene</td>
+        </tr>
+      </tbody>
+    </table>
+    <footer>For emergencies dial 911.</footer>
+  </body>
+</html>

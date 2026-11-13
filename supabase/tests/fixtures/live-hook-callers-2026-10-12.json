@@ -1,0 +1,44 @@
+{
+  "recorded_at": "2026-10-12",
+  "source": "pg_get_functiondef() on Lovable Cloud project ortpawtuqerkmuykwndp, read-only",
+  "functions": {
+    "drying_weather_kick": {
+      "def": "CREATE OR REPLACE FUNCTION public.drying_weather_kick()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nDECLARE cfg jsonb; hook_url text;\nBEGIN\n  SELECT value INTO cfg FROM public.app_settings WHERE key = 'drying_weather';\n  IF cfg IS NULL THEN RETURN; END IF;\n  IF COALESCE((cfg->>'enabled')::boolean, true) IS FALSE THEN RETURN; END IF;\n  hook_url := cfg->>'hook_url';\n  IF hook_url IS NULL THEN RETURN; END IF;\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body := '{}'::jsonb,\n    timeout_milliseconds := 60000\n  );\nEND; $function$\n",
+      "md5": "99e17178385f0557704b8380e6a620af",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    "email_release_kick": {
+      "def": "CREATE OR REPLACE FUNCTION public.email_release_kick()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE\n  hook_url text;\nBEGIN\n  IF NOT EXISTS (\n    SELECT 1 FROM public.email_messages WHERE status = 'held' AND release_at <= now()\n  ) AND NOT EXISTS (\n    SELECT 1 FROM public.email_messages q\n     WHERE q.status = 'queued'\n       AND q.sent_at IS NULL\n       AND q.delivery_reason IS NOT NULL\n       AND q.supply_request_id IS NULL\n       AND q.created_at > now() - interval '14 days'\n       AND q.delivery_attempts < 6\n       AND (q.next_attempt_at IS NULL OR q.next_attempt_at <= now())\n       AND (q.claimed_at IS NULL OR q.claimed_at < now() - interval '10 minutes')\n  ) THEN\n    RETURN;\n  END IF;\n  SELECT value->>'release_hook_url' INTO hook_url\n    FROM public.app_settings WHERE key = 'email_send';\n  hook_url := COALESCE(\n    NULLIF(btrim(hook_url), ''),\n    'https://project--b0a4cfc7-3fd3-46ba-aa5d-90a925aaa67c.lovable.app/api/public/hooks/email-release'\n  );\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body := '{}'::jsonb,\n    timeout_milliseconds := 60000\n  );\nEND;\n$function$\n",
+      "md5": "59256991a10461e5b0f8d6162b7c5630",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    "fire_feed_kick": {
+      "def": "CREATE OR REPLACE FUNCTION public.fire_feed_kick()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE\n  cfg jsonb;\n  hook_url text;\nBEGIN\n  SELECT value INTO cfg FROM public.app_settings WHERE key = 'fire_feed';\n  IF COALESCE((cfg->>'enabled')::boolean, false) IS NOT TRUE THEN\n    RETURN;\n  END IF;\n  IF NOT EXISTS (SELECT 1 FROM public.fire_feed_areas WHERE active) THEN\n    RETURN;\n  END IF;\n  IF NOT EXISTS (\n    SELECT 1 FROM public.fire_feed_sources s\n     WHERE s.enabled\n       AND (s.last_fetched_at IS NULL\n            OR s.last_fetched_at <= now() - make_interval(mins => s.poll_minutes) + interval '30 seconds')\n  ) THEN\n    RETURN;\n  END IF;\n  IF EXISTS (\n    SELECT 1 FROM public.fire_feed_runs\n     WHERE status = 'running' AND started_at > now() - interval '5 minutes'\n  ) THEN\n    RETURN;\n  END IF;\n  hook_url := COALESCE(\n    NULLIF(btrim(cfg->>'hook_url'), ''),\n    'https://project--b0a4cfc7-3fd3-46ba-aa5d-90a925aaa67c.lovable.app/api/public/hooks/fire-feed'\n  );\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body := '{}'::jsonb,\n    timeout_milliseconds := 60000\n  );\nEND;\n$function$\n",
+      "md5": "cccd57555ca9d1d47b28634152b8f9cb",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    "graph_sync_kick": {
+      "def": "CREATE OR REPLACE FUNCTION public.graph_sync_kick()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nDECLARE\n  cfg jsonb;\n  hook_url text;\nBEGIN\n  IF NOT EXISTS (SELECT 1 FROM public.graph_mailboxes WHERE enabled) THEN\n    RETURN;\n  END IF;\n  SELECT value INTO cfg FROM public.app_settings WHERE key = 'graph_sync';\n  IF COALESCE((cfg->>'enabled')::boolean, true) IS FALSE THEN\n    RETURN;\n  END IF;\n  hook_url := COALESCE(\n    NULLIF(btrim(cfg->>'hook_url'), ''),\n    'https://project--b0a4cfc7-3fd3-46ba-aa5d-90a925aaa67c.lovable.app/api/public/hooks/graph-sync'\n  );\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body := '{}'::jsonb,\n    timeout_milliseconds := 60000\n  );\nEND;\n$function$\n",
+      "md5": "0fb4265f00305176b2a5ea6fdedc51dc",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    "kahi_sync_kick": {
+      "def": "CREATE OR REPLACE FUNCTION public.kahi_sync_kick()\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nDECLARE cfg jsonb; hook_url text;\nBEGIN\n  SELECT value INTO cfg FROM public.app_settings WHERE key = 'kahi';\n  IF cfg IS NULL THEN RETURN; END IF;\n  IF COALESCE((cfg->>'enabled')::boolean, true) IS FALSE THEN RETURN; END IF;\n  hook_url := cfg->>'hook_url';\n  IF hook_url IS NULL THEN RETURN; END IF;\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body := jsonb_build_object('mode', 'assets'),\n    timeout_milliseconds := 60000\n  );\nEND; $function$\n",
+      "md5": "4a5c6711ff6e940b564afede5259adb8",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    "raven_sync_kick": {
+      "def": "CREATE OR REPLACE FUNCTION public.raven_sync_kick(_mode text DEFAULT 'positions'::text)\n RETURNS void\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nDECLARE cfg jsonb; hook_url text;\nBEGIN\n  SELECT value INTO cfg FROM public.app_settings WHERE key = 'raven';\n  IF cfg IS NULL THEN RETURN; END IF;\n  IF _mode = 'positions' AND COALESCE((cfg->>'positions_enabled')::boolean, true) IS FALSE THEN RETURN; END IF;\n  IF _mode = 'trips' AND COALESCE((cfg->>'trips_enabled')::boolean, true) IS FALSE THEN RETURN; END IF;\n  hook_url := cfg->>'hook_url';\n  IF hook_url IS NULL THEN RETURN; END IF;\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body := jsonb_build_object('mode', _mode),\n    timeout_milliseconds := 60000\n  );\nEND; $function$\n",
+      "md5": "52f16e0f508abc6b8437ee54725f873f",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    "tg_automation_notify": {
+      "def": "CREATE OR REPLACE FUNCTION public.tg_automation_notify()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nDECLARE\n  cfg jsonb;\n  hook_url text;\n  secret text;\n  triggers jsonb;\nBEGIN\n  SELECT value INTO cfg FROM public.app_settings WHERE key = 'automations';\n  IF cfg IS NULL THEN RETURN NULL; END IF;\n  IF COALESCE((cfg->>'event_driven')::boolean, true) IS FALSE THEN RETURN NULL; END IF;\n\n  hook_url := cfg->>'hook_url';\n  IF hook_url IS NULL THEN RETURN NULL; END IF;\n\n  triggers := COALESCE(TG_ARGV[0]::jsonb, '[]'::jsonb);\n\n  BEGIN\n    secret := public.cron_secret();\n  EXCEPTION WHEN OTHERS THEN\n    RAISE WARNING 'tg_automation_notify: automation hook not called: %', SQLERRM;\n    RETURN NULL;\n  END;\n\n  PERFORM net.http_post(\n    url := hook_url,\n    headers := jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', secret),\n    body := jsonb_build_object('triggers', triggers),\n    timeout_milliseconds := 60000\n  );\n  RETURN NULL;\nEND;\n$function$\n",
+      "md5": "c27d069835badde1e66de02cf575ec20",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    }
+  },
+  "cron": {
+    "run-automations-15min": "\n  select net.http_post(\n    url:='https://project--b0a4cfc7-3fd3-46ba-aa5d-90a925aaa67c.lovable.app/api/public/hooks/run-automations',\n    headers:=jsonb_build_object('Content-Type', 'application/json', 'x-cron-secret', public.cron_secret()),\n    body:='{}'::jsonb,\n    timeout_milliseconds:=60000\n  ) as request_id;\n  "
+  }
+}

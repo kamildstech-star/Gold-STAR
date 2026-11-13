@@ -1,0 +1,36 @@
+-- Restore the two SELECT grants that are missing on public.profiles.
+--
+-- LIVE OUTAGE this fixes: "Couldn't load data — permission denied for table
+-- profiles", seen on every job page.
+--
+-- Why it happens: profiles does NOT carry a table-level SELECT grant for
+-- `authenticated`. It carries COLUMN-level SELECT grants, one per column. A
+-- column added later therefore starts with no SELECT grant at all, and
+-- PostgreSQL answers any query touching it with "permission denied for table
+-- profiles" — naming the table, not the column, which is why this reads as a
+-- much bigger failure than it is.
+--
+-- Two columns are missing the grant today, confirmed against production:
+--
+--   primary_location_id — added by 20260903221500_profile_primary_location.sql,
+--     which never granted it. src/components/app-context.tsx:182 selects this
+--     column on every load to resolve the signed-in user's own office, so the
+--     error fires app-wide.
+--
+--   email — read by src/lib/directory.ts, src/components/person-picker.tsx,
+--     src/lib/notifications.functions.ts and admin.test-users.tsx. Broken the
+--     same way, and latent until one of those screens is opened.
+--
+-- These grants only restore what the application already assumes. They widen
+-- nothing: `authenticated` already holds column SELECT on full_name, user_id,
+-- approval_status and the rest, and row-level security still governs which
+-- rows are visible through the "Signed-in users view profiles" policy.
+--
+-- Re-runnable: GRANT is idempotent.
+--
+-- NOTE for whoever maintains this table: because the grants here are
+-- column-level, EVERY future migration that adds a column to public.profiles
+-- must grant on it explicitly. There is no table-level grant to inherit from.
+
+GRANT SELECT (primary_location_id) ON public.profiles TO authenticated;
+GRANT SELECT (email)               ON public.profiles TO authenticated;

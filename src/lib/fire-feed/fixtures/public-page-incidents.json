@@ -1,0 +1,41 @@
+{
+  "_comment": "SYNTHETIC test fixture: the shape of a fire department's live-calls JSON endpoint. Invented calls.",
+  "updated": "2026-10-11T20:10:00Z",
+  "data": {
+    "calls": [
+      {
+        "eventId": 88120,
+        "nature": "STRUCTURE FIRE",
+        "addr": "412 PINE ST",
+        "city": "LAKEWOOD",
+        "received": "2026-10-11T19:15:00Z",
+        "apparatus": ["E21", "E22", "L27"],
+        "status": "ONSCENE",
+        "y": 40.081,
+        "x": -74.212
+      },
+      {
+        "eventId": 88121,
+        "nature": "EMS CALL",
+        "addr": "9 OAK AVE",
+        "city": "LAKEWOOD",
+        "received": "2026-10-11T19:20:00Z",
+        "apparatus": ["A17"],
+        "status": "DISPATCHED",
+        "y": 40.09,
+        "x": -74.22
+      },
+      {
+        "eventId": 88122,
+        "nature": "BRUSH FIRE",
+        "addr": "RT 70 & PROSPECT ST",
+        "city": "LAKEWOOD",
+        "received": 1791745200,
+        "apparatus": [],
+        "status": "CLEARED",
+        "y": 0,
+        "x": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+DROP FUNCTION IF EXISTS public.log_incident_outcome(uuid, uuid, uuid, text, boolean, timestamp with time zone);

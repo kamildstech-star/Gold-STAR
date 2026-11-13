@@ -1,0 +1,179 @@
+# CodeQL static analysis for the Recovery Hub CRM.
+#
+# ============================================================================
+# CURRENTLY GATED OFF. READ THIS BEFORE CHANGING ANYTHING.
+# ============================================================================
+#
+# This workflow is complete and correct, but it CANNOT SUCCEED on this
+# repository today, for a reason that has nothing to do with the code:
+#
+#   `faser15/flood-hero-hub` is a PRIVATE repository, and uploading code
+#   scanning results from a private repository requires GitHub Code Security
+#   (the GitHub Advanced Security product). This repository does not have it.
+#
+# The analysis itself works fine — it extracted and scanned 783 TypeScript
+# files. It is only the final upload of the SARIF results that GitHub rejects:
+#
+#   Warning: Code scanning is not enabled for this repository.
+#   Error: Please verify that the necessary features are enabled:
+#          Code scanning is not enabled for this repository.
+#
+# Confirmed independently:
+#   $ gh api repos/faser15/flood-hero-hub/code-scanning/alerts
+#   HTTP 403 — "Code scanning is not enabled for this repository."
+#
+# So from the day it was added until it was gated, this workflow failed on
+# EVERY push and EVERY pull request — a permanently red check that blocked
+# nobody's code but trained everybody to ignore a red X, while burning about
+# 5.5 minutes of Actions time per run to produce a result it could not report.
+#
+# ---------------------------------------------------------------------------
+# HOW IT IS GATED
+# ---------------------------------------------------------------------------
+#
+# The triggers below are deliberately left INTACT — pull request, the weekly
+# schedule and manual dispatch are all still wired as intended (push to main
+# was dropped later as a duplicate of the pull request run). What stops the job
+# is the `if:` guard on the `analyze` job: it runs only when the repository
+# variable CODE_SCANNING_ENABLED is set to the string "true".
+#
+# While that variable is unset, GitHub evaluates the guard before it allocates
+# a runner. The job is therefore SKIPPED, not failed:
+#   - it shows on a pull request as a grey "Skipped" check, never a red X;
+#   - it consumes ZERO Actions minutes;
+#   - a skipped job reports as passing to branch protection, so it cannot
+#     block a merge even if this check is later marked required.
+#
+# ---------------------------------------------------------------------------
+# HOW TO TURN IT BACK ON (the day Advanced Security is bought, or the day
+# this repository is made public)
+# ---------------------------------------------------------------------------
+#
+# One line. No code change, no pull request, no review:
+#
+#   gh variable set CODE_SCANNING_ENABLED --repo faser15/flood-hero-hub --body true
+#
+# (Equivalently: Settings -> Secrets and variables -> Actions -> Variables ->
+# New repository variable, name CODE_SCANNING_ENABLED, value true.)
+#
+# To turn it off again, `gh variable delete CODE_SCANNING_ENABLED` or set it to
+# anything other than "true".
+#
+# Prerequisites for that line to actually help, in order:
+#   1. Enable code scanning for the repository — either
+#      (a) buy GitHub Code Security. It is licensed per ACTIVE COMMITTER per
+#          month (list price US$30/committer/month at the time of writing;
+#          an active committer is anyone who pushed in the last 90 days), and
+#          it requires a GitHub Team or Enterprise plan — confirm current
+#          pricing with GitHub before budgeting; or
+#      (b) make the repository public, where code scanning is free. Not
+#          appropriate for this codebase.
+#   2. Settings -> Advanced Security -> Code scanning -> set up (Advanced /
+#      existing workflow), so GitHub will accept SARIF uploads.
+#   3. Run the one-line command above.
+#
+# To CHECK whether the feature is live without flipping the variable, run this
+# workflow manually from the Actions tab ("Run workflow"). A manual dispatch
+# bypasses the gate on purpose — that is the probe. If it goes green, set the
+# variable. If it still ends with "Code scanning is not enabled", step 1 has
+# not been completed and nothing else here needs touching.
+#
+# ---------------------------------------------------------------------------
+# WHAT STILL RUNS WHILE THIS IS OFF
+# ---------------------------------------------------------------------------
+#
+# Automated vulnerability scanning is NOT absent while this is gated, but it is
+# narrower than this file alone would suggest. Currently active and passing:
+#
+#   - `npm audit --audit-level=high`, blocking, on every pull request and every
+#     push to main (.github/workflows/pull-request-checks.yml). Reports 0
+#     vulnerabilities as of 2026-09-07.
+#   - Dependabot version updates, weekly (.github/dependabot.yml). Opening
+#     pull requests normally.
+#   - Dependabot ALERTS are, separately, still switched OFF for this
+#     repository. Unlike code scanning those are FREE on private repositories
+#     (Settings -> Advanced Security -> Dependabot alerts) and should be turned
+#     on regardless of what is decided about Code Security.
+#
+# What is lost while this is gated is STATIC ANALYSIS OF OUR OWN SOURCE — the
+# class of finding npm audit and Dependabot cannot see, because they only look
+# at third-party dependency versions. docs/SECURITY-OVERVIEW.md §11 states this
+# gap plainly; keep the two in step if you change this file.
+#
+# Since October 2026 that gap is partly covered for free: Semgrep Community
+# Edition runs in pull-request-checks.yml (pull requests, direct pushes to
+# main, weekly) and reports in the check annotations instead of a Security
+# tab. See docs/QUALITY-CONTROL.md.
+#
+# ---------------------------------------------------------------------------
+#
+# Why the triggers below are what they are, for when this runs again:
+#   - on every push to main, so the default branch always has a current result;
+#   - on every pull request, so a finding is raised before the code merges;
+#   - weekly, because the query packs are updated continuously and a rule
+#     written next month must still be able to find code written today.
+name: CodeQL
+
+# Mark: "Keep it, but avoid duplicate triggers where possible." The push-to-main
+# trigger is gone: the pull_request run has already analysed the very same
+# code, so a second run on the merge was a duplicate. The weekly schedule is
+# what keeps the default branch's scan current between merges, which is the
+# only thing the push trigger was buying.
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    # Mondays 05:17 UTC. Off the hour so it does not queue behind the crowd.
+    - cron: "17 5 * * 1"
+  # Manual run. Bypasses the gate below, so it doubles as the "is Advanced
+  # Security live yet?" probe described in the header.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A second push to the same PR cancels the analysis of the first. CodeQL is
+# the longest job in this repository (about 5.5 minutes when it is allowed to
+# run), so this is where cancellation saves the most.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (javascript-typescript)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    # THE GATE. See the header for the full explanation and for the one-line
+    # command that lifts it. Skipping here (rather than deleting the triggers)
+    # keeps the whole scanning configuration visible and reviewable, costs no
+    # Actions minutes, and shows as "Skipped" rather than as a failure.
+    if: >-
+      vars.CODE_SCANNING_ENABLED == 'true'
+      || github.event_name == 'workflow_dispatch'
+
+    permissions:
+      # Required to upload the SARIF results to the Security tab.
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Initialise CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          # security-and-quality is a superset of the default security queries.
+          # Drop to security-extended if the quality findings prove noisy.
+          queries: security-and-quality
+
+      # JavaScript/TypeScript needs no build step: CodeQL extracts directly
+      # from source, so there is nothing to compile and no build to break.
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:javascript-typescript"

@@ -1,0 +1,1024 @@
+{
+  "Timestamp": "18:30:09 10/11/2026",
+  "Interval": "30",
+  "Fire": [
+    {
+      "ID": "26-213046",
+      "Incident Number": "2606-1031",
+      "Time Reported": "18:28:00 10/11/2026",
+      "Time Opened": "18:28:00 10/11/2026",
+      "Time Closed": null,
+      "FD": "FD06",
+      "Incident Type": "Automatic Alarm",
+      "Address": "8 LOIS LN",
+      "Address2": "WESLEY HILLS, NY 10952",
+      "Friendly": "MESIVTA LUBAVITCH OF MONSEY",
+      "Nearest Intersection": "AUBURN CT",
+      "Call Status": "Unknown",
+      "Units": {
+        "FD06": "HILLCREST FD",
+        "6-1": "6-1"
+      },
+      "Latitude": 41.150781,
+      "Longitude": -74.068833
+    },
+    {
+      "ID": "26-213026",
+      "Incident Number": "2609-0679",
+      "Time Reported": "17:47:06 10/11/2026",
+      "Time Opened": "17:47:06 10/11/2026",
+      "Time Closed": "18:06:23 10/11/2026",
+      "FD": "FD09",
+      "Incident Type": "Alarm Sounding",
+      "Address": "9 BROOKWOOD LN",
+      "Address2": "NEW CITY, NY 10956",
+      "Friendly": "",
+      "Nearest Intersection": "PLEASANT HILL DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD09": "NEW CITY FD",
+        "9-5": "9-5",
+        "9-6": "9-6",
+        "9-3": "9-3"
+      },
+      "Latitude": 41.174581,
+      "Longitude": -74.006068
+    },
+    {
+      "ID": "26-213012",
+      "Incident Number": "2608-0591",
+      "Time Reported": "17:10:27 10/11/2026",
+      "Time Opened": "17:10:27 10/11/2026",
+      "Time Closed": "17:34:10 10/11/2026",
+      "FD": "FD08",
+      "Incident Type": "Automatic Alarm",
+      "Address": "5101 FASHION DR",
+      "Address2": "NANUET, NY 10954",
+      "Friendly": "NANUET TOWN CENTRE",
+      "Nearest Intersection": "MARKET ST W",
+      "Call Status": "Completed",
+      "Units": {
+        "FD08": "NANUET FD",
+        "FD12": "PEARL RIVER FD",
+        "12-1": "12-1",
+        "8-1750": "8-1750"
+      },
+      "Latitude": 41.095811,
+      "Longitude": -74.01747
+    },
+    {
+      "ID": "26-213012",
+      "Incident Number": "2612-0369",
+      "Time Reported": "17:10:27 10/11/2026",
+      "Time Opened": "17:10:27 10/11/2026",
+      "Time Closed": "17:34:10 10/11/2026",
+      "FD": "FD12",
+      "Incident Type": "Automatic Alarm",
+      "Address": "5101 FASHION DR",
+      "Address2": "NANUET, NY 10954",
+      "Friendly": "NANUET TOWN CENTRE",
+      "Nearest Intersection": "MARKET ST W",
+      "Call Status": "Completed",
+      "Units": {
+        "FD08": "NANUET FD",
+        "FD12": "PEARL RIVER FD",
+        "12-1": "12-1",
+        "8-1750": "8-1750"
+      },
+      "Latitude": 41.095811,
+      "Longitude": -74.01747
+    },
+    {
+      "ID": "26-213002",
+      "Incident Number": "2612-0368",
+      "Time Reported": "16:56:32 10/11/2026",
+      "Time Opened": "16:56:32 10/11/2026",
+      "Time Closed": "17:05:50 10/11/2026",
+      "FD": "FD12",
+      "Incident Type": "Automatic Alarm",
+      "Address": "175 E CENTRAL AV",
+      "Address2": "PEARL RIVER, NY 10965",
+      "Friendly": "ROCKLAND ARC-PEARL RIVER IRA",
+      "Nearest Intersection": "N HENRY ST, S HENRY ST & N JOHN ST, S JOHN ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD12": "PEARL RIVER FD",
+        "12-1": "12-1",
+        "12-78": "12-78"
+      },
+      "Latitude": 41.060049,
+      "Longitude": -74.014136
+    },
+    {
+      "ID": "26-212972",
+      "Incident Number": "2619-0348",
+      "Time Reported": "16:26:19 10/11/2026",
+      "Time Opened": "16:26:19 10/11/2026",
+      "Time Closed": "16:41:11 10/11/2026",
+      "FD": "FD19",
+      "Incident Type": "Automatic Alarm",
+      "Address": "13 WILLOW DR",
+      "Address2": "SUFFERN, NY 10901",
+      "Friendly": "CAMP VENTURE - WILLOW",
+      "Nearest Intersection": "TERRACE AV & FOREST DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD19": "SUFFERN FD",
+        "19-1": "19-1",
+        "19-2": "19-2"
+      },
+      "Latitude": 41.107856,
+      "Longitude": -74.139977
+    },
+    {
+      "ID": "26-212940",
+      "Incident Number": "2609-0678",
+      "Time Reported": "15:55:36 10/11/2026",
+      "Time Opened": "15:55:36 10/11/2026",
+      "Time Closed": "16:35:29 10/11/2026",
+      "FD": "FD09",
+      "Incident Type": "CO Alarm",
+      "Address": "20 FOXBURN ST",
+      "Address2": "NEW CITY, NY 10956",
+      "Friendly": "",
+      "Nearest Intersection": "BURDA AV & ELDOR AV",
+      "Call Status": "Completed",
+      "Units": {
+        "FD09": "NEW CITY FD",
+        "9-2": "9-2",
+        "9-4": "9-4"
+      },
+      "Latitude": 41.126987,
+      "Longitude": -74.011405
+    },
+    {
+      "ID": "26-212934",
+      "Incident Number": "2608-0590",
+      "Time Reported": "15:34:46 10/11/2026",
+      "Time Opened": "15:34:46 10/11/2026",
+      "Time Closed": "15:58:11 10/11/2026",
+      "FD": "FD08",
+      "Incident Type": "Automatic Alarm",
+      "Address": "450 WEST NYACK RD",
+      "Address2": "WEST NYACK, NY 10994",
+      "Friendly": "JCC",
+      "Nearest Intersection": "I 87 SB & PALISADES INTERSTATE PKWY N",
+      "Call Status": "Completed",
+      "Units": {
+        "FD08": "NANUET FD",
+        "8-1": "8-1"
+      },
+      "Latitude": 41.099882,
+      "Longitude": -73.987821
+    },
+    {
+      "ID": "26-212933",
+      "Incident Number": "2626-0233",
+      "Time Reported": "15:34:23 10/11/2026",
+      "Time Opened": "15:34:23 10/11/2026",
+      "Time Closed": "16:00:31 10/11/2026",
+      "FD": "FD26",
+      "Incident Type": "Gas Hazard",
+      "Address": "5 HILLWOOD CT",
+      "Address2": "THIELLS, NY 10984",
+      "Friendly": "",
+      "Nearest Intersection": "ROSMAN RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD26": "THIELLS FD",
+        "26-1": "26-1",
+        "26-3": "26-3"
+      },
+      "Latitude": 41.204301,
+      "Longitude": -74.014271
+    },
+    {
+      "ID": "26-212928",
+      "Incident Number": "2617-1065",
+      "Time Reported": "15:26:57 10/11/2026",
+      "Time Opened": "15:26:57 10/11/2026",
+      "Time Closed": "16:05:38 10/11/2026",
+      "FD": "FD17",
+      "Incident Type": "Odor Investigat",
+      "Address": "6 ASPEN CT",
+      "Address2": "NANUET, NY 10954",
+      "Friendly": "",
+      "Nearest Intersection": "TIMBERLINE DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "17-42": "17-42"
+      },
+      "Latitude": 41.117525,
+      "Longitude": -74.025096
+    },
+    {
+      "ID": "26-212921",
+      "Incident Number": "2607-0848",
+      "Time Reported": "15:04:11 10/11/2026",
+      "Time Opened": "15:04:11 10/11/2026",
+      "Time Closed": "15:26:51 10/11/2026",
+      "FD": "FD07",
+      "Incident Type": "Automatic Alarm",
+      "Address": "2 LANGERIES DR",
+      "Address2": "VIOLA, NY 10901",
+      "Friendly": "CONGREGATION TZEMACH TZEDEK",
+      "Nearest Intersection": "ROUTE 306 & ZABRISKIE TERR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD07": "MONSEY FD",
+        "7-8": "7-8"
+      },
+      "Latitude": 41.13229,
+      "Longitude": -74.066291
+    },
+    {
+      "ID": "26-212920",
+      "Incident Number": "2620-0680",
+      "Time Reported": "15:03:48 10/11/2026",
+      "Time Opened": "15:03:48 10/11/2026",
+      "Time Closed": "15:38:04 10/11/2026",
+      "FD": "FD20",
+      "Incident Type": "Vehicle Fire",
+      "Address": "CAMPBELL AV & ROUTE 59",
+      "Address2": "SUFFERN PARK, NY 10901",
+      "Friendly": "",
+      "Nearest Intersection": "Intersection of: ROUTE 59 & HEMION RD & CAMPBELL AV",
+      "Call Status": "Completed",
+      "Units": {
+        "FD20": "TALLMAN FD",
+        "20-9": "20-9",
+        "20-1": "20-1"
+      },
+      "Latitude": 41.112518,
+      "Longitude": -74.131033
+    },
+    {
+      "ID": "26-212917",
+      "Incident Number": "2607-0847",
+      "Time Reported": "14:57:32 10/11/2026",
+      "Time Opened": "14:57:32 10/11/2026",
+      "Time Closed": "15:11:52 10/11/2026",
+      "FD": "FD07",
+      "Incident Type": "Odor Investigat",
+      "Address": "165 ROUTE 306 UNIT 102",
+      "Address2": "MONSEY, NY 10952",
+      "Friendly": "",
+      "Nearest Intersection": "RITA AV & PHYLLIS TERR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD07": "MONSEY FD",
+        "7-4": "7-4"
+      },
+      "Latitude": 41.122593,
+      "Longitude": -74.068263
+    },
+    {
+      "ID": "26-212913",
+      "Incident Number": "2607-0846",
+      "Time Reported": "14:50:08 10/11/2026",
+      "Time Opened": "14:50:08 10/11/2026",
+      "Time Closed": "14:59:14 10/11/2026",
+      "FD": "FD07",
+      "Incident Type": "Automatic Alarm",
+      "Address": "2 LANGERIES DR",
+      "Address2": "VIOLA, NY 10901",
+      "Friendly": "CONGREGATION TZEMACH TZEDEK",
+      "Nearest Intersection": "ROUTE 306 & ZABRISKIE TERR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD07": "MONSEY FD",
+        "7-4": "7-4"
+      },
+      "Latitude": 41.13229,
+      "Longitude": -74.066291
+    },
+    {
+      "ID": "26-212901",
+      "Incident Number": "2603-0230",
+      "Time Reported": "14:40:52 10/11/2026",
+      "Time Opened": "14:40:52 10/11/2026",
+      "Time Closed": "15:05:51 10/11/2026",
+      "FD": "FD03",
+      "Incident Type": "Automatic Alarm",
+      "Address": "12 N ROUTE 9W",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "RIGGS DISTLER & CO INC",
+      "Nearest Intersection": "OLD LAKE RD & S ROUTE 9W, ROCKLAND LAKE RD, LAKE RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "3-3": "3-3"
+      },
+      "Latitude": 41.148769,
+      "Longitude": -73.92685
+    },
+    {
+      "ID": "26-212896",
+      "Incident Number": "2617-1064",
+      "Time Reported": "14:37:34 10/11/2026",
+      "Time Opened": "14:37:34 10/11/2026",
+      "Time Closed": "15:02:02 10/11/2026",
+      "FD": "FD17",
+      "Incident Type": "Alarm Sounding",
+      "Address": "71 EWING AV APT B31",
+      "Address2": "SPRING VALLEY, NY 10977",
+      "Friendly": "",
+      "Nearest Intersection": "BETHUNE BLVD & PROSPECT ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "17-43": "17-43"
+      },
+      "Latitude": 41.121076,
+      "Longitude": -74.038277
+    },
+    {
+      "ID": "26-212889",
+      "Incident Number": "2626-0232",
+      "Time Reported": "14:27:52 10/11/2026",
+      "Time Opened": "14:27:52 10/11/2026",
+      "Time Closed": "15:02:26 10/11/2026",
+      "FD": "FD26",
+      "Incident Type": "Vehicle Fire",
+      "Address": "PIP 26-5 NB",
+      "Address2": "POMONA, NY 10970",
+      "Friendly": "",
+      "Nearest Intersection": "PIP U-TURN - MPM 27.3 & PIP E13 NB - OFF RAMP",
+      "Call Status": "Completed",
+      "Units": {
+        "FD26": "THIELLS FD",
+        "26-1": "26-1"
+      },
+      "Latitude": 41.206051,
+      "Longitude": -74.033419
+    },
+    {
+      "ID": "26-212834",
+      "Incident Number": "2604-0230",
+      "Time Reported": "12:28:26 10/11/2026",
+      "Time Opened": "12:28:26 10/11/2026",
+      "Time Closed": "12:38:39 10/11/2026",
+      "FD": "FD04",
+      "Incident Type": "Automatic Alarm",
+      "Address": "212 GURNEE AV",
+      "Address2": "HAVERSTRAW, NY 10927",
+      "Friendly": "7-ELEVEN 42137",
+      "Nearest Intersection": "WESTSIDE AV & N ROUTE 9W",
+      "Call Status": "Completed",
+      "Units": {
+        "FD04": "HAVERSTRAW FD",
+        "4-1": "4-1"
+      },
+      "Latitude": 41.198962,
+      "Longitude": -73.983309
+    },
+    {
+      "ID": "26-212830",
+      "Incident Number": "2617-1063",
+      "Time Reported": "12:24:38 10/11/2026",
+      "Time Opened": "12:24:38 10/11/2026",
+      "Time Closed": "12:51:24 10/11/2026",
+      "FD": "FD17",
+      "Incident Type": "Automatic Alarm",
+      "Address": "106 DECATUR AV",
+      "Address2": "MONSEY, NY 10977",
+      "Friendly": "106 DECATUR ASSOCIATION",
+      "Nearest Intersection": "MAPLE AV & FIRST ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "17-42": "17-42"
+      },
+      "Latitude": 41.117625,
+      "Longitude": -74.05429
+    },
+    {
+      "ID": "26-212818",
+      "Incident Number": "2610-0459",
+      "Time Reported": "12:03:36 10/11/2026",
+      "Time Opened": "12:03:36 10/11/2026",
+      "Time Closed": "12:50:57 10/11/2026",
+      "FD": "FD10",
+      "Incident Type": "Alarm Sounding",
+      "Address": "21 BRIDGE ST",
+      "Address2": "NYACK, NY 10960",
+      "Friendly": "",
+      "Nearest Intersection": "HIGH AV & MAIN ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD10": "NYACK FD",
+        "10-98": "10-98"
+      },
+      "Latitude": 41.092029,
+      "Longitude": -73.920554
+    },
+    {
+      "ID": "26-212799",
+      "Incident Number": "2617-1062",
+      "Time Reported": "11:15:17 10/11/2026",
+      "Time Opened": "11:15:17 10/11/2026",
+      "Time Closed": "11:59:23 10/11/2026",
+      "FD": "FD17",
+      "Incident Type": "Flooding",
+      "Address": "116 MAPLE AV",
+      "Address2": "SPRING VALLEY, NY 10977",
+      "Friendly": "HUERTO DEL EDEN SUPERMARKET",
+      "Nearest Intersection": "N MYRTLE AV & UNION RD, N MADISON AV",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "17-42": "17-42",
+        "17-1": "17-1"
+      },
+      "Latitude": 41.117531,
+      "Longitude": -74.046709
+    },
+    {
+      "ID": "26-212780",
+      "Incident Number": "2603-0229",
+      "Time Reported": "10:49:20 10/11/2026",
+      "Time Opened": "10:49:20 10/11/2026",
+      "Time Closed": "11:07:19 10/11/2026",
+      "FD": "FD03",
+      "Incident Type": "Electric Hazard",
+      "Address": "892 S ROUTE 9W",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "",
+      "Nearest Intersection": "ROUTE 9W & N ROUTE 9W, ROCKLAND LAKE RD, LAKE RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "3-1": "3-1"
+      },
+      "Latitude": 41.14314,
+      "Longitude": -73.928719
+    },
+    {
+      "ID": "26-212773",
+      "Incident Number": "2603-0228",
+      "Time Reported": "10:35:04 10/11/2026",
+      "Time Opened": "10:35:04 10/11/2026",
+      "Time Closed": "10:40:30 10/11/2026",
+      "FD": "FD03",
+      "Incident Type": "Automatic Alarm",
+      "Address": "9 FRIEND ST",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "APARTMENT BUILDING",
+      "Nearest Intersection": "FISHER AV & LAKE RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "3-3": "3-3"
+      },
+      "Latitude": 41.149506,
+      "Longitude": -73.937042
+    },
+    {
+      "ID": "26-212764",
+      "Incident Number": "2603-0227",
+      "Time Reported": "10:17:39 10/11/2026",
+      "Time Opened": "10:17:39 10/11/2026",
+      "Time Closed": "10:27:45 10/11/2026",
+      "FD": "FD03",
+      "Incident Type": "Automatic Alarm",
+      "Address": "9 FRIEND ST",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "APARTMENT BUILDING",
+      "Nearest Intersection": "FISHER AV & LAKE RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "3-3": "3-3"
+      },
+      "Latitude": 41.149506,
+      "Longitude": -73.937042
+    },
+    {
+      "ID": "26-212757",
+      "Incident Number": "2606-1030",
+      "Time Reported": "10:10:47 10/11/2026",
+      "Time Opened": "10:10:47 10/11/2026",
+      "Time Closed": "10:52:59 10/11/2026",
+      "FD": "FD06",
+      "Incident Type": "Electric Hazard",
+      "Address": "104 POMONA RD",
+      "Address2": "POMONA, NY 10901",
+      "Friendly": "",
+      "Nearest Intersection": "GALILEO CT & CAMP HILL RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD06": "HILLCREST FD",
+        "6-4": "6-4"
+      },
+      "Latitude": 41.167746,
+      "Longitude": -74.052715
+    },
+    {
+      "ID": "26-212677",
+      "Incident Number": "2606-1029",
+      "Time Reported": "06:23:23 10/11/2026",
+      "Time Opened": "06:23:23 10/11/2026",
+      "Time Closed": "07:02:29 10/11/2026",
+      "FD": "FD06",
+      "Incident Type": "Automatic Alarm",
+      "Address": "55 UNION RD",
+      "Address2": "SPRING VALLEY, NY 10977",
+      "Friendly": "SHAZAR ASSOCIATES",
+      "Nearest Intersection": "ZWILL CT & JASINSKI RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "FD06": "HILLCREST FD",
+        "6-4": "6-4"
+      },
+      "Latitude": 41.121029,
+      "Longitude": -74.048401
+    },
+    {
+      "ID": "26-212677",
+      "Incident Number": "2617-1061",
+      "Time Reported": "06:23:23 10/11/2026",
+      "Time Opened": "06:23:23 10/11/2026",
+      "Time Closed": "07:02:29 10/11/2026",
+      "FD": "FD17",
+      "Incident Type": "Automatic Alarm",
+      "Address": "55 UNION RD",
+      "Address2": "SPRING VALLEY, NY 10977",
+      "Friendly": "SHAZAR ASSOCIATES",
+      "Nearest Intersection": "ZWILL CT & JASINSKI RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "FD06": "HILLCREST FD",
+        "6-4": "6-4"
+      },
+      "Latitude": 41.121029,
+      "Longitude": -74.048401
+    },
+    {
+      "ID": "26-212660",
+      "Incident Number": "2610-0458",
+      "Time Reported": "04:50:14 10/11/2026",
+      "Time Opened": "04:50:14 10/11/2026",
+      "Time Closed": "05:34:33 10/11/2026",
+      "FD": "FD10",
+      "Incident Type": "Alarm Sounding",
+      "Address": "15 BRIDGE ST",
+      "Address2": "NYACK, NY 10960",
+      "Friendly": "",
+      "Nearest Intersection": "MAIN ST & HIGH AV",
+      "Call Status": "Completed",
+      "Units": {
+        "FD10": "NYACK FD",
+        "10-98": "10-98",
+        "10-5": "10-5",
+        "10-1": "10-1"
+      },
+      "Latitude": 41.091869,
+      "Longitude": -73.92059
+    },
+    {
+      "ID": "26-212644",
+      "Incident Number": "2619-0347",
+      "Time Reported": "03:39:31 10/11/2026",
+      "Time Opened": "03:39:31 10/11/2026",
+      "Time Closed": "04:06:28 10/11/2026",
+      "FD": "FD19",
+      "Incident Type": "Assist EMS",
+      "Address": "38 BON AIRE CIR UNIT 1903",
+      "Address2": "SUFFERN, NY 10901",
+      "Friendly": "",
+      "Nearest Intersection": "DANBURY CT & ESSEX LN",
+      "Call Status": "Completed",
+      "Units": {
+        "FD19": "SUFFERN FD",
+        "19-4": "19-4"
+      },
+      "Latitude": 41.104794,
+      "Longitude": -74.128908
+    },
+    {
+      "ID": "26-212614",
+      "Incident Number": "2606-1028",
+      "Time Reported": "02:21:22 10/11/2026",
+      "Time Opened": "02:21:22 10/11/2026",
+      "Time Closed": "02:50:32 10/11/2026",
+      "FD": "FD06",
+      "Incident Type": "Alarm Sounding",
+      "Address": "474 NEW HEMPSTEAD RD",
+      "Address2": "NEW CITY, NY 10956",
+      "Friendly": "",
+      "Nearest Intersection": "OLD SCHOOLHOUSE RD & CONWAY CT",
+      "Call Status": "Completed",
+      "Units": {
+        "FD06": "HILLCREST FD",
+        "6-4": "6-4"
+      },
+      "Latitude": 41.149559,
+      "Longitude": -74.031047
+    },
+    {
+      "ID": "26-212584",
+      "Incident Number": "2607-0845",
+      "Time Reported": "01:22:18 10/11/2026",
+      "Time Opened": "01:22:18 10/11/2026",
+      "Time Closed": "01:42:51 10/11/2026",
+      "FD": "FD07",
+      "Incident Type": "Outside Fire",
+      "Address": "6 SUNRISE DR",
+      "Address2": "MONSEY, NY 10952",
+      "Friendly": "",
+      "Nearest Intersection": "MONSEY BLVD & PARK LN",
+      "Call Status": "Completed",
+      "Units": {
+        "FD07": "MONSEY FD",
+        "7-1": "7-1",
+        "7-9": "7-9"
+      },
+      "Latitude": 41.115203,
+      "Longitude": -74.060698
+    },
+    {
+      "ID": "26-212520",
+      "Incident Number": "2624-0466",
+      "Time Reported": "23:38:49 10/10/2026",
+      "Time Opened": "23:38:49 10/10/2026",
+      "Time Closed": "23:46:40 10/10/2026",
+      "FD": "FD24",
+      "Incident Type": "Vehicle Fire",
+      "Address": "ROUTE 303 MARKER - 303N 8501 1059",
+      "Address2": "WEST NYACK, NY 10994",
+      "Friendly": "",
+      "Nearest Intersection": "ROUTE 303 & RAMP",
+      "Call Status": "Completed",
+      "Units": {
+        "FD24": "WEST NYACK FD",
+        "24-3": "24-3"
+      },
+      "Latitude": 41.099361,
+      "Longitude": -73.951076
+    },
+    {
+      "ID": "26-212516",
+      "Incident Number": "2609-0677",
+      "Time Reported": "23:30:32 10/10/2026",
+      "Time Opened": "23:30:32 10/10/2026",
+      "Time Closed": "23:54:15 10/10/2026",
+      "FD": "FD09",
+      "Incident Type": "Alarm Sounding",
+      "Address": "25 WINDMILL LN",
+      "Address2": "NEW CITY, NY 10956",
+      "Friendly": "",
+      "Nearest Intersection": "PRIMROSE LN & CONGERS RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD09": "NEW CITY FD",
+        "9-5": "9-5",
+        "9-2": "9-2"
+      },
+      "Latitude": 41.143929,
+      "Longitude": -73.978707
+    },
+    {
+      "ID": "26-212507",
+      "Incident Number": "2617-1060",
+      "Time Reported": "23:10:33 10/10/2026",
+      "Time Opened": "23:10:33 10/10/2026",
+      "Time Closed": "23:34:44 10/10/2026",
+      "FD": "FD17",
+      "Incident Type": "CO Alarm",
+      "Address": "73 HEITMAN DR",
+      "Address2": "SPRING VALLEY, NY 10977",
+      "Friendly": "",
+      "Nearest Intersection": "KENNEDY DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "17-41": "17-41"
+      },
+      "Latitude": 41.103177,
+      "Longitude": -74.055104
+    },
+    {
+      "ID": "26-212503",
+      "Incident Number": "2606-1027",
+      "Time Reported": "23:02:05 10/10/2026",
+      "Time Opened": "23:02:05 10/10/2026",
+      "Time Closed": "23:30:31 10/10/2026",
+      "FD": "FD06",
+      "Incident Type": "Smoke/Odor Out",
+      "Address": "ROOSEVELT AV & OSTEREH BLVD",
+      "Address2": "NEW SQUARE, NY 10977",
+      "Friendly": "",
+      "Nearest Intersection": "Intersection of: OSTEREH BLVD & ROOSEVELT AV",
+      "Call Status": "Completed",
+      "Units": {
+        "FD06": "HILLCREST FD",
+        "6-3": "6-3"
+      },
+      "Latitude": 41.141325,
+      "Longitude": -74.025012
+    },
+    {
+      "ID": "26-212479",
+      "Incident Number": "2603-0226",
+      "Time Reported": "22:05:23 10/10/2026",
+      "Time Opened": "22:05:23 10/10/2026",
+      "Time Closed": "22:36:21 10/10/2026",
+      "FD": "FD03",
+      "Incident Type": "Gas Hazard",
+      "Address": "58 N GRANT AV",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "",
+      "Nearest Intersection": "HOWARD ST & STATE ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "3-SB": "STANDBY FD",
+        "3-4": "3-4",
+        "22-4": "22-4"
+      },
+      "Latitude": 41.154817,
+      "Longitude": -73.943422
+    },
+    {
+      "ID": "26-212479",
+      "Incident Number": "2622-0165",
+      "Time Reported": "22:05:23 10/10/2026",
+      "Time Opened": "22:05:23 10/10/2026",
+      "Time Closed": "22:36:21 10/10/2026",
+      "FD": "FD22",
+      "Incident Type": "Gas Hazard",
+      "Address": "58 N GRANT AV",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "",
+      "Nearest Intersection": "HOWARD ST & STATE ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "3-SB": "STANDBY FD",
+        "3-4": "3-4",
+        "22-4": "22-4"
+      },
+      "Latitude": 41.154817,
+      "Longitude": -73.943422
+    },
+    {
+      "ID": "26-212476",
+      "Incident Number": "2617-1059",
+      "Time Reported": "21:56:12 10/10/2026",
+      "Time Opened": "21:56:12 10/10/2026",
+      "Time Closed": "22:13:21 10/10/2026",
+      "FD": "FD17",
+      "Incident Type": "Automatic Alarm",
+      "Address": "19 FRANKLIN ST",
+      "Address2": "SPRING VALLEY, NY 10977",
+      "Friendly": "EJ MAIN (REAR)",
+      "Nearest Intersection": "FRANKLIN CT & E FURMAN PL, MUNICIPAL PLZ",
+      "Call Status": "Completed",
+      "Units": {
+        "FD17": "SPRING VALLEY FD",
+        "17-41": "17-41"
+      },
+      "Latitude": 41.110417,
+      "Longitude": -74.044028
+    },
+    {
+      "ID": "26-212468",
+      "Incident Number": "2612-0367",
+      "Time Reported": "21:40:18 10/10/2026",
+      "Time Opened": "21:40:18 10/10/2026",
+      "Time Closed": "21:54:56 10/10/2026",
+      "FD": "FD12",
+      "Incident Type": "Automatic Alarm",
+      "Address": "119 W CROOKED HILL RD",
+      "Address2": "PEARL RIVER, NY 10965",
+      "Friendly": "PEARL RIVER SCHOOLS APARTMENTS",
+      "Nearest Intersection": "MARGARET KEAHON DR & JENSEN PL",
+      "Call Status": "Completed",
+      "Units": {
+        "FD12": "PEARL RIVER FD",
+        "12-1": "12-1"
+      },
+      "Latitude": 41.069225,
+      "Longitude": -74.026827
+    },
+    {
+      "ID": "26-212461",
+      "Incident Number": "2604-0229",
+      "Time Reported": "21:28:37 10/10/2026",
+      "Time Opened": "21:28:37 10/10/2026",
+      "Time Closed": "21:48:52 10/10/2026",
+      "FD": "FD04",
+      "Incident Type": "Outside Fire",
+      "Address": "7 COOLIDGE CT",
+      "Address2": "HAVERSTRAW, NY 10927",
+      "Friendly": "",
+      "Nearest Intersection": "COOLIDGE ST",
+      "Call Status": "Completed",
+      "Units": {
+        "FD04": "HAVERSTRAW FD",
+        "4-EM": "4-EM",
+        "4-1": "4-1"
+      },
+      "Latitude": 41.202107,
+      "Longitude": -73.97938
+    },
+    {
+      "ID": "26-212458",
+      "Incident Number": "2606-1026",
+      "Time Reported": "21:23:45 10/10/2026",
+      "Time Opened": "21:23:45 10/10/2026",
+      "Time Closed": "21:55:08 10/10/2026",
+      "FD": "FD06",
+      "Incident Type": "Outside Fire",
+      "Address": "25 TRINITY AV",
+      "Address2": "HILLCREST, NY 10977",
+      "Friendly": "",
+      "Nearest Intersection": "WARD LN & E ECKERSON RD",
+      "Call Status": "Completed",
+      "Units": {
+        "FD06": "HILLCREST FD",
+        "6-7": "6-7",
+        "6-3": "6-3",
+        "6-12": "6-12"
+      },
+      "Latitude": 41.12889,
+      "Longitude": -74.034579
+    },
+    {
+      "ID": "26-212439",
+      "Incident Number": "2603-0225",
+      "Time Reported": "21:04:54 10/10/2026",
+      "Time Opened": "21:04:54 10/10/2026",
+      "Time Closed": "21:55:22 10/10/2026",
+      "FD": "FD03",
+      "Incident Type": "Automatic Alarm",
+      "Address": "225 N ROUTE 303",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "KOHL INDUSTRIAL PARK",
+      "Nearest Intersection": "HEMLOCK DR & BRENNER DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "10-1": "10-1",
+        "3-SB": "STANDBY FD"
+      },
+      "Latitude": 41.162135,
+      "Longitude": -73.936834
+    },
+    {
+      "ID": "26-212439",
+      "Incident Number": "2610-0457",
+      "Time Reported": "21:04:54 10/10/2026",
+      "Time Opened": "21:04:54 10/10/2026",
+      "Time Closed": "21:55:22 10/10/2026",
+      "FD": "FD10",
+      "Incident Type": "Automatic Alarm",
+      "Address": "225 N ROUTE 303",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "KOHL INDUSTRIAL PARK",
+      "Nearest Intersection": "HEMLOCK DR & BRENNER DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD03": "CONGERS FD",
+        "10-1": "10-1",
+        "3-SB": "STANDBY FD"
+      },
+      "Latitude": 41.162135,
+      "Longitude": -73.936834
+    },
+    {
+      "ID": "26-212400",
+      "Incident Number": "2620-0679",
+      "Time Reported": "20:01:11 10/10/2026",
+      "Time Opened": "20:01:11 10/10/2026",
+      "Time Closed": "20:53:07 10/10/2026",
+      "FD": "FD20",
+      "Incident Type": "Odor Investigat",
+      "Address": "13 THOMSEN DR",
+      "Address2": "AIRMONT, NY 10952",
+      "Friendly": "",
+      "Nearest Intersection": "DUNN RD & LAURA DR",
+      "Call Status": "Completed",
+      "Units": {
+        "FD20": "TALLMAN FD",
+        "20-9": "20-9",
+        "20-1": "20-1",
+        "20-2000": "20-2000"
+      },
+      "Latitude": 41.103292,
+      "Longitude": -74.088027
+    },
+    {
+      "ID": "26-212365",
+      "Incident Number": "2610-0456",
+      "Time Reported": "18:56:17 10/10/2026",
+      "Time Opened": "18:56:17 10/10/2026",
+      "Time Closed": "22:33:04 10/10/2026",
+      "FD": "FD10",
+      "Incident Type": "FD Standby",
+      "Address": "70 N ROUTE 9W",
+      "Address2": "CONGERS, NY 10920",
+      "Friendly": "CONGERS FIRE DEPARTMENT - N ROUTE 9W",
+      "Nearest Intersection": "DOCTOR DAVIES RD & LAKEWOOD DR",
+      "Call Status": "Completed",
+      "Units": {
+        "10-99": "10-99"
+      },
+      "Latitude": 41.151905,
+      "Longitude": -73.927157
+    },
+    {
+      "ID": "26-212110",
+      "Incident Number": "26EM00180",
+      "Time Reported": "11:49:59 10/10/2026",
+      "Time Opened": "11:49:59 10/10/2026",
+      "Time Closed": "12:06:36 10/10/2026",
+      "FD": "13EM",
+      "Incident Type": "MEDICAL",
+      "Address": "701 PIERMONT AV",
+      "Address2": "PIERMONT, NY 10968",
+      "Friendly": "",
+      "Nearest Intersection": "BAY ST & RITIE ST",
+      "Call Status": "Completed",
+      "Units": {
+        "13-EM": "13-EM",
+        "M22": "M22",
+        "13-2": "13-2"
+      },
+      "Latitude": 41.046095,
+      "Longitude": -73.917623
+    }
+  ],
+  "FireOOS": [
+    {
+      "Entry Date": "11:16:24 10/08/2026",
+      "Unit Number": "18-1000",
+      "Unit Type": "Fire Engine",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "18:14:00 10/05/2026",
+      "Unit Number": "20-TANKER",
+      "Unit Type": "Fire Engine",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "06:17:29 10/05/2026",
+      "Unit Number": "10-1500",
+      "Unit Type": "Fire Engine",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "13:53:16 09/22/2026",
+      "Unit Number": "24-1750",
+      "Unit Type": "Fire Engine",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "11:44:18 08/12/2026",
+      "Unit Number": "9-ATV",
+      "Unit Type": "Brush Truck",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "09:19:32 07/03/2026",
+      "Unit Number": "26-SR",
+      "Unit Type": "Dive Rescue",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "09:15:29 07/03/2026",
+      "Unit Number": "26-DIVE",
+      "Unit Type": "Dive Rescue",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "10:37:33 06/22/2026",
+      "Unit Number": "7-RESCUE",
+      "Unit Type": "Rescue Truck",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "14:40:11 06/14/2026",
+      "Unit Number": "7-RAC",
+      "Unit Type": "First Responder Unit",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "14:48:27 05/27/2026",
+      "Unit Number": "20-RESCUE",
+      "Unit Type": "Rescue Truck",
+      "Status": "Out of Service"
+    },
+    {
+      "Entry Date": "19:19:44 02/02/2026",
+      "Unit Number": "18-TOWER",
+      "Unit Type": "Ladder Truck",
+      "Status": "Out of Service"
+    }
+  ],
+  "Runtime": "4.20 seconds"
+}

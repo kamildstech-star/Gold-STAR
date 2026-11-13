@@ -1,0 +1,41 @@
+# Secret-scan configuration. The default rules stay on; this only lists the
+# things that look like secrets and are not.
+#
+# Test fixtures. A test that checks "the panel prints the last six characters
+# of the Maps key" needs a string shaped like a Maps key, and a test of the
+# intake token gate needs a string shaped like a token. Both are fake, and both
+# are already in history, so editing the file would not clear a history scan --
+# the exact finding is allowlisted by fingerprint, and the fixture patterns by
+# regex so the next fixture of the same shape does not go red either. Only these
+# two shapes are exempted -- not test files as a class, because a real key
+# pasted into a test is still a leak.
+#
+# The Lovable-managed Maps browser key. Lovable writes
+# VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY into .env itself and rewrites
+# the file on its own commits, so a per-commit fingerprint in .gitleaksignore
+# goes stale the next time Lovable touches .env -- which is why the scan kept
+# going red. It is a Maps JavaScript BROWSER key: Vite inlines every VITE_*
+# value into the bundle, so every visitor receives it by design. Verified
+# 2026-10-07 that Google refuses it outside an allowed referrer ("API keys with
+# referer restrictions cannot be used with this API"). The exemption is that one
+# variable on that one file for the two key rules that match it -- a server key,
+# any other variable, or the same key pasted anywhere else is still reported.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Fake credentials in unit-test fixtures"
+regexes = [
+  '''AIzaSyTESTKEY[0-9A-Za-z]+''',
+  '''b8f1c0d2e3a4b5c6d7e8f9a0b1c2d3e4''',
+]
+
+[[allowlists]]
+description = "Lovable-managed, referrer-restricted Maps browser key in .env"
+# gcp-api-key names the key's shape; generic-api-key fires on the same line
+# because the variable name ends in _KEY. Both describe this one value.
+targetRules = ["gcp-api-key", "generic-api-key"]
+condition = "AND"
+paths = ['''(^|/)\.env$''']
+regexTarget = "line"
+regexes = ['''^VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY\s*=''']

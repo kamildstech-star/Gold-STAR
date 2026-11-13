@@ -1,0 +1,113 @@
+{
+  "_why": "One list of referrer-commission cases, run through BOTH the TypeScript calculation (src/lib/job-commission.parity.test.ts) and its SQL twin public.job_referrer_commission (supabase/tests/running-cost-commission.pglite.mjs). Each must give `expected`; so the two cannot drift. Rates: source 'pa' is 20% in the settings below. Dates are the job's office-calendar created date.",
+  "sources": [
+    { "key": "pa", "label": "PA", "pct": 20 },
+    { "key": "broker", "label": "Broker", "pct": 10 }
+  ],
+  "cases": [
+    {
+      "name": "nothing set: no commission at all",
+      "job": {},
+      "rules": [],
+      "revenue": 10000,
+      "expected": null
+    },
+    {
+      "name": "source rate only",
+      "job": { "src": "pa" },
+      "rules": [],
+      "revenue": 10000,
+      "expected": { "origin": "source", "kind": "percent", "amount": 2000 }
+    },
+    {
+      "name": "unknown source key is no rate",
+      "job": { "src": "nobody" },
+      "rules": [],
+      "revenue": 10000,
+      "expected": null
+    },
+    {
+      "name": "company rule beats the source",
+      "job": { "acc": "A", "src": "pa" },
+      "rules": [{ "acc": "A", "kind": "percent", "value": 8 }],
+      "revenue": 10000,
+      "expected": { "origin": "company", "kind": "percent", "amount": 800 }
+    },
+    {
+      "name": "person rule beats the company",
+      "job": { "acc": "A", "con": "P", "src": "pa" },
+      "rules": [
+        { "acc": "A", "kind": "percent", "value": 8 },
+        { "con": "P", "kind": "flat", "value": 250 }
+      ],
+      "revenue": 10000,
+      "expected": { "origin": "person", "kind": "flat", "amount": 250 }
+    },
+    {
+      "name": "percent override beats every rule",
+      "job": { "acc": "A", "con": "P", "src": "pa", "pct": 12.5 },
+      "rules": [{ "con": "P", "kind": "flat", "value": 250 }],
+      "revenue": 10000,
+      "expected": { "origin": "override", "kind": "percent", "amount": 1250 }
+    },
+    {
+      "name": "flat override beats every rule",
+      "job": { "acc": "A", "src": "pa", "flat": 400 },
+      "rules": [{ "acc": "A", "kind": "percent", "value": 8 }],
+      "revenue": 10000,
+      "expected": { "origin": "override", "kind": "flat", "amount": 400 }
+    },
+    {
+      "name": "a flat fee is owed before any charge",
+      "job": { "con": "P" },
+      "rules": [{ "con": "P", "kind": "flat", "value": 250 }],
+      "revenue": 0,
+      "expected": { "origin": "person", "kind": "flat", "amount": 250 }
+    },
+    {
+      "name": "a percent of nothing is nothing",
+      "job": { "acc": "A" },
+      "rules": [{ "acc": "A", "kind": "percent", "value": 8 }],
+      "revenue": 0,
+      "expected": { "origin": "company", "kind": "percent", "amount": 0 }
+    },
+    {
+      "name": "a negative revenue owes nothing",
+      "job": { "src": "pa" },
+      "rules": [],
+      "revenue": -500,
+      "expected": { "origin": "source", "kind": "percent", "amount": 0 }
+    },
+    {
+      "name": "cents round half up",
+      "job": { "acc": "A" },
+      "rules": [{ "acc": "A", "kind": "percent", "value": 7.5 }],
+      "revenue": 1234.5,
+      "expected": { "origin": "company", "kind": "percent", "amount": 92.59 }
+    },
+    {
+      "name": "a rule that ended before the job does not apply",
+      "job": { "acc": "A", "src": "broker", "on": "2026-10-01" },
+      "rules": [{ "acc": "A", "kind": "percent", "value": 8, "to": "2026-06-30" }],
+      "revenue": 10000,
+      "expected": { "origin": "source", "kind": "percent", "amount": 1000 }
+    },
+    {
+      "name": "the deal in force on the job's date, of two back to back",
+      "job": { "acc": "A", "on": "2026-03-01" },
+      "rules": [
+        { "acc": "A", "kind": "percent", "value": 5, "to": "2026-06-30" },
+        { "acc": "A", "kind": "percent", "value": 7, "from": "2026-07-01" }
+      ],
+      "revenue": 10000,
+      "expected": { "origin": "company", "kind": "percent", "amount": 500 }
+    },
+    {
+      "name": "another company's deal never applies",
+      "job": { "acc": "A" },
+      "rules": [{ "acc": "B", "kind": "percent", "value": 50 }],
+      "revenue": 10000,
+      "expected": null
+    }
+  ]
+}

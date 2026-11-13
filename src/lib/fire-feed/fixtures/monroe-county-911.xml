@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <atom:link href="https://www.monroecounty.gov/incidents911.rss" rel="self" type="application/rss+xml"/>
+    <title>Monroe County 911 Incident Report</title>
+    <link>https://www.monroecounty.gov/incidents911.rss</link>
+    <description>Local 911 Incidents.</description>
+    <item>
+      <title>MVA / NO INJURIES at 3725 DEWEY AVE GRE</title>
+      <link>https://www.monroecounty.gov/safety-incidents</link>
+      <pubDate>Sun, 11 Oct 2026 17:09:00 -0400</pubDate>
+      <description>Status: WAITING, ID: GREE2628401918</description>
+      <guid>https://www.monroecounty.gov/safety-incidents?GREE2628401918</guid>
+      <geo:lat>+43.2381</geo:lat>
+      <geo:long>-77.6474</geo:long>
+    </item>
+    <item>
+      <title>MVA WITH INJURIES - BLS ROUTINE at 266 MOULSON ST ROC</title>
+      <link>https://www.monroecounty.gov/safety-incidents</link>
+      <pubDate>Sun, 11 Oct 2026 16:09:00 -0400</pubDate>
+      <description>Status: ONSCENE, ID: ROCE2628401753</description>
+      <guid>https://www.monroecounty.gov/safety-incidents?ROCE2628401753</guid>
+      <geo:lat>+43.1903</geo:lat>
+      <geo:long>-77.6051</geo:long>
+    </item>
+    <item>
+      <title>MVA WITH INJURIES - ALS EMERGENT at 266 MOULSON ST ROC</title>
+      <link>https://www.monroecounty.gov/safety-incidents</link>
+      <pubDate>Sun, 11 Oct 2026 16:09:00 -0400</pubDate>
+      <description>Status: WAITING, ID: ROCE2628401751</description>
+      <guid>https://www.monroecounty.gov/safety-incidents?ROCE2628401751</guid>
+      <geo:lat>+43.1903</geo:lat>
+      <geo:long>-77.6051</geo:long>
+    </item>
+    <item>
+      <title>DANGEROUS CONDITION-IMMEDIATE THREAT at RT 490 EB/EXIT 22 RT 490 EB TO PENFIELD RD BRI</title>
+      <link>https://www.monroecounty.gov/safety-incidents</link>
+      <pubDate>Sun, 11 Oct 2026 15:58:00 -0400</pubDate>
+      <description>Status: DISPATCHED, ID: BRIE2628401728</description>
+      <guid>https://www.monroecounty.gov/safety-incidents?BRIE2628401728</guid>
+      <geo:lat>+43.1392</geo:lat>
+      <geo:long>-77.5391</geo:long>
+    </item>
+    <item>
+      <title>PARKING INCIDENT at 4 GARNET ST ROC</title>
+      <link>https://www.monroecounty.gov/safety-incidents</link>
+      <pubDate>Sun, 11 Oct 2026 15:47:00 -0400</pubDate>
+      <description>Status: WAITING, ID: ROCE2628401700</description>
+      <guid>https://www.monroecounty.gov/safety-incidents?ROCE2628401700</guid>
+      <geo:lat>+43.1744</geo:lat>
+      <geo:long>-77.5794</geo:long>
+    </item>
+    <item>
+      <title>PARKING INCIDENT at 579 HAZELWOOD TER ROC</title>
+      <link>https://www.monroecounty.gov/safety-incidents</link>
+      <pubDate>Sun, 11 Oct 2026 15:06:00 -0400</pubDate>
+      <description>Status: ONSCENE, ID: ROCE2628401621</description>
+      <guid>https://www.monroecounty.gov/safety-incidents?ROCE2628401621</guid>
+      <geo:lat>+43.1676</geo:lat>
+      <geo:long>-77.5598</geo:long>
+    </item>
+  </channel>
+</rss>

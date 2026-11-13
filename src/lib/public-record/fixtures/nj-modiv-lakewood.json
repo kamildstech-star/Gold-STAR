@@ -1,0 +1,146 @@
+{
+  "objectIdFieldName": "OBJECTID",
+  "uniqueIdField": {
+    "name": "OBJECTID",
+    "isSystemMaintained": true
+  },
+  "globalIdFieldName": "",
+  "geometryType": "esriGeometryPolygon",
+  "spatialReference": {
+    "wkid": 102100,
+    "latestWkid": 3857
+  },
+  "fields": [
+    {
+      "name": "PAMS_PIN",
+      "type": "esriFieldTypeString",
+      "alias": "PAMS_PIN",
+      "sqlType": "sqlTypeOther",
+      "length": 38,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "COUNTY",
+      "type": "esriFieldTypeString",
+      "alias": "COUNTY",
+      "sqlType": "sqlTypeOther",
+      "length": 10,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "MUN_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "MUN_NAME",
+      "sqlType": "sqlTypeOther",
+      "length": 40,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "PROP_LOC",
+      "type": "esriFieldTypeString",
+      "alias": "PROP_LOC",
+      "sqlType": "sqlTypeOther",
+      "length": 25,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "OWNER_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "OWNER_NAME",
+      "sqlType": "sqlTypeOther",
+      "length": 35,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "PROP_CLASS",
+      "type": "esriFieldTypeString",
+      "alias": "PROP_CLASS",
+      "sqlType": "sqlTypeOther",
+      "length": 3,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "YR_CONSTR",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "YR_CONSTR",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "SALE_PRICE",
+      "type": "esriFieldTypeInteger",
+      "alias": "SALE_PRICE",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "DEED_DATE",
+      "type": "esriFieldTypeString",
+      "alias": "DEED_DATE",
+      "sqlType": "sqlTypeOther",
+      "length": 6,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "NET_VALUE",
+      "type": "esriFieldTypeInteger",
+      "alias": "NET_VALUE",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "DWELL",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "DWELL",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "COMM_DWELL",
+      "type": "esriFieldTypeSmallInteger",
+      "alias": "COMM_DWELL",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "PCL_PBDATE",
+      "type": "esriFieldTypeDate",
+      "alias": "PCL_PBDATE",
+      "sqlType": "sqlTypeOther",
+      "length": 8,
+      "domain": null,
+      "defaultValue": null
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "PAMS_PIN": "1515_97_9",
+        "COUNTY": "OCEAN",
+        "MUN_NAME": "LAKEWOOD TWP",
+        "PROP_LOC": "321 8TH STREET",
+        "OWNER_NAME": "",
+        "PROP_CLASS": "4C",
+        "YR_CONSTR": 1999,
+        "SALE_PRICE": 1,
+        "DEED_DATE": "211216",
+        "NET_VALUE": 3150000,
+        "DWELL": 1,
+        "COMM_DWELL": null,
+        "PCL_PBDATE": 1780549200000
+      }
+    }
+  ]
+}

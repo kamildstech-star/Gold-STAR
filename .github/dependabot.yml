@@ -1,0 +1,48 @@
+# Dependency updates for the Recovery Hub CRM.
+#
+# Dependabot opens a pull request when a dependency has a newer version, and
+# — with Dependabot alerts enabled on the repository — a separate, higher
+# priority pull request when one has a published vulnerability.
+#
+# STATE AS OF 2026-09-07, so this comment does not overstate what is running:
+#   - Version updates (this file) are ACTIVE and opening pull requests.
+#   - Dependabot alerts and automated security fixes were enabled and verified
+#     through the GitHub API during the 2026-09-07 security review. Security
+#     updates can now open PRs; they still require review and passing checks.
+#   - There are no CodeQL findings to sit alongside these. Code scanning
+#     cannot be enabled on this private repository without GitHub Advanced
+#     Security; see the header of .github/workflows/codeql.yml.
+version: 2
+
+updates:
+  # Application dependencies. package-lock.json is the tracked lockfile.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/New_York"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    groups:
+      # One pull request for the routine patch/minor churn, so a real
+      # security bump is not buried in twenty cosmetic ones.
+      non-major-dependencies:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # The actions used by the workflows in this directory. Pinning these matters:
+  # a compromised third-party action runs with the workflow's token.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "America/New_York"
+    labels:
+      - "dependencies"
+      - "github-actions"

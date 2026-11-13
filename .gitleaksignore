@@ -1,0 +1,21 @@
+# Reviewed historical matches only. New occurrences are still scanned.
+# UI field identifier, not a credential.
+4a1776fc5ec7cc9e67b30ec64ca0652eab0ff379:src/lib/job-fields.ts:generic-api-key:167
+4a57fbc3e13237afbdd101c2aa6746ffbbf79958:src/lib/job-fields.ts:generic-api-key:167
+# Supabase publishable client keys (authorization must be enforced by RLS).
+6b90b0b202927b8e0faedcbc25d36f4486355b7e:supabase/migrations/20260820181707_6ab7ceca-f790-4524-b1ff-6ef283946852.sql:generic-api-key:51
+52235feec5e073b7bf242378479e9759c49132a6:supabase/migrations/20260820181049_f7033679-082a-4e22-acce-29b0bf56edad.sql:generic-api-key:4
+12c24d9bcd13009fc44afb006dd90e3c122e4063:.env:generic-api-key:2
+12c24d9bcd13009fc44afb006dd90e3c122e4063:.env:generic-api-key:5
+# Intentionally browser-visible Maps key. Cloud API/referrer restrictions remain
+# unverified and are an explicit open item in the security audit report.
+9da5d8005f8e345bb59c7455a0718b7ae7b6fef1:.env:gcp-api-key:4
+# Fake HMAC secret in the webhook verifier's unit test (value ends test-0123456789abcdef).
+e687f884266c1a4e88d362908339c098cdf920e4:src/lib/webhook-verify.test.ts:generic-api-key:7
+# Fixture UUID named WORK_AUTH in the email-retry PGlite test (#360 and its branch).
+4563994d7f22e9923cc985f8c19f722a797e3660:supabase/tests/email-transport-retry.pglite.mjs:generic-api-key:34
+6ab59ef48518f89ee9727e9169d686ff46f195f0:supabase/tests/email-transport-retry.pglite.mjs:generic-api-key:34
+# Stage key string in the pipeline-colours unit test (merged branch wt/pipeline-colors).
+32d1e30d362432205d5962d5a5d052e8a5a462c7:src/lib/focus-accent.test.ts:generic-api-key:15
+# Fake Resend key in the email.server test on the test-gaps branch (#394, first commit; replaced at runtime in the second).
+34449a19e04f6739e11b56eb53a54b2d816b2d67:src/lib/email.server.test.ts:generic-api-key:14

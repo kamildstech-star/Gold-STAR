@@ -1,0 +1,1 @@
+ALTER TABLE public.locations ADD COLUMN IF NOT EXISTS card_payments_offered boolean NOT NULL DEFAULT true;

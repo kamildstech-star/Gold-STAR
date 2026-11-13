@@ -1,0 +1,68 @@
+{
+  "displayFieldName": "COUNTY_NAME",
+  "fieldAliases": {
+    "COUNTY_NAME": "COUNTY_NAME",
+    "MUNI_NAME": "MUNI_NAME",
+    "PRINT_KEY": "PRINT_KEY",
+    "PARCEL_ADDR": "PARCEL_ADDR",
+    "PROP_CLASS": "PROP_CLASS",
+    "TOTAL_AV": "TOTAL_AV",
+    "YR_BLT": "YR_BLT",
+    "ROLL_YR": "ROLL_YR",
+    "PRIMARY_OWNER": "PRIMARY_OWNER"
+  },
+  "fields": [
+    {
+      "name": "COUNTY_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "COUNTY_NAME",
+      "length": 50
+    },
+    {
+      "name": "MUNI_NAME",
+      "type": "esriFieldTypeString",
+      "alias": "MUNI_NAME",
+      "length": 50
+    },
+    {
+      "name": "PRINT_KEY",
+      "type": "esriFieldTypeString",
+      "alias": "PRINT_KEY",
+      "length": 50
+    },
+    {
+      "name": "PARCEL_ADDR",
+      "type": "esriFieldTypeString",
+      "alias": "PARCEL_ADDR",
+      "length": 255
+    },
+    {
+      "name": "PROP_CLASS",
+      "type": "esriFieldTypeString",
+      "alias": "PROP_CLASS",
+      "length": 10
+    },
+    {
+      "name": "TOTAL_AV",
+      "type": "esriFieldTypeDouble",
+      "alias": "TOTAL_AV"
+    },
+    {
+      "name": "YR_BLT",
+      "type": "esriFieldTypeInteger",
+      "alias": "YR_BLT"
+    },
+    {
+      "name": "ROLL_YR",
+      "type": "esriFieldTypeInteger",
+      "alias": "ROLL_YR"
+    },
+    {
+      "name": "PRIMARY_OWNER",
+      "type": "esriFieldTypeString",
+      "alias": "PRIMARY_OWNER",
+      "length": 255
+    }
+  ],
+  "features": []
+}

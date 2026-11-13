@@ -1,0 +1,71 @@
+name: DB migrate
+
+# Applies new files in supabase/migrations/ to PRODUCTION Supabase
+# (nixpjqinsgngmrfepiot) on every push to main that touches them, or by hand
+# from the Actions tab. Never the old Lovable project (ortpawtuqerkmuykwndp).
+#
+# Secrets (Settings → Secrets and variables → Actions):
+#   SUPABASE_ACCESS_TOKEN  personal access token, for `supabase link`
+#   SUPABASE_DB_PASSWORD   the database password, for `db push` and psql
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+  workflow_dispatch:
+
+# One migration run at a time; a second push waits for the first to finish.
+concurrency:
+  group: db-migrate
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  PROJECT_REF: nixpjqinsgngmrfepiot
+  # Session pooler: the direct db.<ref>.supabase.co host is IPv6-only and
+  # GitHub's runners cannot reach it.
+  POOLER_HOST: aws-0-us-west-1.pooler.supabase.com
+  POOLER_PORT: "5432"
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link project
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase link --project-ref "$PROJECT_REF"
+
+      # 4 Nov: the CLI started defaulting to a local stack ("Target: local
+      # stack (127.0.0.1:54322)"), so every step names the linked project.
+      - name: Pending migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase migration list --linked
+
+      # --include-all: a file older than the newest recorded version is still
+      # applied (files land out of order when a branch merges late).
+      - name: Push migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase db push --linked --include-all --yes
+
+      - name: Reload PostgREST schema cache
+        env:
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          psql "host=$POOLER_HOST port=$POOLER_PORT user=postgres.$PROJECT_REF dbname=postgres sslmode=require" \
+            -v ON_ERROR_STOP=1 -c "NOTIFY pgrst, 'reload schema';"

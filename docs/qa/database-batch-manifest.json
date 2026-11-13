@@ -1,0 +1,62 @@
+[
+  {
+    "file": "supabase/migrations/20260831190000_field_work_tickets.sql",
+    "sha256": "e5b4e2a2b619ea9e9a1bedea6138a73039b8f54e1e00e05132cfeb06cf0bdb8e",
+    "version": "20260831190000"
+  },
+  {
+    "file": "supabase/migrations/20260831190500_standalone_intake_links.sql",
+    "sha256": "559ed5992fc2045e1ff61c9d5cdb94f2fb2fe26525627b41b3ede9984ee6cea7",
+    "version": "20260831190500"
+  },
+  {
+    "file": "supabase/migrations/20260901120000_drying_log.sql",
+    "sha256": "556fa16e82ffa09ffe2476307a9a4edcc1ec77514d6d8915ea3c34b4103be4c6",
+    "version": "20260901120000"
+  },
+  {
+    "file": "supabase/migrations/20260902200000_labour_rates_crew_class.sql",
+    "sha256": "ed5e5580d42da730b60624a892fc4bcf342c79f3c73388980b0e6102acb7e3f5",
+    "version": "20260902200000"
+  },
+  {
+    "file": "supabase/migrations/20260902200500_field_ticket_crew_hours.sql",
+    "sha256": "7f7ac949947ff77294587e49784b17b7a2a73c4fc4e8de9257824c346a6158d6",
+    "version": "20260902200500"
+  },
+  {
+    "file": "supabase/migrations/20260903212000_tradeshow_lead_capture.sql",
+    "sha256": "087d293c4fa96866ac86e352f2e3be018b74723b6fd6433227e5c9bba143cd5b",
+    "version": "20260903212000"
+  },
+  {
+    "file": "supabase/migrations/20260903220000_tradeshow_intake_links.sql",
+    "sha256": "479dfb00dff69ac69a59b43822f2fbbb327d491d1061f8a47c354c615a9af4a1",
+    "version": "20260903220000"
+  },
+  {
+    "file": "supabase/migrations/20260903223000_intake_general_links.sql",
+    "sha256": "c5f2984c0d5fa2b04fefe97351273674803361e4a31d3ff3f483e3059910243c",
+    "version": "20260903223000"
+  },
+  {
+    "file": "supabase/migrations/20260903224000_intake_form_trim.sql",
+    "sha256": "5baefd49f9e537eda73c112b63f8b0dd44ca3d8e765c6199aa536766d2842b94",
+    "version": "20260903224000"
+  },
+  {
+    "file": "supabase/migrations/20260904090000_drying_interior_readings.sql",
+    "sha256": "368fedbcaad55137ee19883a811f93316f787e90fda7393c2804021fd2133741",
+    "version": "20260904090000"
+  },
+  {
+    "file": "supabase/migrations/20260907161050_chat_project_invoice_sharing.sql",
+    "sha256": "fd6be4d8944b0c875e2cd27e8e6a575591ce64a6c5f87792db801ff0e4229128",
+    "version": "20260907161050"
+  },
+  {
+    "file": "supabase/migrations/20260907162526_local_calendar_recurrence.sql",
+    "sha256": "bb47c0f7c7424b9e9f7f0820de5aa3a0f12fd9ac8fe61b429d26018e54210fa6",
+    "version": "20260907162526"
+  }
+]

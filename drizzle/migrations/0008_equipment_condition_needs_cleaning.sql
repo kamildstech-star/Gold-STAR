@@ -1,0 +1,1 @@
+ALTER TYPE public.equipment_condition ADD VALUE IF NOT EXISTS 'needs_cleaning';

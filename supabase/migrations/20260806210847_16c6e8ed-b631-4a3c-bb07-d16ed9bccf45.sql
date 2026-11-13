@@ -1,0 +1,2 @@
+ALTER TABLE public.escalation_events ADD COLUMN IF NOT EXISTS is_demo boolean NOT NULL DEFAULT false;
+CREATE INDEX IF NOT EXISTS escalation_events_is_demo_idx ON public.escalation_events (is_demo) WHERE is_demo;
